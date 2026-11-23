@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta charset='utf-8'/>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta content='EarnLK — earn money in Sri Lanka by doing simple tasks: write posts, make videos and reels, edit photos. Get paid from advertising revenue.' name='description'/>
+<title>EarnLK — Earn Money by Doing Simple Tasks</title>
+<b:include data='blog' name='all-head-content'/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
+<b:skin><![CDATA[
+/* ================= EarnLK v1 — green money theme, mobile first ================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Noto Sans", "Noto Sans Sinhala", system-ui, sans-serif;
+  background: #eef7f0;
+  color: #12261a;
+  font-size: 16px;
+  line-height: 1.5;
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: #0b7a3e; }
+
+/* ---------- Header ---------- */
+.elk-header {
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(120deg, #0b7a3e 0%, #07838f 60%, #0a5c86 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(6, 60, 40, .25);
+}
+.elk-topbar {
+  max-width: 1060px; margin: 0 auto; padding: .6rem .8rem;
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+}
+.elk-logo { font-family: "Poppins", sans-serif; font-size: 1.35rem; font-weight: 800; letter-spacing: .02em; white-space: nowrap; }
+.elk-logo small { display: block; font-size: .68rem; font-weight: 600; opacity: .85; letter-spacing: .04em; }
+.elk-nav { display: flex; gap: .35rem; flex-wrap: wrap; margin-left: auto; }
+.elk-nav button {
+  border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.14); color: #fff;
+  border-radius: 999px; padding: .42rem .8rem; font-weight: 700; font-size: .86rem; min-height: 2.4rem;
+}
+.elk-nav button.on { background: #fff; color: #0b7a3e; border-color: #fff; }
+.elk-auth {
+  border: none; background: #ffc93c; color: #3d2b00;
+  border-radius: 999px; padding: .45rem 1rem; font-weight: 800; font-size: .88rem; min-height: 2.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2); white-space: nowrap;
+}
+.elk-balance-chip {
+  background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.4); color: #fff;
+  border-radius: 999px; padding: .42rem .8rem; font-weight: 800; font-size: .86rem; min-height: 2.4rem;
+  display: inline-flex; align-items: center; gap: .3rem;
+}
+
+/* ---------- Layout ---------- */
+.elk-wrap { max-width: 1060px; margin: 0 auto; padding: .9rem .8rem 3rem; }
+.elk-view { display: none; }
+.elk-view.on { display: block; }
+.elk-h2 { font-family: "Poppins", sans-serif; font-size: 1.3rem; margin: 1.1rem 0 .3rem; }
+.elk-sub { color: #4a6b55; margin: 0 0 .9rem; font-size: .92rem; }
+.elk-msg { background: #fff8db; border: 1px solid #ffe08a; color: #6b4e00; border-radius: 12px; padding: .6rem .8rem; margin: .6rem 0; font-size: .92rem; }
+.elk-msg:empty { display: none; }
+.elk-note { font-size: .85rem; color: #4a6b55; }
+
+/* ---------- Hero ---------- */
+.elk-hero {
+  background: linear-gradient(135deg, #0b7a3e 0%, #0a8f5c 45%, #07838f 100%);
+  color: #fff; border-radius: 20px; padding: 1.4rem 1.2rem 1.2rem;
+  box-shadow: 0 12px 30px rgba(6, 90, 50, .28);
+  text-align: center;
+}
+.elk-hero h1 { font-family: "Poppins", sans-serif; font-size: 1.7rem; line-height: 1.25; margin: .1rem 0 .4rem; }
+.elk-hero p { margin: .2rem 0 .9rem; opacity: .95; font-size: .98rem; }
+.elk-cta {
+  border: none; background: #ffc93c; color: #3d2b00; font-weight: 800; font-size: 1.02rem;
+  border-radius: 999px; padding: .7rem 1.6rem; min-height: 3rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.elk-cta-ghost {
+  border: 2px solid #fff; background: transparent; color: #fff; font-weight: 700; font-size: .95rem;
+  border-radius: 999px; padding: .6rem 1.3rem; min-height: 3rem; margin-left: .5rem;
+}
+.elk-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-top: 1.1rem; }
+.elk-step { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); border-radius: 14px; padding: .7rem .6rem; font-size: .86rem; }
+.elk-step b { display: block; font-size: 1.3rem; margin-bottom: .15rem; }
+
+/* ---------- Stats strip ---------- */
+.elk-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin: .9rem 0; }
+.elk-stat { background: #fff; border: 1px solid #d5e8da; border-radius: 14px; padding: .8rem .6rem; text-align: center; box-shadow: 0 2px 10px rgba(6, 60, 40, .06); }
+.elk-stat b { display: block; font-family: "Poppins", sans-serif; font-size: 1.25rem; color: #0b7a3e; }
+.elk-stat span { font-size: .8rem; color: #4a6b55; }
+
+/* ---------- Cards grid ---------- */
+.elk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .8rem; }
+.elk-card {
+  background: #fff; border: 1px solid #d5e8da; border-radius: 14px; padding: 1rem;
+  box-shadow: 0 2px 10px rgba(6, 60, 40, .07);
+  display: flex; flex-direction: column; gap: .45rem;
+}
+.elk-card h3 { margin: 0; font-size: 1.02rem; font-family: "Poppins", sans-serif; }
+.elk-card p { margin: 0; font-size: .9rem; color: #41584a; flex: 1; }
+.elk-icon { font-size: 1.7rem; line-height: 1; }
+.elk-pay {
+  display: inline-block; align-self: flex-start; background: #e2f5e9; color: #0b7a3e;
+  border: 1px solid #b6e3c6; font-weight: 800; border-radius: 999px; padding: .2rem .7rem; font-size: .9rem;
+}
+.elk-price { font-family: "Poppins", sans-serif; font-size: 1.45rem; font-weight: 800; color: #0b7a3e; }
+.elk-price small { font-size: .8rem; color: #4a6b55; font-weight: 600; }
+.elk-tag {
+  display: inline-block; align-self: flex-start; background: #ffc93c; color: #3d2b00;
+  font-weight: 800; font-size: .75rem; border-radius: 999px; padding: .15rem .6rem;
+}
+.elk-feats { margin: .2rem 0 .4rem; padding-left: 1.15rem; font-size: .9rem; color: #41584a; }
+.elk-feats li { margin: .22rem 0; }
+.elk-card.hot { border: 2px solid #0b7a3e; box-shadow: 0 8px 22px rgba(11, 122, 62, .18); }
+.elk-btn {
+  border: none; background: linear-gradient(120deg, #0b7a3e, #07838f); color: #fff; font-weight: 800;
+  border-radius: 999px; padding: .6rem 1.2rem; min-height: 2.75rem; width: 100%;
+  box-shadow: 0 3px 10px rgba(11, 122, 62, .25);
+}
+.elk-btn:disabled { opacity: .55; }
+.elk-btn-ghost {
+  border: 1.5px solid #0b7a3e; background: #fff; color: #0b7a3e; font-weight: 800;
+  border-radius: 999px; padding: .55rem 1.2rem; min-height: 2.75rem;
+}
+.elk-btn-small { width: auto; padding: .45rem 1rem; min-height: 2.4rem; font-size: .88rem; }
+
+/* ---------- Video ---------- */
+.elk-video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; overflow: hidden; }
+.elk-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.elk-watched { color: #0b7a3e; font-weight: 800; font-size: .88rem; }
+
+/* ---------- Balance ---------- */
+.elk-bal-card { background: linear-gradient(135deg, #0b7a3e, #07838f); color: #fff; border-radius: 18px; padding: 1.2rem; text-align: center; box-shadow: 0 10px 26px rgba(6, 90, 50, .25); }
+.elk-bal-card .big { font-family: "Poppins", sans-serif; font-size: 2.1rem; font-weight: 800; }
+.elk-bal-card .lbl { opacity: .9; font-size: .9rem; }
+.elk-bal-row { display: flex; gap: .6rem; margin-top: .8rem; flex-wrap: wrap; justify-content: center; }
+.elk-bal-mini { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 12px; padding: .5rem .9rem; font-size: .88rem; }
+.elk-bal-mini b { display: block; font-size: 1.05rem; }
+.elk-form {
+  background: #fff; border: 1px solid #d5e8da; border-radius: 14px; padding: 1rem; margin-top: .8rem;
+  box-shadow: 0 2px 10px rgba(6, 60, 40, .06);
+}
+.elk-form label { display: block; font-weight: 700; font-size: .88rem; margin: .55rem 0 .25rem; }
+.elk-form input, .elk-form select, .elk-form textarea {
+  width: 100%; border: 1.5px solid #c8ddd0; border-radius: 12px; padding: .6rem .7rem; background: #fbfffb; min-height: 2.75rem;
+}
+.elk-form textarea { min-height: 6rem; resize: vertical; }
+.elk-err { color: #b3261e; font-size: .88rem; min-height: 1.1rem; margin: .3rem 0; }
+.elk-err:empty { display: none; }
+
+/* ---------- Lists (history / admin) ---------- */
+.elk-list { display: flex; flex-direction: column; gap: .6rem; margin-top: .6rem; }
+.elk-item { background: #fff; border: 1px solid #d5e8da; border-radius: 12px; padding: .75rem .85rem; font-size: .9rem; box-shadow: 0 2px 8px rgba(6, 60, 40, .05); }
+.elk-item b { font-size: .95rem; }
+.elk-item .meta { color: #4a6b55; font-size: .82rem; margin-top: .15rem; }
+.elk-item .work { background: #f4faf5; border: 1px solid #e0efe4; border-radius: 8px; padding: .45rem .6rem; margin-top: .4rem; white-space: pre-wrap; word-break: break-word; }
+.elk-pill { display: inline-block; font-size: .75rem; font-weight: 800; border-radius: 999px; padding: .12rem .55rem; margin-left: .4rem; }
+.elk-pill.pending { background: #fff3c4; color: #7a5c00; }
+.elk-pill.approved, .elk-pill.paid { background: #d9f2e2; color: #0b7a3e; }
+.elk-pill.rejected { background: #fbe3e1; color: #b3261e; }
+.elk-row-btns { display: flex; gap: .5rem; margin-top: .55rem; flex-wrap: wrap; }
+.elk-approve { border: none; background: #0b7a3e; color: #fff; font-weight: 800; border-radius: 999px; padding: .45rem 1rem; min-height: 2.4rem; }
+.elk-reject { border: 1.5px solid #b3261e; background: #fff; color: #b3261e; font-weight: 800; border-radius: 999px; padding: .45rem 1rem; min-height: 2.4rem; }
+
+/* ---------- Leaderboard ---------- */
+.elk-leader { background: #fff; border: 1px solid #d5e8da; border-radius: 14px; padding: .9rem 1rem; box-shadow: 0 2px 10px rgba(6, 60, 40, .06); }
+.elk-leader ol { margin: .3rem 0 0; padding-left: 1.3rem; }
+.elk-leader li { padding: .28rem 0; font-size: .95rem; }
+.elk-leader li b { float: right; color: #0b7a3e; }
+
+/* ---------- Rules / privacy ---------- */
+.elk-text { background: #fff; border: 1px solid #d5e8da; border-radius: 14px; padding: 1rem 1.1rem; box-shadow: 0 2px 10px rgba(6, 60, 40, .06); }
+.elk-text h3 { margin: .8rem 0 .3rem; font-size: 1rem; }
+.elk-text p, .elk-text li { font-size: .92rem; color: #41584a; }
+.elk-text ul { padding-left: 1.2rem; }
+
+/* ---------- Modals ---------- */
+.elk-modal-bg {
+  position: fixed; inset: 0; background: rgba(10, 40, 25, .55); z-index: 100;
+  display: none; align-items: flex-start; justify-content: center; padding: 4vh .8rem;
+  overflow-y: auto;
+}
+.elk-modal-bg.open { display: flex; }
+.elk-modal { background: #fff; border-radius: 18px; padding: 1.2rem; width: 100%; max-width: 480px; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+.elk-modal h3 { margin: 0 0 .4rem; font-family: "Poppins", sans-serif; font-size: 1.15rem; }
+.elk-modal .x { float: right; border: none; background: #eef7f0; color: #41584a; font-size: 1.2rem; font-weight: 800; border-radius: 50%; width: 2.2rem; height: 2.2rem; line-height: 1; }
+.elk-tabs { display: flex; gap: .4rem; margin: .5rem 0 .8rem; }
+.elk-tabs button { flex: 1; border: 1.5px solid #c8ddd0; background: #f4faf5; color: #41584a; font-weight: 800; border-radius: 999px; padding: .55rem; min-height: 2.6rem; }
+.elk-tabs button.on { background: #0b7a3e; border-color: #0b7a3e; color: #fff; }
+
+/* ---------- Footer ---------- */
+.elk-footer { background: #0a3d24; color: #cfe8d8; text-align: center; padding: 1.3rem .8rem 1.6rem; font-size: .88rem; }
+.elk-footer b { color: #fff; }
+.elk-footer button { background: none; border: none; color: #8fd6ab; font-weight: 700; text-decoration: underline; padding: .2rem .4rem; }
+
+/* ---------- Blog posts area (Blogger widget, kept small) ---------- */
+.elk-posts { max-width: 1060px; margin: 0 auto; padding: 0 .8rem 2rem; }
+.elk-posts h2 { font-family: "Poppins", sans-serif; font-size: 1.1rem; }
+
+@media (max-width: 640px) {
+  .elk-hero h1 { font-size: 1.4rem; }
+  .elk-steps { grid-template-columns: 1fr; }
+  .elk-stats { gap: .4rem; }
+  .elk-stat b { font-size: 1.05rem; }
+  .elk-logo { font-size: 1.15rem; }
+  .elk-nav button { padding: .4rem .6rem; font-size: .8rem; }
+}
+]]></b:skin>
+</head>
+<body>
+<header class="elk-header">
+  <div class="elk-topbar">
+    <div class="elk-logo">💰 EarnLK<small>උපයන්න • Earn money in Sri Lanka</small></div>
+    <nav class="elk-nav" id="elkNav">
+      <button type="button" data-view="home" class="on">🏠 Home</button>
+      <button type="button" data-view="tasks">📝 Tasks</button>
+      <button type="button" data-view="packages">🎁 Packages</button>
+      <button type="button" data-view="watch">▶️ Watch &amp; Earn</button>
+      <button type="button" data-view="balance">👛 Balance</button>
+      <button type="button" data-view="admin" id="navAdminBtn" style="display:none;">🛡️ Admin</button>
+    </nav>
+    <span class="elk-balance-chip" id="balChip" style="display:none;">👛 Rs <span id="balChipAmt">0</span></span>
+    <button type="button" class="elk-auth" id="authBtn">Log in / Register</button>
+  </div>
+</header>
+
+<div class="elk-wrap">
+
+  <div class="elk-msg" id="elkMsg" role="status"></div>
+
+  <!-- ============ HOME ============ -->
+  <section class="elk-view on" id="view-home">
+    <div class="elk-hero">
+      <h1>Earn money by doing simple tasks 💰</h1>
+      <p>Write posts, make videos and reels, edit photos — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.</p>
+      <button type="button" class="elk-cta" id="heroStartBtn">Start Earning →</button>
+      <button type="button" class="elk-cta-ghost" id="heroHowBtn">How it works</button>
+      <div class="elk-steps" id="howSteps">
+        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname and password. It takes 30 seconds.</div>
+        <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, do the work, send it in. Each task pays Rs 10–20.</div>
+        <div class="elk-step"><b>3️⃣</b><b>Get paid</b>Isuru approves your work, your balance grows. Ask for payout at Rs 100.</div>
+      </div>
+    </div>
+
+    <div class="elk-stats">
+      <div class="elk-stat"><b>Rs <span id="statPaid">0</span></b><span>Total paid out</span></div>
+      <div class="elk-stat"><b><span id="statTasks">0</span></b><span>Tasks completed</span></div>
+      <div class="elk-stat"><b><span id="statMembers">0</span></b><span>Members</span></div>
+    </div>
+
+    <h2 class="elk-h2">🔥 Popular tasks</h2>
+    <p class="elk-sub">Do any task — no package needed. Buying a package never blocks a task.</p>
+    <div class="elk-grid" id="homeTasks"></div>
+    <p style="text-align:center; margin:.9rem 0 0;"><button type="button" class="elk-btn-ghost" id="seeAllTasksBtn">See all 8 tasks →</button></p>
+
+    <h2 class="elk-h2">🏆 Top earners</h2>
+    <div class="elk-leader"><ol id="leaderList"><li>Loading…</li></ol></div>
+
+    <h2 class="elk-h2">🎁 Training packages</h2>
+    <p class="elk-sub">Learn to earn more — courses and templates. Optional, never required to do tasks.</p>
+    <div class="elk-grid" id="homePackages"></div>
+  </section>
+
+  <!-- ============ TASKS ============ -->
+  <section class="elk-view" id="view-tasks">
+    <h2 class="elk-h2">📝 Tasks — do the work, get paid</h2>
+    <p class="elk-sub">Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected — one account per person.</p>
+    <div class="elk-grid" id="tasksGrid"></div>
+    <h2 class="elk-h2">📋 My recent submissions</h2>
+    <div class="elk-list" id="mySubs"><div class="elk-item">Log in to see your submissions.</div></div>
+  </section>
+
+  <!-- ============ PACKAGES ============ -->
+  <section class="elk-view" id="view-packages">
+    <h2 class="elk-h2">🎁 Training packages</h2>
+    <p class="elk-sub">Real courses and toolkits that teach you to make AI videos, reels and posts — so you can earn more. Buying a package is optional. It never blocks free tasks, and payouts always come from advertising revenue.</p>
+    <div class="elk-grid" id="packagesGrid"></div>
+    <h2 class="elk-h2">📦 My packages</h2>
+    <div class="elk-list" id="myPackages"><div class="elk-item">Log in to see your packages.</div></div>
+    <p class="elk-note">How to buy: tap Buy, pay by bank transfer, eZ Cash or reload, then send the payment reference. Isuru confirms the payment and unlocks your package.</p>
+  </section>
+
+  <!-- ============ WATCH AND EARN ============ -->
+  <section class="elk-view" id="view-watch">
+    <h2 class="elk-h2">▶️ Watch &amp; Earn</h2>
+    <p class="elk-sub">Watch a full classic film here on EarnLK and earn <b>Rs 2</b> per film. Maximum <b>5 films a day</b>. Films play right here on this page — nowhere else.</p>
+    <p class="elk-note" id="watchToday">Log in to earn for watching.</p>
+    <div class="elk-grid" id="videosGrid"></div>
+  </section>
+
+  <!-- ============ BALANCE ============ -->
+  <section class="elk-view" id="view-balance">
+    <h2 class="elk-h2">👛 My Balance</h2>
+    <div id="balanceLogin" style="display:none;">
+      <div class="elk-item" style="background:#fff;border:1px solid #d5e8da;border-radius:12px;padding:1rem;">Please log in to see your balance. <button type="button" class="elk-btn elk-btn-small" id="balanceLoginBtn">Log in</button></div>
+    </div>
+    <div id="balanceBody">
+      <div class="elk-bal-card">
+        <div class="lbl">Your balance</div>
+        <div class="big">Rs <span id="balAmt">0</span></div>
+        <div class="elk-bal-row">
+          <div class="elk-bal-mini"><b>Rs <span id="balEarned">0</span></b>Total earned</div>
+          <div class="elk-bal-mini"><b>Rs <span id="balPaidOut">0</span></b>Already paid out</div>
+          <div class="elk-bal-mini"><b><span id="balApproved">0</span></b>Tasks approved</div>
+        </div>
+      </div>
+      <div class="elk-form" id="welcomeBox" style="display:none;">
+        <h3 style="margin:.1rem 0 .3rem;">🎉 Your Rs 50 welcome payout is ready!</h3>
+        <p class="elk-note" style="margin:.2rem 0 .6rem;">You finished 5 approved tasks. Claim your Rs 50 welcome payout now — no Rs 100 minimum for this one.</p>
+        <button type="button" class="elk-btn" id="claimWelcomeBtn">Claim Rs 50 welcome payout</button>
+      </div>
+      <div class="elk-form">
+        <h3 style="margin:.1rem 0 .3rem;">Request a payout</h3>
+        <p class="elk-note" style="margin:.2rem 0;">Minimum payout Rs 100. Isuru pays by hand — usually within 2 days.</p>
+        <label for="payoutAmount">Amount (Rs)</label>
+        <input type="number" id="payoutAmount" min="100" step="1" placeholder="100" />
+        <label for="payoutMethod">How do you want to be paid?</label>
+        <select id="payoutMethod">
+          <option value="eZ Cash">eZ Cash</option>
+          <option value="Bank transfer">Bank transfer</option>
+          <option value="Reload">Reload</option>
+        </select>
+        <label for="payoutDetails">Your account details (phone number / bank account)</label>
+        <input type="text" id="payoutDetails" placeholder="e.g. 07XXXXXXXX or bank account number" />
+        <p class="elk-err" id="payoutErr"></p>
+        <button type="button" class="elk-btn" id="payoutBtn">Request payout</button>
+      </div>
+      <h2 class="elk-h2">📜 Payout history</h2>
+      <div class="elk-list" id="payoutHistory"><div class="elk-item">Log in to see your payouts.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ ADMIN ============ -->
+  <section class="elk-view" id="view-admin">
+    <h2 class="elk-h2">🛡️ Admin — Isuru only</h2>
+    <p class="elk-sub">Approve work, pay users, confirm package purchases. Only the Isuru account can see this page.</p>
+    <h2 class="elk-h2">📝 Pending task submissions</h2>
+    <div class="elk-list" id="adminSubs"><div class="elk-item">Loading…</div></div>
+    <h2 class="elk-h2">💸 Pending payouts</h2>
+    <div class="elk-list" id="adminPayouts"><div class="elk-item">Loading…</div></div>
+    <h2 class="elk-h2">🎁 Pending package purchases</h2>
+    <div class="elk-list" id="adminPurchases"><div class="elk-item">Loading…</div></div>
+  </section>
+
+  <!-- ============ RULES ============ -->
+  <section class="elk-view" id="view-rules">
+    <h2 class="elk-h2">📜 Rules</h2>
+    <div class="elk-text">
+      <h3>How EarnLK works</h3>
+      <ul>
+        <li>Register free with a nickname and password. One account per person.</li>
+        <li>Do a task and send your work. Isuru checks every submission.</li>
+        <li>Approved work pays Rs 10–20 per task into your balance. Watching a full film pays Rs 2, maximum 5 films a day.</li>
+        <li>Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
+        <li>Normal payouts need at least Rs 100 in your balance. Isuru pays by eZ Cash, bank transfer or reload, usually within 2 days.</li>
+        <li>Training packages are optional courses and toolkits. Buying one never blocks free tasks. Payouts are paid from advertising revenue only — never from other members' package money.</li>
+      </ul>
+      <h3>What gets you banned</h3>
+      <ul>
+        <li>Fake, copied or stolen work.</li>
+        <li>More than one account.</li>
+        <li>Lying about a payment or a payout.</li>
+        <li>Asking other members for money.</li>
+      </ul>
+      <p>Banned accounts lose their balance. If you think a rejection was a mistake, contact Isuru.</p>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="elk-view" id="view-privacy">
+    <h2 class="elk-h2">🔒 Privacy Policy</h2>
+    <div class="elk-text">
+      <h3>What we collect</h3>
+      <p>Your nickname, a scrambled (hashed) password, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or address.</p>
+      <h3>How we use it</h3>
+      <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored scrambled — nobody, including Isuru, can read it.</p>
+      <h3>Advertising</h3>
+      <p>EarnLK is funded by advertising. In future we may show ads from Google AdSense. Ad providers may use cookies to show relevant ads. You can turn off personalised ads in your Google settings.</p>
+      <h3>Your data</h3>
+      <p>Ask Isuru any time to delete your account and your data. Payout records are kept only as long as needed for payment records.</p>
+      <p>Contact: Isuru — through the EarnLK site.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="elk-footer">
+  <b>💰 EarnLK</b> — earn money in Sri Lanka by doing simple tasks.<br/>
+  Payouts are paid from advertising revenue. Free to join, no package needed to earn.<br/>
+  <button type="button" data-view="rules">Rules</button> ·
+  <button type="button" data-view="privacy">Privacy Policy</button> ·
+  <button type="button" data-view="home">Home</button><br/>
+  <span style="opacity:.75;">© 2026 EarnLK</span>
+</footer>
+
+<div class="elk-posts" id="elkPosts">
+  <h2>📰 Latest updates</h2>
+<b:section class='main' id='main' showaddelement='no'>
+<b:widget id='Blog1' locked='false' title='Blog Posts' type='Blog' version='2'>
+<b:includable id='main' var='top'>
+<b:include data='top' name='status-message'/>
+<data:default/>
+</b:includable>
+</b:widget>
+</b:section>
+</div>
+
+<!-- ============ AUTH MODAL ============ -->
+<div class="elk-modal-bg" id="authModalBg">
+  <div class="elk-modal" role="dialog" aria-label="Log in or register">
+    <button type="button" class="x" id="authCloseBtn" aria-label="Close">×</button>
+    <h3 id="authTitle">Welcome to EarnLK 💰</h3>
+    <div class="elk-tabs">
+      <button type="button" id="tabLogin" class="on">Log in</button>
+      <button type="button" id="tabRegister">Register</button>
+    </div>
+    <div class="elk-form" style="margin-top:0; box-shadow:none; border:none; padding:0;">
+      <label for="authNick">Nickname</label>
+      <input type="text" id="authNick" placeholder="e.g. Kasun123" maxlength="20" autocomplete="username" />
+      <label for="authPw">Password</label>
+      <input type="password" id="authPw" placeholder="At least 4 characters" autocomplete="current-password" />
+      <p class="elk-err" id="authErr"></p>
+      <button type="button" class="elk-btn" id="authGoBtn">Log in</button>
+      <p class="elk-note" id="authHint">Your password is stored scrambled — nobody can read it, not even Isuru.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TASK SUBMIT MODAL ============ -->
+<div class="elk-modal-bg" id="taskModalBg">
+  <div class="elk-modal" role="dialog" aria-label="Do this task">
+    <button type="button" class="x" id="taskCloseBtn" aria-label="Close">×</button>
+    <h3 id="taskModalTitle">Do this task</h3>
+    <p class="elk-note" id="taskModalDesc"></p>
+    <div class="elk-form" style="margin-top:.4rem; box-shadow:none; border:none; padding:0;">
+      <label for="taskText">Your work (type or paste it here)</label>
+      <textarea id="taskText" placeholder="Write your work here…"></textarea>
+      <label for="taskLink">Link to your work (image / video / file link — optional)</label>
+      <input type="text" id="taskLink" placeholder="https://…" />
+      <p class="elk-err" id="taskErr"></p>
+      <button type="button" class="elk-btn" id="taskSendBtn">Send my work ✓</button>
+      <p class="elk-note">Isuru checks every submission. Good work is approved and paid — usually within 1 day.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BUY PACKAGE MODAL ============ -->
+<div class="elk-modal-bg" id="buyModalBg">
+  <div class="elk-modal" role="dialog" aria-label="Buy package">
+    <button type="button" class="x" id="buyCloseBtn" aria-label="Close">×</button>
+    <h3 id="buyModalTitle">Buy package</h3>
+    <p class="elk-note" id="buyModalDesc"></p>
+    <div class="elk-form" style="margin-top:.4rem; box-shadow:none; border:none; padding:0;">
+      <label for="buyMethod">How did you pay?</label>
+      <select id="buyMethod">
+        <option value="Bank transfer">Bank transfer</option>
+        <option value="eZ Cash">eZ Cash</option>
+        <option value="Reload">Reload</option>
+      </select>
+      <label for="buyRef">Payment reference (transaction number / receipt)</label>
+      <input type="text" id="buyRef" placeholder="e.g. TRX123456" />
+      <p class="elk-err" id="buyErr"></p>
+      <button type="button" class="elk-btn" id="buySendBtn">I paid — confirm my purchase ✓</button>
+      <p class="elk-note">Pay first, then send the reference. Isuru confirms the payment and unlocks your package. Buying a package is optional and never blocks free tasks.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+      //<![CDATA[
+      /* ================= EarnLK v1 ================= */
+      var firebaseConfig = {
+        apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
+        authDomain: "earnlk-cab35.firebaseapp.com",
+        databaseURL: "https://earnlk-cab35-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "earnlk-cab35",
+        storageBucket: "earnlk-cab35.firebasestorage.app",
+        messagingSenderId: "862573749189",
+        appId: "1:862573749189:web:743b5902b8cf0a50dee1ac"
+      };
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.database();
+
+      /* ---------- Data (JS constants — no Firebase seeding needed) ---------- */
+      var TASKS = [
+        { id: "caption", icon: "✍️", title: "Write a Facebook post caption", pay: 10, desc: "Write a short, catchy caption in Sinhala or English for a Facebook post. Friendly and natural, not copied." },
+        { id: "poster", icon: "🖼️", title: "Make a poster image for a FB post", pay: 20, desc: "Create a poster image with text (use any AI image tool). Bright, clear and easy to read." },
+        { id: "photoedit", icon: "📸", title: "Edit a photo", pay: 15, desc: "Clean the background, crop and brighten a photo. Send the edited photo link." },
+        { id: "reelscript", icon: "🎬", title: "Write a 15-second AI reel script", pay: 15, desc: "Write a short script for a 15-second reel — a hook, 2–3 lines, and an ending." },
+        { id: "videoscript", icon: "🎥", title: "Write a 30-second video script", pay: 20, desc: "Write a full 30-second video script with scenes and dialogue." },
+        { id: "thumbnail", icon: "🖼️", title: "Make a video thumbnail", pay: 20, desc: "Design a bold, clear thumbnail for a video. Big text, bright colours." },
+        { id: "translate", icon: "🌐", title: "Translate a short text", pay: 10, desc: "Translate a short text between Sinhala and English. Natural wording, not word-for-word." },
+        { id: "productdesc", icon: "🛍️", title: "Write a product description", pay: 10, desc: "Write a short, honest product description that makes people want to buy." }
+      ];
+      var PACKAGES = [
+        { id: "starter", name: "Starter Kit", price: 500, tag: "Start learning", hot: false, features: ["AI video starter course — 10 lessons", "20 ready post templates", "Caption writing guide"] },
+        { id: "creator", name: "Creator Pack", price: 1000, tag: "Most popular", hot: true, features: ["Full AI reels course", "50 post templates", "Thumbnail design pack", "Everything in Starter Kit"] },
+        { id: "pro", name: "Pro Creator", price: 5000, tag: "Go professional", hot: false, features: ["All courses", "200 templates", "Photo-editing toolkit", "Certificate of completion", "Everything in Creator Pack"] },
+        { id: "business", name: "Business Pack", price: 10000, tag: "Earn as a business", hot: false, features: ["Everything in Pro Creator", "1-on-1 coaching session", "Portfolio review", "Client-finding guide"] }
+      ];
+      var VIDEOS = [
+        { id: "his-prehistoric-past-1914-directed-by-charlie-chaplin", title: "His Prehistoric Past (1914)", by: "Charlie Chaplin", desc: "A classic silent comedy short." },
+        { id: "TheGeneral1926", title: "The General (1926)", by: "Buster Keaton", desc: "One of the greatest silent comedies ever made." },
+        { id: "fw-murnaus-nosferatu-1922", title: "Nosferatu (1922)", by: "F. W. Murnau", desc: "The classic silent horror film." }
+      ];
+      var WATCH_PAY = 2;
+      var WATCH_MAX_DAY = 5;
+      var PAYOUT_MIN = 100;
+      var WELCOME_PAY = 50;
+      var WELCOME_TASKS = 5;
+
+      /* ---------- Helpers ---------- */
+      function $(id) { return document.getElementById(id); }
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+      function nickKeyOf(nick) { return nick.toLowerCase().replace(/[^a-z0-9]/g, ""); }
+      function timeAgo(ts) {
+        var s = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+        if (s < 60) return "just now";
+        if (s < 3600) return Math.floor(s / 60) + " min ago";
+        if (s < 86400) return Math.floor(s / 3600) + " hr ago";
+        return Math.floor(s / 86400) + " days ago";
+      }
+      function todayStr() {
+        var d = new Date();
+        return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+      }
+      function showMsg(t) { $("elkMsg").textContent = t || ""; }
+      function sha256hex(str) {
+        if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+          return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)).then(function (buf) {
+            return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+          });
+        }
+        return Promise.reject(new Error("no-secure-crypto"));
+      }
+
+      /* ---------- Session ---------- */
+      var LS = "earnlkSession.v1";
+      var me = null; /* { nick, nickKey } */
+      function loadSession() {
+        try { var s = JSON.parse(localStorage.getItem(LS) || "null"); if (s && s.nickKey) me = s; } catch (e) {}
+      }
+      function saveSession() { try { localStorage.setItem(LS, JSON.stringify(me)); } catch (e) {} }
+      function clearSession() { try { localStorage.removeItem(LS); } catch (e) {} me = null; }
+      function isAdmin() { return !!(me && me.nickKey === "isuru"); }
+
+      /* ---------- Views ---------- */
+      function showView(name) {
+        document.querySelectorAll(".elk-view").forEach(function (v) { v.classList.remove("on"); });
+        var el = $("view-" + name);
+        if (el) el.classList.add("on");
+        document.querySelectorAll("#elkNav button").forEach(function (b) {
+          b.classList.toggle("on", b.getAttribute("data-view") === name);
+        });
+        window.scrollTo(0, 0);
+        if (name === "balance") renderBalance();
+        if (name === "tasks") renderMySubs();
+        if (name === "packages") renderMyPackages();
+        if (name === "watch") refreshWatchStates();
+        if (name === "admin") renderAdmin();
+      }
+
+      /* ---------- Auth UI ---------- */
+      var balRef = null;
+      function renderAuth() {
+        var btn = $("authBtn");
+        var chip = $("balChip");
+        var navAdmin = $("navAdminBtn");
+        if (me) {
+          btn.textContent = "👋 " + me.nick + " · Log out";
+          chip.style.display = "";
+          navAdmin.style.display = isAdmin() ? "" : "none";
+          if (balRef) balRef.off();
+          balRef = db.ref("users/" + me.nickKey + "/balance");
+          balRef.on("value", function (snap) {
+            $("balChipAmt").textContent = snap.val() || 0;
+          });
+        } else {
+          if (balRef) { balRef.off(); balRef = null; }
+          btn.textContent = "Log in / Register";
+          chip.style.display = "none";
+          navAdmin.style.display = "none";
+        }
+      }
+      var authMode = "login";
+      function openAuth(mode) {
+        authMode = mode || "login";
+        $("tabLogin").classList.toggle("on", authMode === "login");
+        $("tabRegister").classList.toggle("on", authMode === "register");
+        $("authGoBtn").textContent = authMode === "login" ? "Log in" : "Create my account";
+        $("authErr").textContent = "";
+        $("authModalBg").classList.add("open");
+        setTimeout(function () { $("authNick").focus(); }, 50);
+      }
+      function closeAuth() { $("authModalBg").classList.remove("open"); }
+      function doAuth() {
+        var nick = $("authNick").value.trim();
+        var pw = $("authPw").value;
+        var err = $("authErr");
+        if (nick.length < 3 || nick.length > 20) { err.textContent = "Nickname must be 3 to 20 letters."; return; }
+        if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = "Use letters and numbers only."; return; }
+        if (pw.length < 4) { err.textContent = "Password must be at least 4 characters."; return; }
+        var key = nickKeyOf(nick);
+        if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
+        err.textContent = "Checking…";
+        db.ref("users/" + key).once("value").then(function (snap) {
+          if (authMode === "register") {
+            if (snap.exists()) { err.textContent = "That nickname is taken. Pick another one."; return; }
+            return sha256hex(pw).then(function (hash) {
+              var rec = { nick: nick, passHash: hash, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
+              return db.ref("users/" + key).set(rec).then(function () {
+                me = { nick: nick, nickKey: key };
+                saveSession();
+                db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
+                closeAuth();
+                renderAuth();
+                showMsg("Welcome, " + nick + "! 🎉 Pick a task to start earning.");
+                showView("tasks");
+              });
+            });
+          } else {
+            if (!snap.exists()) { err.textContent = "No account with that nickname. Try Register."; return; }
+            var u = snap.val();
+            return sha256hex(pw).then(function (hash) {
+              if (hash !== u.passHash) { err.textContent = "Wrong password. Try again."; return; }
+              me = { nick: u.nick, nickKey: key };
+              saveSession();
+              closeAuth();
+              renderAuth();
+              showMsg("Welcome back, " + u.nick + "! 👋");
+              showView("home");
+            });
+          }
+        }).catch(function () { err.textContent = "Could not connect. Check your internet and try again."; });
+      }
+
+      /* ---------- Render: tasks ---------- */
+      function taskCard(t, withBtn) {
+        var d = document.createElement("div");
+        d.className = "elk-card";
+        var ic = document.createElement("div"); ic.className = "elk-icon"; ic.textContent = t.icon;
+        var h = document.createElement("h3"); h.textContent = t.title;
+        var p = document.createElement("p"); p.textContent = t.desc;
+        var pay = document.createElement("span"); pay.className = "elk-pay"; pay.textContent = "Rs " + t.pay;
+        d.appendChild(ic); d.appendChild(h); d.appendChild(p); d.appendChild(pay);
+        if (withBtn) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "elk-btn"; b.textContent = "Do this task →";
+          b.addEventListener("click", function () { openTaskForm(t.id); });
+          d.appendChild(b);
+        }
+        return d;
+      }
+      function renderTasks() {
+        var g = $("tasksGrid"); g.innerHTML = "";
+        TASKS.forEach(function (t) { g.appendChild(taskCard(t, true)); });
+        var h = $("homeTasks"); h.innerHTML = "";
+        TASKS.slice(0, 3).forEach(function (t) { h.appendChild(taskCard(t, true)); });
+      }
+      function renderMySubs() {
+        var box = $("mySubs");
+        if (!me) { box.innerHTML = "<div class='elk-item'>Log in to see your submissions.</div>"; return; }
+        box.innerHTML = "<div class='elk-item'>Loading…</div>";
+        db.ref("submissions").orderByChild("nickKey").equalTo(me.nickKey).limitToLast(10).once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return b.v.at - a.v.at; });
+          if (!rows.length) { box.innerHTML = "<div class='elk-item'>No submissions yet. Do your first task above! 💪</div>"; return; }
+          box.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            d.innerHTML = "<b>" + esc(r.v.taskTitle) + "</b><span class='elk-pill " + esc(r.v.status) + "'>" + esc(r.v.status) + "</span><div class='meta'>Rs " + r.v.pay + " · " + timeAgo(r.v.at) + "</div>";
+            box.appendChild(d);
+          });
+        });
+      }
+
+      /* ---------- Task submit ---------- */
+      var currentTask = null;
+      function openTaskForm(taskId) {
+        if (!me) { openAuth("login"); showMsg("Please log in first, then do the task."); return; }
+        currentTask = null;
+        TASKS.forEach(function (t) { if (t.id === taskId) currentTask = t; });
+        if (!currentTask) return;
+        $("taskModalTitle").textContent = currentTask.title + " — Rs " + currentTask.pay;
+        $("taskModalDesc").textContent = currentTask.desc;
+        $("taskText").value = "";
+        $("taskLink").value = "";
+        $("taskErr").textContent = "";
+        $("taskModalBg").classList.add("open");
+      }
+      function submitTask() {
+        if (!me || !currentTask) return;
+        var text = $("taskText").value.trim();
+        var link = $("taskLink").value.trim();
+        var err = $("taskErr");
+        if (!text && !link) { err.textContent = "Write your work or add a link first."; return; }
+        err.textContent = "Sending…";
+        db.ref("submissions").push({
+          taskId: currentTask.id, taskTitle: currentTask.title, pay: currentTask.pay,
+          user: me.nick, nickKey: me.nickKey, text: text, link: link,
+          status: "pending", at: Date.now()
+        }).then(function () {
+          $("taskModalBg").classList.remove("open");
+          showMsg("Sent! ✓ Isuru will check your work soon. You can see it under Tasks.");
+          renderMySubs();
+        }).catch(function () { err.textContent = "Could not send. Check your connection and try again."; });
+      }
+
+      /* ---------- Render: packages ---------- */
+      function packageCard(p) {
+        var d = document.createElement("div");
+        d.className = "elk-card" + (p.hot ? " hot" : "");
+        var tag = document.createElement("span"); tag.className = "elk-tag"; tag.textContent = p.tag;
+        var h = document.createElement("h3"); h.textContent = "🎁 " + p.name;
+        var pr = document.createElement("div"); pr.className = "elk-price";
+        pr.innerHTML = "Rs " + p.price.toLocaleString("en-US") + " <small>one-time</small>";
+        var ul = document.createElement("ul"); ul.className = "elk-feats";
+        p.features.forEach(function (f) { var li = document.createElement("li"); li.textContent = f; ul.appendChild(li); });
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "elk-btn"; b.textContent = "Buy — Rs " + p.price.toLocaleString("en-US");
+        b.addEventListener("click", function () { openBuyForm(p.id); });
+        d.appendChild(tag); d.appendChild(h); d.appendChild(pr); d.appendChild(ul); d.appendChild(b);
+        return d;
+      }
+      function renderPackages() {
+        var g = $("packagesGrid"); g.innerHTML = "";
+        PACKAGES.forEach(function (p) { g.appendChild(packageCard(p)); });
+        var h = $("homePackages"); h.innerHTML = "";
+        PACKAGES.forEach(function (p) { h.appendChild(packageCard(p)); });
+      }
+      function renderMyPackages() {
+        var box = $("myPackages");
+        if (!me) { box.innerHTML = "<div class='elk-item'>Log in to see your packages.</div>"; return; }
+        db.ref("users/" + me.nickKey + "/packages").once("value").then(function (snap) {
+          var pkgs = snap.val() || {};
+          var ids = Object.keys(pkgs);
+          if (!ids.length) { box.innerHTML = "<div class='elk-item'>No packages yet. Packages are optional training — free tasks pay the same.</div>"; return; }
+          box.innerHTML = "";
+          ids.forEach(function (id) {
+            var p = null;
+            PACKAGES.forEach(function (x) { if (x.id === id) p = x; });
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            d.innerHTML = "<b>🎁 " + esc(p ? p.name : id) + "</b><span class='elk-pill paid'>unlocked</span><div class='meta'>Unlocked " + timeAgo(pkgs[id].at || Date.now()) + "</div>";
+            box.appendChild(d);
+          });
+        });
+      }
+
+      /* ---------- Buy package ---------- */
+      var currentPackage = null;
+      function openBuyForm(pkgId) {
+        if (!me) { openAuth("login"); showMsg("Please log in first, then buy the package."); return; }
+        currentPackage = null;
+        PACKAGES.forEach(function (p) { if (p.id === pkgId) currentPackage = p; });
+        if (!currentPackage) return;
+        $("buyModalTitle").textContent = "Buy — " + currentPackage.name + " (Rs " + currentPackage.price.toLocaleString("en-US") + ")";
+        $("buyModalDesc").textContent = "Pay by bank transfer, eZ Cash or reload first. Isuru's payment details are sent after you tap confirm — for now, send your payment reference below and Isuru will confirm it.";
+        $("buyRef").value = "";
+        $("buyErr").textContent = "";
+        $("buyModalBg").classList.add("open");
+      }
+      function submitBuy() {
+        if (!me || !currentPackage) return;
+        var ref = $("buyRef").value.trim();
+        var err = $("buyErr");
+        if (!ref) { err.textContent = "Add your payment reference first (transaction number / receipt)."; return; }
+        err.textContent = "Sending…";
+        db.ref("purchases").push({
+          pkgId: currentPackage.id, pkgName: currentPackage.name, price: currentPackage.price,
+          user: me.nick, nickKey: me.nickKey, method: $("buyMethod").value, ref: ref,
+          status: "pending", at: Date.now()
+        }).then(function () {
+          $("buyModalBg").classList.remove("open");
+          showMsg("Thank you! ✓ Isuru will confirm your payment and unlock " + currentPackage.name + ".");
+        }).catch(function () { err.textContent = "Could not send. Check your connection and try again."; });
+      }
+
+      /* ---------- Watch & Earn ---------- */
+      function renderVideos() {
+        var g = $("videosGrid"); g.innerHTML = "";
+        VIDEOS.forEach(function (v) {
+          var d = document.createElement("div");
+          d.className = "elk-card";
+          var frame = document.createElement("div");
+          frame.className = "elk-video";
+          var fr = document.createElement("iframe");
+          fr.setAttribute("src", "https://archive.org/embed/" + v.id);
+          fr.setAttribute("allowfullscreen", "allowfullscreen");
+          fr.setAttribute("title", v.title);
+          frame.appendChild(fr);
+          var h = document.createElement("h3"); h.textContent = "🎬 " + v.title;
+          var p = document.createElement("p"); p.textContent = v.by + " — " + v.desc + " Watch the full film here and earn Rs " + WATCH_PAY + ".";
+          var st = document.createElement("span"); st.className = "elk-watched"; st.id = "watchState-" + v.id; st.textContent = "";
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "elk-btn"; b.id = "watchBtn-" + v.id; b.textContent = "I finished watching — earn Rs " + WATCH_PAY;
+          b.addEventListener("click", function () { markWatched(v.id); });
+          d.appendChild(frame); d.appendChild(h); d.appendChild(p); d.appendChild(st); d.appendChild(b);
+          g.appendChild(d);
+        });
+      }
+      function refreshWatchStates() {
+        var note = $("watchToday");
+        if (!me) { note.textContent = "Log in to earn for watching."; return; }
+        var day = todayStr();
+        db.ref("watch/" + me.nickKey + "/" + day).once("value").then(function (snap) {
+          var w = snap.val() || {};
+          var count = Object.keys(w).length;
+          note.textContent = "Today you watched " + count + " of " + WATCH_MAX_DAY + " films. Each full film earns Rs " + WATCH_PAY + ".";
+          VIDEOS.forEach(function (v) {
+            var st = $("watchState-" + v.id);
+            var b = $("watchBtn-" + v.id);
+            if (!st || !b) return;
+            if (w[v.id]) { st.textContent = "✓ Earned Rs " + WATCH_PAY + " for this film today."; b.disabled = true; }
+            else { st.textContent = ""; b.disabled = count >= WATCH_MAX_DAY; }
+          });
+        });
+      }
+      function markWatched(videoId) {
+        if (!me) { openAuth("login"); showMsg("Please log in first, then watch and earn."); return; }
+        var day = todayStr();
+        var ref = db.ref("watch/" + me.nickKey + "/" + day);
+        ref.once("value").then(function (snap) {
+          var w = snap.val() || {};
+          var count = Object.keys(w).length;
+          if (w[videoId]) { showMsg("You already earned for this film today. Try another one!"); return; }
+          if (count >= WATCH_MAX_DAY) { showMsg("You reached today's limit (" + WATCH_MAX_DAY + " films). Come back tomorrow!"); return; }
+          var updates = {};
+          updates["watch/" + me.nickKey + "/" + day + "/" + videoId] = { at: Date.now(), credit: WATCH_PAY };
+          return db.ref("users/" + me.nickKey).once("value").then(function (usnap) {
+            var u = usnap.val() || {};
+            updates["users/" + me.nickKey + "/balance"] = (u.balance || 0) + WATCH_PAY;
+            updates["users/" + me.nickKey + "/earned"] = (u.earned || 0) + WATCH_PAY;
+            return db.ref().update(updates).then(function () {
+              showMsg("Rs " + WATCH_PAY + " added to your balance! 🎉 (" + (count + 1) + "/" + WATCH_MAX_DAY + " today)");
+              refreshWatchStates();
+            });
+          });
+        }).catch(function () { showMsg("Could not save. Check your connection and try again."); });
+      }
+      //]]>
+    </script>
+
+<script>
+      //<![CDATA[
+      /* ---------- Balance & payouts ---------- */
+      function renderBalance() {
+        var loginBox = $("balanceLogin");
+        var body = $("balanceBody");
+        if (!me) {
+          loginBox.style.display = "";
+          body.style.display = "none";
+          return;
+        }
+        loginBox.style.display = "none";
+        body.style.display = "";
+        db.ref("users/" + me.nickKey).once("value").then(function (snap) {
+          var u = snap.val() || {};
+          $("balAmt").textContent = u.balance || 0;
+          $("balEarned").textContent = u.earned || 0;
+          $("balPaidOut").textContent = u.paidOut || 0;
+          $("balApproved").textContent = u.approved || 0;
+          var wb = $("welcomeBox");
+          if ((u.approved || 0) >= WELCOME_TASKS && !u.welcomeClaimed) wb.style.display = "";
+          else wb.style.display = "none";
+        });
+        db.ref("payouts").orderByChild("nickKey").equalTo(me.nickKey).limitToLast(10).once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return b.v.at - a.v.at; });
+          var box = $("payoutHistory");
+          if (!rows.length) { box.innerHTML = "<div class='elk-item'>No payouts yet. Earn Rs 100 and request your first payout!</div>"; return; }
+          box.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            d.innerHTML = "<b>Rs " + r.v.amount + "</b><span class='elk-pill " + esc(r.v.status) + "'>" + esc(r.v.status) + "</span><div class='meta'>" + esc(r.v.method || "") + (r.v.type === "welcome" ? " · welcome payout" : "") + " · " + timeAgo(r.v.at) + "</div>";
+            box.appendChild(d);
+          });
+        });
+      }
+      function requestPayout(isWelcome) {
+        if (!me) { openAuth("login"); return; }
+        var err = $("payoutErr");
+        var amount = isWelcome ? WELCOME_PAY : parseInt($("payoutAmount").value, 10);
+        var method = $("payoutMethod").value;
+        var details = $("payoutDetails").value.trim();
+        if (!amount || amount <= 0) { err.textContent = "Enter an amount."; return; }
+        if (!isWelcome && amount < PAYOUT_MIN) { err.textContent = "Minimum payout is Rs " + PAYOUT_MIN + "."; return; }
+        if (!details) { err.textContent = "Add your account details (phone number / bank account)."; return; }
+        err.textContent = "Checking your balance…";
+        db.ref("users/" + me.nickKey).once("value").then(function (snap) {
+          var u = snap.val() || {};
+          if ((u.balance || 0) < amount) { err.textContent = "Your balance is Rs " + (u.balance || 0) + " — not enough for Rs " + amount + " yet."; return; }
+          if (isWelcome) {
+            if ((u.approved || 0) < WELCOME_TASKS) { err.textContent = "Finish " + WELCOME_TASKS + " approved tasks first."; return; }
+            if (u.welcomeClaimed) { err.textContent = "Welcome payout already claimed."; return; }
+          }
+          var updates = {};
+          var newRef = db.ref("payouts").push();
+          updates["payouts/" + newRef.key] = {
+            user: me.nick, nickKey: me.nickKey, amount: amount, method: method, details: details,
+            type: isWelcome ? "welcome" : "normal", status: "pending", at: Date.now()
+          };
+          if (isWelcome) updates["users/" + me.nickKey + "/welcomeClaimed"] = true;
+          return db.ref().update(updates).then(function () {
+            err.textContent = "";
+            $("payoutAmount").value = "";
+            $("payoutDetails").value = "";
+            showMsg("Payout requested! ✓ Isuru will pay Rs " + amount + " by " + method + " soon.");
+            renderBalance();
+          });
+        }).catch(function () { err.textContent = "Could not send. Check your connection and try again."; });
+      }
+
+      /* ---------- Admin ---------- */
+      function renderAdmin() {
+        var subs = $("adminSubs"), pays = $("adminPayouts"), purs = $("adminPurchases");
+        if (!isAdmin()) {
+          subs.innerHTML = "<div class='elk-item'>Only the Isuru account can see this page.</div>";
+          pays.innerHTML = ""; purs.innerHTML = "";
+          return;
+        }
+        subs.innerHTML = "<div class='elk-item'>Loading…</div>";
+        pays.innerHTML = "<div class='elk-item'>Loading…</div>";
+        purs.innerHTML = "<div class='elk-item'>Loading…</div>";
+        db.ref("submissions").orderByChild("status").equalTo("pending").once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return a.v.at - b.v.at; });
+          if (!rows.length) { subs.innerHTML = "<div class='elk-item'>No pending submissions. 🎉</div>"; return; }
+          subs.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            var work = "";
+            if (r.v.text) work += "<div class='work'>" + esc(r.v.text) + "</div>";
+            if (r.v.link) work += "<div class='meta'>Link: " + esc(r.v.link) + "</div>";
+            d.innerHTML = "<b>" + esc(r.v.taskTitle) + " — Rs " + r.v.pay + "</b><div class='meta'>by " + esc(r.v.user) + " · " + timeAgo(r.v.at) + "</div>" + work;
+            var btns = document.createElement("div");
+            btns.className = "elk-row-btns";
+            var ok = document.createElement("button");
+            ok.type = "button"; ok.className = "elk-approve"; ok.textContent = "✓ Approve & pay Rs " + r.v.pay;
+            ok.addEventListener("click", function () { approveSubmission(r.id, r.v, ok); });
+            var no = document.createElement("button");
+            no.type = "button"; no.className = "elk-reject"; no.textContent = "✕ Reject";
+            no.addEventListener("click", function () { rejectSubmission(r.id, no); });
+            btns.appendChild(ok); btns.appendChild(no);
+            d.appendChild(btns);
+            subs.appendChild(d);
+          });
+        });
+        db.ref("payouts").orderByChild("status").equalTo("pending").once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return a.v.at - b.v.at; });
+          if (!rows.length) { pays.innerHTML = "<div class='elk-item'>No pending payouts.</div>"; return; }
+          pays.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            d.innerHTML = "<b>Rs " + r.v.amount + " → " + esc(r.v.user) + "</b><div class='meta'>" + esc(r.v.method || "") + " · " + esc(r.v.details || "") + (r.v.type === "welcome" ? " · welcome payout" : "") + " · " + timeAgo(r.v.at) + "</div>";
+            var btns = document.createElement("div");
+            btns.className = "elk-row-btns";
+            var ok = document.createElement("button");
+            ok.type = "button"; ok.className = "elk-approve"; ok.textContent = "✓ Mark paid";
+            ok.addEventListener("click", function () { markPayoutPaid(r.id, r.v, ok); });
+            btns.appendChild(ok);
+            d.appendChild(btns);
+            pays.appendChild(d);
+          });
+        });
+        db.ref("purchases").orderByChild("status").equalTo("pending").once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return a.v.at - b.v.at; });
+          if (!rows.length) { purs.innerHTML = "<div class='elk-item'>No pending purchases.</div>"; return; }
+          purs.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            d.innerHTML = "<b>" + esc(r.v.pkgName) + " — Rs " + r.v.price + " → " + esc(r.v.user) + "</b><div class='meta'>" + esc(r.v.method || "") + " · ref: " + esc(r.v.ref || "") + " · " + timeAgo(r.v.at) + "</div>";
+            var btns = document.createElement("div");
+            btns.className = "elk-row-btns";
+            var ok = document.createElement("button");
+            ok.type = "button"; ok.className = "elk-approve"; ok.textContent = "✓ Payment received — unlock";
+            ok.addEventListener("click", function () { markPurchasePaid(r.id, r.v, ok); });
+            btns.appendChild(ok);
+            d.appendChild(btns);
+            purs.appendChild(d);
+          });
+        });
+      }
+      function approveSubmission(id, sub, btn) {
+        btn.disabled = true; btn.textContent = "Saving…";
+        db.ref("users/" + sub.nickKey).once("value").then(function (snap) {
+          var u = snap.val() || {};
+          var updates = {};
+          updates["submissions/" + id + "/status"] = "approved";
+          updates["users/" + sub.nickKey + "/balance"] = (u.balance || 0) + sub.pay;
+          updates["users/" + sub.nickKey + "/earned"] = (u.earned || 0) + sub.pay;
+          updates["users/" + sub.nickKey + "/approved"] = (u.approved || 0) + 1;
+          return db.ref().update(updates).then(function () {
+            db.ref("stats/tasksDone").transaction(function (v) { return (v || 0) + 1; });
+            showMsg("Approved ✓ Rs " + sub.pay + " paid to " + sub.user + ".");
+            renderAdmin();
+          });
+        }).catch(function () { btn.disabled = false; btn.textContent = "✓ Approve & pay Rs " + sub.pay; showMsg("Could not save. Try again."); });
+      }
+      function rejectSubmission(id, btn) {
+        btn.disabled = true; btn.textContent = "Saving…";
+        db.ref("submissions/" + id + "/status").set("rejected").then(function () {
+          showMsg("Rejected. The member was not paid for that work.");
+          renderAdmin();
+        }).catch(function () { btn.disabled = false; btn.textContent = "✕ Reject"; });
+      }
+      function markPayoutPaid(id, p, btn) {
+        btn.disabled = true; btn.textContent = "Saving…";
+        db.ref("users/" + p.nickKey).once("value").then(function (snap) {
+          var u = snap.val() || {};
+          if ((u.balance || 0) < p.amount) { showMsg("Cannot mark paid — " + p.user + " only has Rs " + (u.balance || 0) + " balance."); btn.disabled = false; btn.textContent = "✓ Mark paid"; return; }
+          var updates = {};
+          updates["payouts/" + id + "/status"] = "paid";
+          updates["users/" + p.nickKey + "/balance"] = (u.balance || 0) - p.amount;
+          updates["users/" + p.nickKey + "/paidOut"] = (u.paidOut || 0) + p.amount;
+          return db.ref().update(updates).then(function () {
+            db.ref("stats/paidOut").transaction(function (v) { return (v || 0) + p.amount; });
+            showMsg("Paid ✓ Rs " + p.amount + " to " + p.user + ".");
+            renderAdmin();
+          });
+        }).catch(function () { btn.disabled = false; btn.textContent = "✓ Mark paid"; });
+      }
+      function markPurchasePaid(id, pur, btn) {
+        btn.disabled = true; btn.textContent = "Saving…";
+        var updates = {};
+        updates["purchases/" + id + "/status"] = "paid";
+        updates["users/" + pur.nickKey + "/packages/" + pur.pkgId] = { at: Date.now(), price: pur.price };
+        db.ref().update(updates).then(function () {
+          showMsg("Unlocked ✓ " + pur.pkgName + " for " + pur.user + ".");
+          renderAdmin();
+        }).catch(function () { btn.disabled = false; btn.textContent = "✓ Payment received — unlock"; });
+      }
+
+      /* ---------- Stats & leaderboard ---------- */
+      function watchStats() {
+        db.ref("stats").on("value", function (snap) {
+          var s = snap.val() || {};
+          $("statPaid").textContent = (s.paidOut || 0).toLocaleString("en-US");
+          $("statTasks").textContent = (s.tasksDone || 0).toLocaleString("en-US");
+          $("statMembers").textContent = (s.members || 0).toLocaleString("en-US");
+        });
+      }
+      function renderLeaderboard() {
+        db.ref("users").once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { var u = c.val(); rows.push({ nick: u.nick, earned: u.earned || 0 }); });
+          rows.sort(function (a, b) { return b.earned - a.earned; });
+          rows = rows.slice(0, 5);
+          var box = $("leaderList");
+          if (!rows.length || rows[0].earned <= 0) { box.innerHTML = "<li>No earners yet — be the first! 💪</li>"; return; }
+          box.innerHTML = "";
+          rows.forEach(function (r, i) {
+            var li = document.createElement("li");
+            li.innerHTML = (i + 1) + ". " + esc(r.nick) + " <b>Rs " + r.earned.toLocaleString("en-US") + "</b>";
+            box.appendChild(li);
+          });
+        }).catch(function () { $("leaderList").innerHTML = "<li>Could not load yet.</li>"; });
+      }
+
+      /* ---------- Wiring ---------- */
+      document.querySelectorAll("#elkNav button").forEach(function (b) {
+        b.addEventListener("click", function () { showMsg(""); showView(b.getAttribute("data-view")); });
+      });
+      document.querySelectorAll(".elk-footer button").forEach(function (b) {
+        b.addEventListener("click", function () { showMsg(""); showView(b.getAttribute("data-view")); });
+      });
+      $("heroStartBtn").addEventListener("click", function () { if (me) showView("tasks"); else openAuth("register"); });
+      $("heroHowBtn").addEventListener("click", function () { $("howSteps").scrollIntoView({ behavior: "smooth", block: "center" }); });
+      $("seeAllTasksBtn").addEventListener("click", function () { showView("tasks"); });
+      $("authBtn").addEventListener("click", function () {
+        if (me) { clearSession(); renderAuth(); showMsg("Logged out. See you soon! 👋"); showView("home"); }
+        else openAuth("login");
+      });
+      $("authCloseBtn").addEventListener("click", closeAuth);
+      $("authModalBg").addEventListener("click", function (e) { if (e.target === this) closeAuth(); });
+      $("tabLogin").addEventListener("click", function () { openAuth("login"); });
+      $("tabRegister").addEventListener("click", function () { openAuth("register"); });
+      $("authGoBtn").addEventListener("click", doAuth);
+      $("authPw").addEventListener("keydown", function (e) { if (e.key === "Enter") doAuth(); });
+      $("taskCloseBtn").addEventListener("click", function () { $("taskModalBg").classList.remove("open"); });
+      $("taskModalBg").addEventListener("click", function (e) { if (e.target === this) this.classList.remove("open"); });
+      $("taskSendBtn").addEventListener("click", submitTask);
+      $("buyCloseBtn").addEventListener("click", function () { $("buyModalBg").classList.remove("open"); });
+      $("buyModalBg").addEventListener("click", function (e) { if (e.target === this) this.classList.remove("open"); });
+      $("buySendBtn").addEventListener("click", submitBuy);
+      $("payoutBtn").addEventListener("click", function () { requestPayout(false); });
+      $("claimWelcomeBtn").addEventListener("click", function () { requestPayout(true); });
+      $("balanceLoginBtn").addEventListener("click", function () { openAuth("login"); });
+
+      /* ---------- Init ---------- */
+      loadSession();
+      renderAuth();
+      renderTasks();
+      renderPackages();
+      renderVideos();
+      watchStats();
+      renderLeaderboard();
+      showView("home");
+      //]]>
+    </script>
+</body>
+</html>
