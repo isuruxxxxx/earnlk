@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v2.0 — green money theme, mobile first ================= */
+/* ================= EarnLK v2.0.1 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -556,7 +556,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v2.0 ================= */
+      /* ================= EarnLK v2.0.1 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -913,7 +913,7 @@ a { color: #0b7a3e; }
       var lang = "en";
       try { lang = localStorage.getItem("earnlk.lang") || "en"; } catch (e) {}
       if (!LANG[lang]) lang = "en";
-      function t(key) {
+      function i18n(key) {
         var d = LANG[lang] || LANG.en;
         if (d && d[key] !== undefined) return d[key];
         if (LANG.en[key] !== undefined) return LANG.en[key];
@@ -1103,7 +1103,7 @@ a { color: #0b7a3e; }
         var chip = $("balChip");
         var navAdmin = $("navAdminBtn");
         if (me) {
-          btn.textContent = "👋 " + me.nick + " · " + t("auth.logout");
+          btn.textContent = "👋 " + me.nick + " · " + i18n("auth.logout");
           chip.style.display = "";
           navAdmin.style.display = isAdmin() ? "" : "none";
           if (balRef) balRef.off();
@@ -1113,7 +1113,7 @@ a { color: #0b7a3e; }
           });
         } else {
           if (balRef) { balRef.off(); balRef = null; }
-          btn.textContent = t("auth.loginRegister");
+          btn.textContent = i18n("auth.loginRegister");
           chip.style.display = "none";
           navAdmin.style.display = "none";
         }
@@ -1124,10 +1124,10 @@ a { color: #0b7a3e; }
         authBusyEnd();
         $("tabLogin").classList.toggle("on", authMode === "login");
         $("tabRegister").classList.toggle("on", authMode === "register");
-        $("authGoBtn").textContent = authMode === "login" ? t("auth.loginBtn") : t("auth.createBtn");
+        $("authGoBtn").textContent = authMode === "login" ? i18n("auth.loginBtn") : i18n("auth.createBtn");
         $("authErr").textContent = "";
         $("authPw").setAttribute("autocomplete", authMode === "register" ? "new-password" : "current-password");
-        $("authHint").textContent = authMode === "register" ? t("auth.hintRegister") : t("auth.hintLogin");
+        $("authHint").textContent = authMode === "register" ? i18n("auth.hintRegister") : i18n("auth.hintLogin");
         $("authModalBg").classList.add("open");
         setTimeout(function () { $("authNick").focus(); }, 50);
       }
@@ -1143,7 +1143,7 @@ a { color: #0b7a3e; }
         if (authTimer) clearTimeout(authTimer);
         authTimer = setTimeout(function () {
           authTimer = null;
-          $("authErr").textContent = t("msg.stillTrying");
+          $("authErr").textContent = i18n("msg.stillTrying");
           authBusyEnd();
         }, 60000);
       }
@@ -1154,14 +1154,14 @@ a { color: #0b7a3e; }
       function doAuth() {
         var err = $("authErr");
         var pw = $("authPw").value;
-        if (pw.length < 6) { err.textContent = t("msg.pwShort"); return; }
+        if (pw.length < 6) { err.textContent = i18n("msg.pwShort"); return; }
         if (authMode === "register") {
           var nick = $("authNick").value.trim();
-          if (nick.length < 3 || nick.length > 20) { err.textContent = t("msg.nickLen"); return; }
-          if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = t("msg.nickChars"); return; }
+          if (nick.length < 3 || nick.length > 20) { err.textContent = i18n("msg.nickLen"); return; }
+          if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = i18n("msg.nickChars"); return; }
           var key = nickKeyOf(nick);
-          if (!key) { err.textContent = t("msg.nickChars"); return; }
-          err.textContent = t("msg.creating");
+          if (!key) { err.textContent = i18n("msg.nickChars"); return; }
+          err.textContent = i18n("msg.creating");
           authBusyStart();
           /* One nickname check, then the password hash, then one write.
              Plain HTTPS calls to the database (not the live socket) —
@@ -1170,39 +1170,39 @@ a { color: #0b7a3e; }
              No IP is collected, checked or stored, so several accounts
              may register from one connection. */
           restGet("users/" + key).then(function (existing) {
-            if (existing) { authBusyEnd(); err.textContent = t("msg.nickTaken"); return; }
+            if (existing) { authBusyEnd(); err.textContent = i18n("msg.nickTaken"); return; }
             return sha256Hex(pw).then(function (hash) {
               var rec = { nick: nick, passHash: hash, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
               return restPut("users/" + key, rec).then(function () {
                 restGet("stats/members").then(function (m) { restPut("stats/members", (m || 0) + 1); }).catch(function () {});
                 authBusyEnd();
                 err.textContent = "";
-                showMsg(t("msg.created").replace("{nick}", nick));
+                showMsg(i18n("msg.created").replace("{nick}", nick));
                 openAuth("login");
                 $("authNick").value = nick;
               });
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = t("msg.noConnect"); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = i18n("msg.noConnect"); });
         } else {
           var nickL = $("authNick").value.trim();
           var keyL = nickKeyOf(nickL);
-          if (!keyL) { err.textContent = t("msg.wrongPw"); return; }
-          err.textContent = t("msg.logging");
+          if (!keyL) { err.textContent = i18n("msg.wrongPw"); return; }
+          err.textContent = i18n("msg.logging");
           authBusyStart();
           /* Plain HTTPS read (not the live socket) — see register. */
           restGet("users/" + keyL).then(function (rec) {
-            if (!rec) { authBusyEnd(); err.textContent = t("msg.wrongPw"); return; }
+            if (!rec) { authBusyEnd(); err.textContent = i18n("msg.wrongPw"); return; }
             return sha256Hex(pw).then(function (hash) {
-              if (hash !== rec.passHash) { authBusyEnd(); err.textContent = t("msg.wrongPw"); return; }
+              if (hash !== rec.passHash) { authBusyEnd(); err.textContent = i18n("msg.wrongPw"); return; }
               me = { nick: rec.nick, nickKey: keyL };
               saveSession();
               authBusyEnd();
               closeAuth();
               renderAuth();
-              showMsg(t("msg.welcome").replace("{nick}", rec.nick));
+              showMsg(i18n("msg.welcome").replace("{nick}", rec.nick));
               showView("home");
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = t("msg.noConnect"); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = i18n("msg.noConnect"); });
         }
       }
 
@@ -1217,7 +1217,7 @@ a { color: #0b7a3e; }
         d.appendChild(ic); d.appendChild(h); d.appendChild(p); d.appendChild(pay);
         if (withBtn) {
           var b = document.createElement("button");
-          b.type = "button"; b.className = "elk-btn"; b.textContent = t("task.doBtn");
+          b.type = "button"; b.className = "elk-btn"; b.textContent = i18n("task.doBtn");
           b.addEventListener("click", function () { openTaskForm(t.id); });
           d.appendChild(b);
         }
@@ -1231,13 +1231,13 @@ a { color: #0b7a3e; }
       }
       function renderMySubs() {
         var box = $("mySubs");
-        if (!me) { box.innerHTML = "<div class='elk-item'>" + t("tasks.loginToSee") + "</div>"; return; }
+        if (!me) { box.innerHTML = "<div class='elk-item'>" + i18n("tasks.loginToSee") + "</div>"; return; }
         box.innerHTML = "<div class='elk-item'>Loading…</div>";
         db.ref("submissions").orderByChild("nickKey").equalTo(me.nickKey).limitToLast(10).once("value").then(function (snap) {
           var rows = [];
           snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
           rows.sort(function (a, b) { return b.v.at - a.v.at; });
-          if (!rows.length) { box.innerHTML = "<div class='elk-item'>" + t("tasks.noSubs") + "</div>"; return; }
+          if (!rows.length) { box.innerHTML = "<div class='elk-item'>" + i18n("tasks.noSubs") + "</div>"; return; }
           box.innerHTML = "";
           rows.forEach(function (r) {
             var d = document.createElement("div");
@@ -1364,11 +1364,11 @@ a { color: #0b7a3e; }
         var tag = document.createElement("span"); tag.className = "elk-tag"; tag.textContent = pkgText(p.id, "tag");
         var h = document.createElement("h3"); h.textContent = "🎁 " + pkgText(p.id, "name");
         var pr = document.createElement("div"); pr.className = "elk-price";
-        pr.innerHTML = "Rs " + p.price.toLocaleString("en-US") + " <small>" + t("pkg.oneTime") + "</small>";
+        pr.innerHTML = "Rs " + p.price.toLocaleString("en-US") + " <small>" + i18n("pkg.oneTime") + "</small>";
         var ul = document.createElement("ul"); ul.className = "elk-feats";
         pkgText(p.id, "features").forEach(function (f) { var li = document.createElement("li"); li.textContent = f; ul.appendChild(li); });
         var b = document.createElement("button");
-        b.type = "button"; b.className = "elk-btn"; b.textContent = t("pkg.buy") + p.price.toLocaleString("en-US");
+        b.type = "button"; b.className = "elk-btn"; b.textContent = i18n("pkg.buy") + p.price.toLocaleString("en-US");
         b.addEventListener("click", function () { openBuyForm(p.id); });
         d.appendChild(tag); d.appendChild(h); d.appendChild(pr); d.appendChild(ul); d.appendChild(b);
         return d;
@@ -1381,7 +1381,7 @@ a { color: #0b7a3e; }
       }
       function renderMyPackages() {
         var box = $("myPackages");
-        if (!me) { box.innerHTML = "<div class='elk-item'>" + t("pkg.loginToSee") + "</div>"; return; }
+        if (!me) { box.innerHTML = "<div class='elk-item'>" + i18n("pkg.loginToSee") + "</div>"; return; }
         db.ref("users/" + me.nickKey + "/packages").once("value").then(function (snap) {
           var pkgs = snap.val() || {};
           var ids = Object.keys(pkgs);
@@ -1441,10 +1441,10 @@ a { color: #0b7a3e; }
           fr.setAttribute("title", v.title);
           frame.appendChild(fr);
           var h = document.createElement("h3"); h.textContent = "🎬 " + v.title;
-          var p = document.createElement("p"); p.textContent = v.by + " — " + videoDesc(v.id) + t("watch.cardNote");
+          var p = document.createElement("p"); p.textContent = v.by + " — " + videoDesc(v.id) + i18n("watch.cardNote");
           var st = document.createElement("span"); st.className = "elk-watched"; st.id = "watchState-" + v.id; st.textContent = "";
           var b = document.createElement("button");
-          b.type = "button"; b.className = "elk-btn"; b.id = "watchBtn-" + v.id; b.textContent = t("watch.finished");
+          b.type = "button"; b.className = "elk-btn"; b.id = "watchBtn-" + v.id; b.textContent = i18n("watch.finished");
           b.addEventListener("click", function () { markWatched(v.id); });
           d.appendChild(frame); d.appendChild(h); d.appendChild(p); d.appendChild(st); d.appendChild(b);
           g.appendChild(d);
@@ -1452,12 +1452,12 @@ a { color: #0b7a3e; }
       }
       function refreshWatchStates() {
         var note = $("watchToday");
-        if (!me) { note.textContent = t("watch.login"); return; }
+        if (!me) { note.textContent = i18n("watch.login"); return; }
         var day = todayStr();
         db.ref("watch/" + me.nickKey + "/" + day).once("value").then(function (snap) {
           var w = snap.val() || {};
           var count = Object.keys(w).length;
-          note.textContent = t("watch.today").replace("{n}", count);
+          note.textContent = i18n("watch.today").replace("{n}", count);
           VIDEOS.forEach(function (v) {
             var st = $("watchState-" + v.id);
             var b = $("watchBtn-" + v.id);
@@ -1883,7 +1883,7 @@ a { color: #0b7a3e; }
       $("heroHowBtn").addEventListener("click", function () { $("howSteps").scrollIntoView({ behavior: "smooth", block: "center" }); });
       $("seeAllTasksBtn").addEventListener("click", function () { showView("tasks"); });
       $("authBtn").addEventListener("click", function () {
-        if (me) { clearSession(); renderAuth(); showMsg(t("msg.loggedOut")); showView("home"); }
+        if (me) { clearSession(); renderAuth(); showMsg(i18n("msg.loggedOut")); showView("home"); }
         else openAuth("login");
       });
       $("authCloseBtn").addEventListener("click", closeAuth);
