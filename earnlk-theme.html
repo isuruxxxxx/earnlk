@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v2.0.1 — green money theme, mobile first ================= */
+/* ================= EarnLK v2.0.2 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -556,7 +556,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v2.0.1 ================= */
+      /* ================= EarnLK v2.0.2 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -922,11 +922,11 @@ a { color: #0b7a3e; }
       function applyLang() {
         document.documentElement.lang = lang;
         var els = document.querySelectorAll("[data-i18n]");
-        for (var i = 0; i < els.length; i++) els[i].textContent = t(els[i].getAttribute("data-i18n"));
+        for (var i = 0; i < els.length; i++) els[i].textContent = i18n(els[i].getAttribute("data-i18n"));
         var htmls = document.querySelectorAll("[data-i18n-html]");
-        for (var j = 0; j < htmls.length; j++) htmls[j].innerHTML = t(htmls[j].getAttribute("data-i18n-html"));
+        for (var j = 0; j < htmls.length; j++) htmls[j].innerHTML = i18n(htmls[j].getAttribute("data-i18n-html"));
         var phs = document.querySelectorAll("[data-i18n-ph]");
-        for (var k = 0; k < phs.length; k++) phs[k].setAttribute("placeholder", t(phs[k].getAttribute("data-i18n-ph")));
+        for (var k = 0; k < phs.length; k++) phs[k].setAttribute("placeholder", i18n(phs[k].getAttribute("data-i18n-ph")));
         var sw = document.querySelectorAll("#langSwitch button");
         for (var m = 0; m < sw.length; m++) sw[m].classList.toggle("on", sw[m].getAttribute("data-lang") === lang);
         renderTasks(); renderPackages(); renderVideos(); renderAuth();
