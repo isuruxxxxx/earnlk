@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.4 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.4.1 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -270,7 +270,7 @@ a { color: #0b7a3e; }
     <h2 class="elk-h2">🔥 Popular tasks</h2>
     <p class="elk-sub">Do any task — no package needed. Buying a package never blocks a task.</p>
     <div class="elk-grid" id="homeTasks"></div>
-    <p style="text-align:center; margin:.9rem 0 0;"><button type="button" class="elk-btn-ghost" id="seeAllTasksBtn">See all 8 tasks →</button></p>
+    <p style="text-align:center; margin:.9rem 0 0;"><button type="button" class="elk-btn-ghost" id="seeAllTasksBtn">See all 6 tasks →</button></p>
 
     <h2 class="elk-h2">🏆 Top earners</h2>
     <div class="elk-leader"><ol id="leaderList"><li>Loading…</li></ol></div>
@@ -546,7 +546,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.4 ================= */
+      /* ================= EarnLK v1.4.1 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -827,7 +827,7 @@ a { color: #0b7a3e; }
         var ic = document.createElement("div"); ic.className = "elk-icon"; ic.textContent = t.icon;
         var h = document.createElement("h3"); h.textContent = t.title;
         var p = document.createElement("p"); p.textContent = t.desc;
-        var pay = document.createElement("span"); pay.className = "elk-pay"; pay.textContent = "Rs " + t.pay;
+        var pay = document.createElement("span"); pay.className = "elk-pay"; pay.textContent = "Rs " + t.pay.toLocaleString("en-US");
         d.appendChild(ic); d.appendChild(h); d.appendChild(p); d.appendChild(pay);
         if (withBtn) {
           var b = document.createElement("button");
@@ -856,7 +856,7 @@ a { color: #0b7a3e; }
           rows.forEach(function (r) {
             var d = document.createElement("div");
             d.className = "elk-item";
-            d.innerHTML = "<b>" + esc(r.v.taskTitle) + "</b><span class='elk-pill " + esc(r.v.status) + "'>" + esc(r.v.status) + "</span><div class='meta'>Rs " + r.v.pay + " · " + timeAgo(r.v.at) + "</div>";
+            d.innerHTML = "<b>" + esc(r.v.taskTitle) + "</b><span class='elk-pill " + esc(r.v.status) + "'>" + esc(r.v.status) + "</span><div class='meta'>Rs " + r.v.pay.toLocaleString("en-US") + " · " + timeAgo(r.v.at) + "</div>";
             box.appendChild(d);
           });
         });
@@ -869,7 +869,7 @@ a { color: #0b7a3e; }
         currentTask = null;
         TASKS.forEach(function (t) { if (t.id === taskId) currentTask = t; });
         if (!currentTask) return;
-        $("taskModalTitle").textContent = currentTask.title + " — Rs " + currentTask.pay;
+        $("taskModalTitle").textContent = currentTask.title + " — Rs " + currentTask.pay.toLocaleString("en-US");
         $("taskModalDesc").textContent = currentTask.desc;
         $("taskText").value = "";
         $("taskLink").value = "";
