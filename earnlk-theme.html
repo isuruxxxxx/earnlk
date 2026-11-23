@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.6 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.7 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -432,7 +432,7 @@ a { color: #0b7a3e; }
       <h3>What we collect</h3>
       <p>Your nickname, your task submissions, your balance and payout details, and your package purchases. We also store your internet connection address (IP) only to stop more than one account per connection. We do not ask for your real name, ID number or home address.</p>
       <h3>How we use it</h3>
-      <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is handled by Firebase Authentication — it is never stored on EarnLK, and nobody, including Isuru, can read it.</p>
+      <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored only as a one-way hash — nobody, including Isuru, can read it.</p>
       <h3>Advertising</h3>
       <p>EarnLK is funded by advertising. In future we may show ads from Google AdSense. Ad providers may use cookies to show relevant ads. You can turn off personalised ads in your Google settings.</p>
       <h3>Your data</h3>
@@ -538,11 +538,10 @@ a { color: #0b7a3e; }
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.6 ================= */
+      /* ================= EarnLK v1.7 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -554,7 +553,6 @@ a { color: #0b7a3e; }
       };
       firebase.initializeApp(firebaseConfig);
       var db = firebase.database();
-      var auth = firebase.auth();
 
       /* ---------- Warm up the Firebase connection on page load ----------
          On a slow phone the first Firebase handshake can take ~60s, so a
@@ -632,13 +630,23 @@ a { color: #0b7a3e; }
         return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
       function nickKeyOf(nick) { return nick.toLowerCase().replace(/[^a-z0-9]/g, ""); }
-      /* ---------- Synthetic login email (never shown to the user) ----------
-         Firebase Auth needs an email address, but EarnLK never collects
-         one. The login email is built from the nickname key, which is
-         always 1+ characters of [a-z0-9] (register validation guarantees
-         it), so it is always a valid email local part. The user only ever
-         sees and types their nickname and password. */
-      function synthEmailOf(key) { return key + "@earnlk.local"; }
+      /* ---------- Password hash (same as Lanka Chat) ----------
+         The password is never stored or sent in plain text — only its
+         SHA-256 hash is kept in the database. Works on a phone browser
+         over https (crypto.subtle); very old browsers fall back to a
+         simple hash so the flow still works. */
+      function sha256Hex(text) {
+        if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+          return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)).then(function (buf) {
+            var bytes = new Uint8Array(buf);
+            var hex = "";
+            for (var i = 0; i < bytes.length; i++) hex += (bytes[i] < 16 ? "0" : "") + bytes[i].toString(16);
+            return hex;
+          });
+        }
+        var h = 0; for (var j = 0; j < text.length; j++) { h = ((h << 5) - h + text.charCodeAt(j)) | 0; }
+        return Promise.resolve("fallback-" + (h >>> 0).toString(16) + "-" + text.length);
+      }
       function timeAgo(ts) {
         var s = Math.max(0, Math.floor((Date.now() - ts) / 1000));
         if (s < 60) return "just now";
@@ -710,33 +718,15 @@ a { color: #0b7a3e; }
         $("authErr").textContent = "";
         $("authPw").setAttribute("autocomplete", authMode === "register" ? "new-password" : "current-password");
         $("authHint").textContent = authMode === "register"
-          ? "Register with a nickname and password, then log in. One account per internet connection. Your password is handled by Firebase and nobody can read it, not even Isuru."
+          ? "Register with a nickname and password, then log in. One account per internet connection. Your password is stored only as a one-way hash that nobody can read, not even Isuru."
           : "Use the nickname and password you registered with.";
         $("authModalBg").classList.add("open");
         setTimeout(function () { $("authNick").focus(); }, 50);
       }
       function closeAuth() { $("authModalBg").classList.remove("open"); }
-      function firebaseAuthErr(e) {
-        if (!e || !e.code) return "Could not connect. Check your internet and try again.";
-        if (e.code === "auth/email-already-in-use") return "That nickname is already registered. Try Log in.";
-        if (e.code === "auth/invalid-email") return "That nickname cannot be used. Pick another one.";
-        if (e.code === "auth/weak-password") return "Password must be at least 6 characters.";
-        if (e.code === "auth/user-not-found" || e.code === "auth/wrong-password" || e.code === "auth/invalid-credential") return "Wrong nickname or password. Try again.";
-        if (e.code === "auth/operation-not-allowed") return "Sign-in is not switched on yet. Ask Isuru to enable it in Firebase.";
-        if (e.code === "auth/too-many-requests") return "Too many tries. Wait a little and try again.";
-        if (e.code === "auth/network-request-failed") return "Could not connect. Check your internet and try again.";
-        return e.message || "Something went wrong. Try again.";
-      }
-      function findUserByUid(uid) {
-        return db.ref("users").orderByChild("uid").equalTo(uid).once("value").then(function (snap) {
-          var found = null;
-          snap.forEach(function (c) { found = { key: c.key, val: c.val() }; });
-          return found;
-        });
-      }
       /* ---------- Auth busy state + 30s timeout ----------
-         While a Firebase auth call is in flight both auth buttons are
-         disabled (no double-taps) and a 30s timer runs. If Firebase has
+         While a registration or login request is in flight both auth buttons are
+         disabled (no double-taps) and a 30s timer runs. If the database has
          not answered in 30s the user gets an honest message and the
          buttons come back — a late success may still overwrite it. */
       var authTimer = null;
@@ -788,7 +778,6 @@ a { color: #0b7a3e; }
           if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = "Use letters and numbers only."; return; }
           var key = nickKeyOf(nick);
           if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
-          var email = synthEmailOf(key);
           err.textContent = "Creating your account… please wait.";
           authBusyStart();
           /* The two checks run at the same time: the nickname-taken read
@@ -806,15 +795,13 @@ a { color: #0b7a3e; }
             var snap = results[0], ipRes = results[1];
             if (snap.exists()) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
             if (ipRes.snap && ipRes.snap.exists()) { authBusyEnd(); err.textContent = "An account already exists from this connection. One account per person."; return; }
-            return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
-              var rec = { nick: nick, email: email, emailVerified: true, ip: ipRes.ip, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
-              /* One write for all three records — the user profile, the
-                 nickname lookup the tightened database rules need, and
-                 the /ips index (only when the IP is known). */
+            return sha256Hex(pw).then(function (hash) {
+              var rec = { nick: nick, passHash: hash, ip: ipRes.ip, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
+              /* One write for both records — the user profile and the
+                 /ips index (only when the IP is known). */
               var updates = {};
               updates["users/" + key] = rec;
-              updates["uids/" + cred.user.uid] = key;
-              if (ipRes.ip !== "unknown") updates["ips/" + ipRes.ipKey] = { nickKey: key, email: email, created: Date.now() };
+              if (ipRes.ip !== "unknown") updates["ips/" + ipRes.ipKey] = { nickKey: key, created: Date.now() };
               return db.ref().update(updates).then(function () {
                 db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
                 authBusyEnd();
@@ -824,25 +811,26 @@ a { color: #0b7a3e; }
                 $("authNick").value = nick;
               });
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = "Could not connect. Check your internet and try again."; });
         } else {
           var nickL = $("authNick").value.trim();
           var keyL = nickKeyOf(nickL);
           if (!keyL) { err.textContent = "Wrong nickname or password. Try again."; return; }
           err.textContent = "Logging you in… please wait.";
           authBusyStart();
-          auth.signInWithEmailAndPassword(synthEmailOf(keyL), pw).then(function (cred) {
-            return findUserByUid(cred.user.uid).then(function (found) {
-              if (!found) { authBusyEnd(); err.textContent = "Account not found. Please register again."; return; }
-              me = { nick: found.val.nick, nickKey: found.key };
+          db.ref("users/" + keyL).once("value").then(function (snap) {
+            if (!snap.exists()) { authBusyEnd(); err.textContent = "Wrong nickname or password. Try again."; return; }
+            return sha256Hex(pw).then(function (hash) {
+              if (hash !== snap.val().passHash) { authBusyEnd(); err.textContent = "Wrong nickname or password. Try again."; return; }
+              me = { nick: snap.val().nick, nickKey: keyL };
               saveSession();
               authBusyEnd();
               closeAuth();
               renderAuth();
-              showMsg("Welcome back, " + found.val.nick + "! 👋");
+              showMsg("Welcome back, " + snap.val().nick + "! 👋");
               showView("home");
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = "Could not connect. Check your internet and try again."; });
         }
       }
 
@@ -1477,7 +1465,7 @@ a { color: #0b7a3e; }
       $("heroHowBtn").addEventListener("click", function () { $("howSteps").scrollIntoView({ behavior: "smooth", block: "center" }); });
       $("seeAllTasksBtn").addEventListener("click", function () { showView("tasks"); });
       $("authBtn").addEventListener("click", function () {
-        if (me) { auth.signOut().catch(function () {}); clearSession(); renderAuth(); showMsg("Logged out. See you soon! 👋"); showView("home"); }
+        if (me) { clearSession(); renderAuth(); showMsg("Logged out. See you soon! 👋"); showView("home"); }
         else openAuth("login");
       });
       $("authCloseBtn").addEventListener("click", closeAuth);
@@ -1502,13 +1490,6 @@ a { color: #0b7a3e; }
       loadSession();
       renderAuth();
       updatePayoutFields();
-      auth.onAuthStateChanged(function (u) {
-        if (u && !me) {
-          findUserByUid(u.uid).then(function (found) {
-            if (found) { me = { nick: found.val.nick, nickKey: found.key }; saveSession(); renderAuth(); }
-          });
-        }
-      });
       renderTasks();
       renderPackages();
       renderVideos();
