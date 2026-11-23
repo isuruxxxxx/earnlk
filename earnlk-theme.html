@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.3 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.4 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -249,12 +249,12 @@ a { color: #0b7a3e; }
   <section class="elk-view on" id="view-home">
     <div class="elk-hero">
       <h1>Earn money by doing simple tasks 💰</h1>
-      <p>Write posts, make videos and reels, edit photos — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.</p>
+      <p>Upload a photo, a video or a story — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.</p>
       <button type="button" class="elk-cta" id="heroStartBtn">Start Earning →</button>
       <button type="button" class="elk-cta-ghost" id="heroHowBtn">How it works</button>
       <div class="elk-steps" id="howSteps">
         <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname, add your email and password. One account per connection.</div>
-        <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, do the work, send it in. Each task pays Rs 10–20.</div>
+        <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, upload your photo, video or story. Tasks pay Rs 10 up to Rs 1,000.</div>
         <div class="elk-step"><b>3️⃣</b><b>Get paid</b>Isuru approves your work, your balance grows. Ask for payout at Rs 100.</div>
       </div>
     </div>
@@ -409,7 +409,7 @@ a { color: #0b7a3e; }
       <ul>
         <li>Register free with a nickname, email and password, then log in. One account per person — one account per internet connection.</li>
         <li>Do a task and send your work. Isuru checks every submission.</li>
-        <li>Approved work pays Rs 10–20 per task into your balance. Watching a full film pays Rs 2, maximum 5 films a day.</li>
+        <li>Approved work pays into your balance — photos and short videos Rs 10–20, stories Rs 15, cooking videos Rs 500, vlogs Rs 1,000. Watching a full film pays Rs 2, maximum 5 films a day.</li>
         <li>Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
         <li>Normal payouts need at least Rs 100 in your balance. Isuru pays by eZ Cash, bank transfer or reload, usually within 2 days.</li>
         <li>Training packages are optional courses and toolkits. Buying one never blocks free tasks. Payouts are paid from advertising revenue only — never from other members' package money.</li>
@@ -498,10 +498,19 @@ a { color: #0b7a3e; }
     <h3 id="taskModalTitle">Do this task</h3>
     <p class="elk-note" id="taskModalDesc"></p>
     <div class="elk-form" style="margin-top:.4rem; box-shadow:none; border:none; padding:0;">
-      <label for="taskText">Your work (type or paste it here)</label>
-      <textarea id="taskText" placeholder="Write your work here…"></textarea>
-      <label for="taskLink">Link to your work (image / video / file link — optional)</label>
-      <input type="text" id="taskLink" placeholder="https://…" />
+      <div id="taskTextRow">
+        <label for="taskText" id="taskTextLabel">Your work (type or paste it here)</label>
+        <textarea id="taskText" placeholder="Write your work here…"></textarea>
+      </div>
+      <div id="taskFileRow" style="display:none;">
+        <label for="taskFile">Upload your file</label>
+        <input type="file" id="taskFile" />
+      </div>
+      <div id="taskLinkRow">
+        <label for="taskLink" id="taskLinkLabel">Link to your work (image / video / file link — optional)</label>
+        <input type="text" id="taskLink" placeholder="https://…" />
+        <p class="elk-note" id="taskLinkNote" style="display:none;"></p>
+      </div>
       <p class="elk-err" id="taskErr"></p>
       <button type="button" class="elk-btn" id="taskSendBtn">Send my work ✓</button>
       <p class="elk-note">Isuru checks every submission. Good work is approved and paid — usually within 1 day.</p>
@@ -537,7 +546,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.3 ================= */
+      /* ================= EarnLK v1.4 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -563,14 +572,12 @@ a { color: #0b7a3e; }
 
       /* ---------- Data (JS constants — no Firebase seeding needed) ---------- */
       var TASKS = [
-        { id: "caption", icon: "✍️", title: "Write a Facebook post caption", pay: 10, desc: "Write a short, catchy caption in Sinhala or English for a Facebook post. Friendly and natural, not copied." },
-        { id: "poster", icon: "🖼️", title: "Make a poster image for a FB post", pay: 20, desc: "Create a poster image with text (use any AI image tool). Bright, clear and easy to read." },
-        { id: "photoedit", icon: "📸", title: "Edit a photo", pay: 15, desc: "Clean the background, crop and brighten a photo. Send the edited photo link." },
-        { id: "reelscript", icon: "🎬", title: "Write a 15-second AI reel script", pay: 15, desc: "Write a short script for a 15-second reel — a hook, 2–3 lines, and an ending." },
-        { id: "videoscript", icon: "🎥", title: "Write a 30-second video script", pay: 20, desc: "Write a full 30-second video script with scenes and dialogue." },
-        { id: "thumbnail", icon: "🖼️", title: "Make a video thumbnail", pay: 20, desc: "Design a bold, clear thumbnail for a video. Big text, bright colours." },
-        { id: "translate", icon: "🌐", title: "Translate a short text", pay: 10, desc: "Translate a short text between Sinhala and English. Natural wording, not word-for-word." },
-        { id: "productdesc", icon: "🛍️", title: "Write a product description", pay: 10, desc: "Write a short, honest product description that makes people want to buy." }
+        { id: "shortvideo", icon: "🎬", title: "Upload a short video", pay: 20, kind: "file", accept: "video/*", desc: "A beautiful short video, 15 to 60 seconds — nature, village life, food, anything beautiful." },
+        { id: "photo", icon: "📸", title: "Upload a beautiful photo", pay: 10, kind: "file", accept: "image/*", desc: "A beautiful photo you took — nature, village, food, people, anything beautiful." },
+        { id: "story", icon: "📖", title: "Upload a short story", pay: 15, kind: "text", accept: "", desc: "Write a short story in Sinhala or English — your own words, not copied." },
+        { id: "anything", icon: "✨", title: "Upload anything beautiful", pay: 10, kind: "file", accept: "image/*,video/*", desc: "Anything beautiful — a photo or a short video that makes people smile." },
+        { id: "cooking", icon: "🍳", title: "Upload a quality cooking video", pay: 500, kind: "longvideo", accept: "video/*", desc: "A clear cooking video, about 10 minutes, showing the full cooking from start to finish." },
+        { id: "vlog", icon: "🎥", title: "Upload a vlog video", pay: 1000, kind: "longvideo", accept: "video/*", desc: "A vlog video more than 10 minutes long — your day, your village, your trip." }
       ];
       var PACKAGES = [
         { id: "starter", name: "Starter Kit", price: 500, tag: "Start learning", hot: false, features: ["AI video starter course — 10 lessons", "20 ready post templates", "Caption writing guide"] },
@@ -588,6 +595,30 @@ a { color: #0b7a3e; }
       var PAYOUT_MIN = 100;
       var WELCOME_PAY = 50;
       var WELCOME_TASKS = 5;
+
+      /* Uploads go to Isuru's Google Drive through the EarnLK upload
+         web app (Apps Script, runs as Isuru, folder "EarnLK Uploads").
+         The page posts the file as base64 JSON with Content-Type
+         text/plain, so the browser sends it as a "simple request"
+         with no CORS preflight. */
+      var UPLOAD_URL = "https://script.google.com/macros/s/AKfycbxHKP5oAxzPqIFq8Qjo88HQB-2knHOcJXfvVUosDviOMHSTd52zJ8bx05TnBMyfdyAV/exec";
+      var UPLOAD_MAX_BYTES = 25 * 1024 * 1024; /* upload service ceiling — never shown as a site rule */
+      function validWorkLink(u) {
+        return /^(https?:\/\/)(drive\.google\.com\/|www\.youtube\.com\/|youtu\.be\/)/i.test(u);
+      }
+      function mimeOf(f) {
+        if (f.type) return f.type;
+        var n = (f.name || "").toLowerCase();
+        if (/\.mp4$/.test(n)) return "video/mp4";
+        if (/\.mov$/.test(n)) return "video/quicktime";
+        if (/\.webm$/.test(n)) return "video/webm";
+        if (/\.avi$/.test(n)) return "video/x-msvideo";
+        if (/\.jpe?g$/.test(n)) return "image/jpeg";
+        if (/\.png$/.test(n)) return "image/png";
+        if (/\.webp$/.test(n)) return "image/webp";
+        if (/\.gif$/.test(n)) return "image/gif";
+        return "";
+      }
 
       /* ---------- Helpers ---------- */
       function $(id) { return document.getElementById(id); }
@@ -842,19 +873,96 @@ a { color: #0b7a3e; }
         $("taskModalDesc").textContent = currentTask.desc;
         $("taskText").value = "";
         $("taskLink").value = "";
+        $("taskFile").value = "";
         $("taskErr").textContent = "";
+        $("taskSendBtn").disabled = false;
+        var kind = currentTask.kind;
+        var form = $("taskFileRow").parentNode;
+        if (kind === "text") {
+          $("taskTextRow").style.display = "";
+          $("taskTextLabel").textContent = "Your story (write it here)";
+          $("taskFileRow").style.display = "none";
+          $("taskLinkRow").style.display = "none";
+        } else {
+          $("taskTextRow").style.display = "none";
+          $("taskFileRow").style.display = "";
+          $("taskLinkRow").style.display = "";
+          $("taskFile").setAttribute("accept", currentTask.accept || "");
+          if (kind === "longvideo") {
+            /* Link first for long videos — any length works by link. */
+            form.insertBefore($("taskLinkRow"), $("taskFileRow"));
+            $("taskLinkLabel").textContent = "Paste a link (YouTube or Google Drive) — any length works";
+            $("taskLinkNote").style.display = "";
+            $("taskLinkNote").textContent = "Long video? Paste a YouTube or Google Drive link — any length works. Or upload the file below instead.";
+          } else {
+            form.insertBefore($("taskFileRow"), $("taskLinkRow"));
+            $("taskLinkLabel").textContent = "Or paste a link (Google Drive / YouTube)";
+            $("taskLinkNote").style.display = "none";
+          }
+        }
         $("taskModalBg").classList.add("open");
       }
       function submitTask() {
         if (!me || !currentTask) return;
-        var text = $("taskText").value.trim();
-        var link = $("taskLink").value.trim();
         var err = $("taskErr");
-        if (!text && !link) { err.textContent = "Write your work or add a link first."; return; }
+        var btn = $("taskSendBtn");
+        if (btn.disabled) return;
+        var kind = currentTask.kind;
+        if (kind === "text") {
+          var text = $("taskText").value.trim();
+          if (!text) { err.textContent = "Write your story first."; return; }
+          saveSubmission({ text: text });
+          return;
+        }
+        var file = ($("taskFile").files && $("taskFile").files[0]) || null;
+        var link = $("taskLink").value.trim();
+        if (file && file.size > UPLOAD_MAX_BYTES) {
+          err.textContent = "This file is too big to upload here — paste a Google Drive or YouTube link instead.";
+          return;
+        }
+        if (link && !validWorkLink(link)) {
+          err.textContent = "Paste a Google Drive or YouTube link.";
+          return;
+        }
+        if (!file && !link) { err.textContent = "Upload a file or paste a link first."; return; }
+        if (file) {
+          err.textContent = "Uploading…";
+          btn.disabled = true;
+          var reader = new FileReader();
+          reader.onload = function () {
+            var base64 = String(reader.result || "").split(",")[1] || "";
+            fetch(UPLOAD_URL, {
+              method: "POST",
+              headers: { "Content-Type": "text/plain" },
+              body: JSON.stringify({ nick: me.nick, task: currentTask.id, name: file.name, mime: mimeOf(file), data: base64 })
+            }).then(function (r) { return r.json(); }).then(function (res) {
+              btn.disabled = false;
+              if (res && res.ok) {
+                saveSubmission({ driveLink: res.link, fileName: res.name || file.name, link: link });
+              } else {
+                err.textContent = (res && res.error) ? String(res.error) : "Upload failed. Check your connection and try again — or paste a link instead.";
+              }
+            }).catch(function () {
+              btn.disabled = false;
+              err.textContent = "Upload failed. Check your connection and try again — or paste a link instead.";
+            });
+          };
+          reader.onerror = function () {
+            btn.disabled = false;
+            err.textContent = "Could not read that file. Try again — or paste a link instead.";
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+        saveSubmission({ link: link });
+      }
+      function saveSubmission(extra) {
+        var err = $("taskErr");
         err.textContent = "Sending…";
         db.ref("submissions").push({
           taskId: currentTask.id, taskTitle: currentTask.title, pay: currentTask.pay,
-          user: me.nick, nickKey: me.nickKey, text: text, link: link,
+          user: me.nick, nickKey: me.nickKey, text: extra.text || "", link: extra.link || "",
+          driveLink: extra.driveLink || "", fileName: extra.fileName || "",
           status: "pending", at: Date.now()
         }).then(function () {
           $("taskModalBg").classList.remove("open");
@@ -1110,7 +1218,8 @@ a { color: #0b7a3e; }
             d.className = "elk-item";
             var work = "";
             if (r.v.text) work += "<div class='work'>" + esc(r.v.text) + "</div>";
-            if (r.v.link) work += "<div class='meta'>Link: " + esc(r.v.link) + "</div>";
+            if (r.v.driveLink) work += "<div class='meta'><a href='" + esc(r.v.driveLink) + "' target='_blank' rel='noopener'>📂 Open file</a>" + (r.v.fileName ? " · " + esc(r.v.fileName) : "") + "</div>";
+            else if (r.v.link) work += "<div class='meta'><a href='" + esc(r.v.link) + "' target='_blank' rel='noopener'>▶ Open video</a></div>";
             d.innerHTML = "<b>" + esc(r.v.taskTitle) + " — Rs " + r.v.pay + "</b><div class='meta'>by " + esc(r.v.user) + " · " + timeAgo(r.v.at) + "</div>" + work;
             var btns = document.createElement("div");
             btns.className = "elk-row-btns";
