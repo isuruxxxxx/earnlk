@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.9 — green money theme, mobile first ================= */
+/* ================= EarnLK v2.0 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -51,6 +51,15 @@ a { color: #0b7a3e; }
   border-radius: 999px; padding: .45rem 1rem; font-weight: 800; font-size: .88rem; min-height: 2.75rem;
   box-shadow: 0 2px 8px rgba(0,0,0,.2); white-space: nowrap;
 }
+.elk-lang {
+  display: inline-flex; gap: .15rem; background: rgba(0,0,0,.28);
+  border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: .15rem;
+}
+.elk-lang button {
+  border: none; background: transparent; color: #fff; font-weight: 800;
+  font-size: .8rem; border-radius: 999px; padding: .35rem .6rem; cursor: pointer;
+}
+.elk-lang button.on { background: #ffc93c; color: #3d2b00; }
 .elk-balance-chip {
   background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.4); color: #fff;
   border-radius: 999px; padding: .42rem .8rem; font-weight: 800; font-size: .86rem; min-height: 2.75rem;
@@ -227,17 +236,22 @@ a { color: #0b7a3e; }
 <body>
 <header class="elk-header">
   <div class="elk-topbar">
-    <div class="elk-logo">💰 EarnLK<small>උපයන්න • Earn money in Sri Lanka</small></div>
+    <div class="elk-logo">💰 EarnLK<small data-i18n="logo.tag">Earn money in Sri Lanka</small></div>
     <nav class="elk-nav" id="elkNav">
-      <button type="button" data-view="home" class="on">🏠 Home</button>
-      <button type="button" data-view="tasks">📝 Tasks</button>
-      <button type="button" data-view="packages">🎁 Packages</button>
-      <button type="button" data-view="watch">▶️ Watch &amp; Earn</button>
-      <button type="button" data-view="balance">👛 Balance</button>
-      <button type="button" data-view="admin" id="navAdminBtn" style="display:none;">🛡️ Admin</button>
+      <button type="button" data-view="home" class="on" data-i18n="nav.home">🏠 Home</button>
+      <button type="button" data-view="tasks" data-i18n="nav.tasks">📝 Tasks</button>
+      <button type="button" data-view="packages" data-i18n="nav.packages">🎁 Packages</button>
+      <button type="button" data-view="watch" data-i18n="nav.watch">▶️ Watch &amp; Earn</button>
+      <button type="button" data-view="balance" data-i18n="nav.balance">👛 Balance</button>
+      <button type="button" data-view="admin" id="navAdminBtn" style="display:none;" data-i18n="nav.admin">🛡️ Admin</button>
     </nav>
     <span class="elk-balance-chip" id="balChip" style="display:none;">👛 Rs <span id="balChipAmt">0</span></span>
     <button type="button" class="elk-auth" id="authBtn">Log in / Register</button>
+    <div class="elk-lang" id="langSwitch" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="on">EN</button>
+      <button type="button" data-lang="si">සිංහල</button>
+      <button type="button" data-lang="ta">தமிழ்</button>
+    </div>
   </div>
 </header>
 
@@ -248,115 +262,115 @@ a { color: #0b7a3e; }
   <!-- ============ HOME ============ -->
   <section class="elk-view on" id="view-home">
     <div class="elk-hero">
-      <h1>Earn money by doing simple tasks 💰</h1>
-      <p>Upload a photo, a video or a story — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.</p>
-      <button type="button" class="elk-cta" id="heroStartBtn">Start Earning →</button>
-      <button type="button" class="elk-cta-ghost" id="heroHowBtn">How it works</button>
+      <h1 data-i18n="hero.title">Earn money by doing simple tasks 💰</h1>
+      <p data-i18n="hero.sub">Upload a photo, a video or a story — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.</p>
+      <button type="button" class="elk-cta" id="heroStartBtn" data-i18n="hero.start">Start Earning →</button>
+      <button type="button" class="elk-cta-ghost" id="heroHowBtn" data-i18n="hero.how">How it works</button>
       <div class="elk-steps" id="howSteps">
-        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname and a password.</div>
-        <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, upload your photo, video or story. Tasks pay Rs 10 up to Rs 1,000.</div>
-        <div class="elk-step"><b>3️⃣</b><b>Get paid</b>Isuru approves your work, your balance grows. Ask for payout at Rs 100.</div>
+        <div class="elk-step"><b>1️⃣</b><b data-i18n="step1.title">Register free</b><span data-i18n="step1.desc">Pick a nickname and a password.</span></div>
+        <div class="elk-step"><b>2️⃣</b><b data-i18n="step2.title">Do a task</b><span data-i18n="step2.desc">Choose a task, upload your photo, video or story. Tasks pay Rs 10 up to Rs 1,000.</span></div>
+        <div class="elk-step"><b>3️⃣</b><b data-i18n="step3.title">Get paid</b><span data-i18n="step3.desc">Isuru approves your work, your balance grows. Ask for payout at Rs 100.</span></div>
       </div>
     </div>
 
     <div class="elk-ad"><small>Advertisement</small><p>Ad space — AdSense code goes here.</p></div>
 
     <div class="elk-stats">
-      <div class="elk-stat"><b>Rs <span id="statPaid">0</span></b><span>Total paid out</span></div>
-      <div class="elk-stat"><b><span id="statTasks">0</span></b><span>Tasks completed</span></div>
-      <div class="elk-stat"><b><span id="statMembers">0</span></b><span>Members</span></div>
+      <div class="elk-stat"><b>Rs <span id="statPaid">0</span></b><span data-i18n="stat.paid">Total paid out</span></div>
+      <div class="elk-stat"><b><span id="statTasks">0</span></b><span data-i18n="stat.tasks">Tasks completed</span></div>
+      <div class="elk-stat"><b><span id="statMembers">0</span></b><span data-i18n="stat.members">Members</span></div>
     </div>
 
-    <h2 class="elk-h2">🔥 Popular tasks</h2>
-    <p class="elk-sub">Do any task — no package needed. Buying a package never blocks a task.</p>
+    <h2 class="elk-h2" data-i18n="home.popular">🔥 Popular tasks</h2>
+    <p class="elk-sub" data-i18n="home.popularSub">Do any task — no package needed. Buying a package never blocks a task.</p>
     <div class="elk-grid" id="homeTasks"></div>
-    <p style="text-align:center; margin:.9rem 0 0;"><button type="button" class="elk-btn-ghost" id="seeAllTasksBtn">See all 6 tasks →</button></p>
+    <p style="text-align:center; margin:.9rem 0 0;"><button type="button" class="elk-btn-ghost" id="seeAllTasksBtn" data-i18n="home.seeAll">See all 6 tasks →</button></p>
 
-    <h2 class="elk-h2">🏆 Top earners</h2>
+    <h2 class="elk-h2" data-i18n="home.top">🏆 Top earners</h2>
     <div class="elk-leader"><ol id="leaderList"><li>Loading…</li></ol></div>
 
     <div class="elk-ad"><small>Advertisement</small><p>Ad space — AdSense code goes here.</p></div>
 
-    <h2 class="elk-h2">🎁 Training packages</h2>
-    <p class="elk-sub">Learn to earn more — courses and templates. Optional, never required to do tasks.</p>
+    <h2 class="elk-h2" data-i18n="home.packages">🎁 Training packages</h2>
+    <p class="elk-sub" data-i18n="home.packagesSub">Learn to earn more — courses and templates. Optional, never required to do tasks.</p>
     <div class="elk-grid" id="homePackages"></div>
   </section>
 
   <!-- ============ TASKS ============ -->
   <section class="elk-view" id="view-tasks">
-    <h2 class="elk-h2">📝 Tasks — do the work, get paid</h2>
-    <p class="elk-sub">Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected.</p>
+    <h2 class="elk-h2" data-i18n="tasks.title">📝 Tasks — do the work, get paid</h2>
+    <p class="elk-sub" data-i18n="tasks.sub">Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected.</p>
     <div class="elk-grid" id="tasksGrid"></div>
-    <h2 class="elk-h2">📋 My recent submissions</h2>
-    <div class="elk-list" id="mySubs"><div class="elk-item">Log in to see your submissions.</div></div>
+    <h2 class="elk-h2" data-i18n="tasks.mySubs">📋 My recent submissions</h2>
+    <div class="elk-list" id="mySubs"><div class="elk-item" data-i18n="tasks.loginToSee">Log in to see your submissions.</div></div>
   </section>
 
   <!-- ============ PACKAGES ============ -->
   <section class="elk-view" id="view-packages">
-    <h2 class="elk-h2">🎁 Training packages</h2>
-    <p class="elk-sub">Real courses and toolkits that teach you to make AI videos, reels and posts — so you can earn more. Buying a package is optional. It never blocks free tasks, and payouts always come from advertising revenue.</p>
+    <h2 class="elk-h2" data-i18n="pkg.title">🎁 Training packages</h2>
+    <p class="elk-sub" data-i18n="pkg.sub">Real courses and toolkits that teach you to make AI videos, reels and posts — so you can earn more. Buying a package is optional. It never blocks free tasks, and payouts always come from advertising revenue.</p>
     <div class="elk-grid" id="packagesGrid"></div>
-    <h2 class="elk-h2">📦 My packages</h2>
-    <div class="elk-list" id="myPackages"><div class="elk-item">Log in to see your packages.</div></div>
-    <p class="elk-note">How to buy: tap Buy, pay by bank transfer, eZ Cash or reload, then send the payment reference. Isuru confirms the payment and unlocks your package.</p>
+    <h2 class="elk-h2" data-i18n="pkg.my">📦 My packages</h2>
+    <div class="elk-list" id="myPackages"><div class="elk-item" data-i18n="pkg.loginToSee">Log in to see your packages.</div></div>
+    <p class="elk-note" data-i18n="pkg.howToBuy">How to buy: tap Buy, pay by bank transfer, eZ Cash or reload, then send the payment reference. Isuru confirms the payment and unlocks your package.</p>
   </section>
 
   <!-- ============ WATCH AND EARN ============ -->
   <section class="elk-view" id="view-watch">
-    <h2 class="elk-h2">▶️ Watch &amp; Earn</h2>
-    <p class="elk-sub">Watch a full classic film here on EarnLK and earn <b>Rs 2</b> per film. Maximum <b>5 films a day</b>. Films play right here on this page — nowhere else.</p>
-    <p class="elk-note" id="watchToday">Log in to earn for watching.</p>
+    <h2 class="elk-h2" data-i18n="watch.title">▶️ Watch &amp; Earn</h2>
+    <p class="elk-sub" data-i18n-html="watch.sub">Watch a full classic film here on EarnLK and earn <b>Rs 2</b> per film. Maximum <b>5 films a day</b>. Films play right here on this page — nowhere else.</p>
+    <p class="elk-note" id="watchToday" data-i18n="watch.login">Log in to earn for watching.</p>
     <div class="elk-grid" id="videosGrid"></div>
   </section>
 
   <!-- ============ BALANCE ============ -->
   <section class="elk-view" id="view-balance">
-    <h2 class="elk-h2">👛 My Balance</h2>
+    <h2 class="elk-h2" data-i18n="bal.title">👛 My Balance</h2>
     <div id="balanceLogin" style="display:none;">
-      <div class="elk-item" style="background:#fff;border:1px solid #d5e8da;border-radius:12px;padding:1rem;">Please log in to see your balance. <button type="button" class="elk-btn elk-btn-small" id="balanceLoginBtn">Log in</button></div>
+      <div class="elk-item" style="background:#fff;border:1px solid #d5e8da;border-radius:12px;padding:1rem;"><span data-i18n="bal.login">Please log in to see your balance.</span> <button type="button" class="elk-btn elk-btn-small" id="balanceLoginBtn" data-i18n="bal.loginBtn">Log in</button></div>
     </div>
     <div id="balanceBody">
       <div class="elk-bal-card">
-        <div class="lbl">Your balance</div>
+        <div class="lbl" data-i18n="bal.your">Your balance</div>
         <div class="big">Rs <span id="balAmt">0</span></div>
         <div class="elk-bal-row">
-          <div class="elk-bal-mini"><b>Rs <span id="balEarned">0</span></b>Total earned</div>
-          <div class="elk-bal-mini"><b>Rs <span id="balPaidOut">0</span></b>Already paid out</div>
-          <div class="elk-bal-mini"><b><span id="balApproved">0</span></b>Tasks approved</div>
+          <div class="elk-bal-mini"><b>Rs <span id="balEarned">0</span></b><span data-i18n="bal.earned">Total earned</span></div>
+          <div class="elk-bal-mini"><b>Rs <span id="balPaidOut">0</span></b><span data-i18n="bal.paidOut">Already paid out</span></div>
+          <div class="elk-bal-mini"><b><span id="balApproved">0</span></b><span data-i18n="bal.approved">Tasks approved</span></div>
         </div>
       </div>
       <div class="elk-form" id="welcomeBox" style="display:none;">
-        <h3 style="margin:.1rem 0 .3rem;">🎉 Your Rs 50 welcome payout is ready!</h3>
-        <p class="elk-note" style="margin:.2rem 0 .6rem;">You finished 5 approved tasks. Claim your Rs 50 welcome payout now — no Rs 100 minimum for this one.</p>
-        <button type="button" class="elk-btn" id="claimWelcomeBtn">Claim Rs 50 welcome payout</button>
+        <h3 style="margin:.1rem 0 .3rem;" data-i18n="bal.welcomeTitle">🎉 Your Rs 50 welcome payout is ready!</h3>
+        <p class="elk-note" style="margin:.2rem 0 .6rem;" data-i18n="bal.welcomeDesc">You finished 5 approved tasks. Claim your Rs 50 welcome payout now — no Rs 100 minimum for this one.</p>
+        <button type="button" class="elk-btn" id="claimWelcomeBtn" data-i18n="bal.claim">Claim Rs 50 welcome payout</button>
       </div>
       <div class="elk-form">
-        <h3 style="margin:.1rem 0 .3rem;">Request a payout</h3>
-        <p class="elk-note" style="margin:.2rem 0;">Minimum payout Rs 100. Isuru pays by hand — usually within 2 days.</p>
-        <label for="payoutAmount">Amount (Rs)</label>
+        <h3 style="margin:.1rem 0 .3rem;" data-i18n="bal.request">Request a payout</h3>
+        <p class="elk-note" style="margin:.2rem 0;" data-i18n="bal.requestNote">Minimum payout Rs 100. Isuru pays by hand — usually within 2 days.</p>
+        <label for="payoutAmount" data-i18n="bal.amount">Amount (Rs)</label>
         <input type="number" id="payoutAmount" min="100" step="1" placeholder="100" />
-        <label for="payoutMethod">How do you want to be paid?</label>
+        <label for="payoutMethod" data-i18n="bal.method">How do you want to be paid?</label>
         <select id="payoutMethod">
           <option value="Bank transfer">Bank transfer</option>
           <option value="eZ Cash">eZ Cash</option>
           <option value="Reload">Mobile reload</option>
         </select>
         <div id="payBankFields">
-          <label for="payBankName">Bank name</label>
+          <label for="payBankName" data-i18n="bal.bankName">Bank name</label>
           <input type="text" id="payBankName" placeholder="e.g. Bank of Ceylon" />
-          <label for="payAccHolder">Account holder name</label>
+          <label for="payAccHolder" data-i18n="bal.accHolder">Account holder name</label>
           <input type="text" id="payAccHolder" placeholder="Name on the account" />
-          <label for="payAccNo">Account number</label>
+          <label for="payAccNo" data-i18n="bal.accNo">Account number</label>
           <input type="text" id="payAccNo" placeholder="Account number" inputmode="numeric" />
         </div>
         <div id="payEzFields" style="display:none;">
-          <label for="payEzNo">eZ Cash mobile number</label>
+          <label for="payEzNo" data-i18n="bal.ezNo">eZ Cash mobile number</label>
           <input type="tel" id="payEzNo" placeholder="e.g. 07XXXXXXXX" inputmode="tel" />
         </div>
         <div id="payReloadFields" style="display:none;">
-          <label for="payReloadNo">Mobile number</label>
+          <label for="payReloadNo" data-i18n="bal.mobileNo">Mobile number</label>
           <input type="tel" id="payReloadNo" placeholder="e.g. 07XXXXXXXX" inputmode="tel" />
-          <label for="payNetwork">Network</label>
+          <label for="payNetwork" data-i18n="bal.network">Network</label>
           <select id="payNetwork">
             <option value="Dialog">Dialog</option>
             <option value="Mobitel">Mobitel</option>
@@ -365,17 +379,19 @@ a { color: #0b7a3e; }
           </select>
         </div>
         <p class="elk-err" id="payoutErr"></p>
-        <button type="button" class="elk-btn" id="payoutBtn">Request payout</button>
+        <button type="button" class="elk-btn" id="payoutBtn" data-i18n="bal.requestBtn">Request payout</button>
       </div>
-      <h2 class="elk-h2">📜 Payout history</h2>
-      <div class="elk-list" id="payoutHistory"><div class="elk-item">Log in to see your payouts.</div></div>
+      <h2 class="elk-h2" data-i18n="bal.history">📜 Payout history</h2>
+      <div class="elk-list" id="payoutHistory"><div class="elk-item" data-i18n="bal.historyLogin">Log in to see your payouts.</div></div>
     </div>
   </section>
 
   <!-- ============ ADMIN ============ -->
   <section class="elk-view" id="view-admin">
-    <h2 class="elk-h2">🛡️ Admin — Isuru only</h2>
-    <p class="elk-sub">Approve work, pay users, confirm package purchases. Only the Isuru account can see this page.</p>
+    <h2 class="elk-h2">🛡️ Admin Control Panel — Isuru only</h2>
+    <p class="elk-sub">Approve work, pay users, confirm package purchases, manage members. Only the Isuru account can see this page.</p>
+    <h2 class="elk-h2">👥 All users</h2>
+    <div class="elk-list" id="adminUsers"><div class="elk-item">Loading…</div></div>
     <h2 class="elk-h2">📝 Pending task submissions</h2>
     <div class="elk-list" id="adminSubs"><div class="elk-item">Loading…</div></div>
     <h2 class="elk-h2">💸 Pending payouts</h2>
@@ -403,51 +419,51 @@ a { color: #0b7a3e; }
 
   <!-- ============ RULES ============ -->
   <section class="elk-view" id="view-rules">
-    <h2 class="elk-h2">📜 Rules</h2>
+    <h2 class="elk-h2" data-i18n="rules.title">📜 Rules</h2>
     <div class="elk-text">
-      <h3>How EarnLK works</h3>
+      <h3 data-i18n="rules.how">How EarnLK works</h3>
       <ul>
-        <li>Register free with a nickname and password, then log in.</li>
-        <li>Do a task and send your work. Isuru checks every submission.</li>
-        <li>Approved work pays into your balance — photos and short videos Rs 10–20, stories Rs 15, cooking videos Rs 500, vlogs Rs 1,000. Watching a full film pays Rs 2, maximum 5 films a day.</li>
-        <li>Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
-        <li>Normal payouts need at least Rs 100 in your balance. Isuru pays by eZ Cash, bank transfer or reload, usually within 2 days.</li>
-        <li>Training packages are optional courses and toolkits. Buying one never blocks free tasks. Payouts are paid from advertising revenue only — never from other members' package money.</li>
+        <li data-i18n="rules.r1">Register free with a nickname and password, then log in.</li>
+        <li data-i18n="rules.r2">Do a task and send your work. Isuru checks every submission.</li>
+        <li data-i18n="rules.r3">Approved work pays into your balance — photos and short videos Rs 10–20, stories Rs 15, cooking videos Rs 500, vlogs Rs 1,000. Watching a full film pays Rs 2, maximum 5 films a day.</li>
+        <li data-i18n="rules.r4">Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
+        <li data-i18n="rules.r5">Normal payouts need at least Rs 100 in your balance. Isuru pays by eZ Cash, bank transfer or reload, usually within 2 days.</li>
+        <li data-i18n="rules.r6">Training packages are optional courses and toolkits. Buying one never blocks free tasks. Payouts are paid from advertising revenue only — never from other members' package money.</li>
       </ul>
-      <h3>What gets you banned</h3>
+      <h3 data-i18n="rules.banned">What gets you banned</h3>
       <ul>
-        <li>Fake, copied or stolen work.</li>
-        <li>Lying about a payment or a payout.</li>
-        <li>Asking other members for money.</li>
+        <li data-i18n="rules.b1">Fake, copied or stolen work.</li>
+        <li data-i18n="rules.b2">Lying about a payment or a payout.</li>
+        <li data-i18n="rules.b3">Asking other members for money.</li>
       </ul>
-      <p>Banned accounts lose their balance. If you think a rejection was a mistake, contact Isuru.</p>
+      <p data-i18n="rules.note">Banned accounts lose their balance. If you think a rejection was a mistake, contact Isuru.</p>
     </div>
   </section>
 
   <!-- ============ PRIVACY ============ -->
   <section class="elk-view" id="view-privacy">
-    <h2 class="elk-h2">🔒 Privacy Policy</h2>
+    <h2 class="elk-h2" data-i18n="privacy.title">🔒 Privacy Policy</h2>
     <div class="elk-text">
-      <h3>What we collect</h3>
-      <p>Your nickname, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or home address.</p>
-      <h3>How we use it</h3>
-      <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored only as a one-way hash — nobody, including Isuru, can read it.</p>
-      <h3>Advertising</h3>
-      <p>EarnLK is funded by advertising. In future we may show ads from Google AdSense. Ad providers may use cookies to show relevant ads. You can turn off personalised ads in your Google settings.</p>
-      <h3>Your data</h3>
-      <p>Ask Isuru any time to delete your account and your data. Payout records are kept only as long as needed for payment records.</p>
-      <p>Contact: Isuru — through the EarnLK site.</p>
+      <h3 data-i18n="privacy.c1">What we collect</h3>
+      <p data-i18n="privacy.p1">Your nickname, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or home address.</p>
+      <h3 data-i18n="privacy.c2">How we use it</h3>
+      <p data-i18n="privacy.p2">Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored only as a one-way hash — nobody, including Isuru, can read it.</p>
+      <h3 data-i18n="privacy.c3">Advertising</h3>
+      <p data-i18n="privacy.p3">EarnLK is funded by advertising. In future we may show ads from Google AdSense. Ad providers may use cookies to show relevant ads. You can turn off personalised ads in your Google settings.</p>
+      <h3 data-i18n="privacy.c4">Your data</h3>
+      <p data-i18n="privacy.p4">Ask Isuru any time to delete your account and your data. Payout records are kept only as long as needed for payment records.</p>
+      <p data-i18n="privacy.p5">Contact: Isuru — through the EarnLK site.</p>
     </div>
   </section>
 
 </div>
 
 <footer class="elk-footer">
-  <b>💰 EarnLK</b> — earn money in Sri Lanka by doing simple tasks.<br/>
-  Payouts are paid from advertising revenue. Free to join, no package needed to earn.<br/>
-  <button type="button" data-view="rules">Rules</button> ·
-  <button type="button" data-view="privacy">Privacy Policy</button> ·
-  <button type="button" data-view="home">Home</button><br/>
+  <b>💰 EarnLK</b> — <span data-i18n="foot.tag">earn money in Sri Lanka by doing simple tasks.</span><br/>
+  <span data-i18n="foot.note">Payouts are paid from advertising revenue. Free to join, no package needed to earn.</span><br/>
+  <button type="button" data-view="rules" data-i18n="foot.rules">Rules</button> ·
+  <button type="button" data-view="privacy" data-i18n="foot.privacy">Privacy Policy</button> ·
+  <button type="button" data-view="home" data-i18n="foot.home">Home</button><br/>
   <span style="opacity:.75;">© 2026 EarnLK</span>
 </footer>
 
@@ -469,19 +485,19 @@ a { color: #0b7a3e; }
 <div class="elk-modal-bg" id="authModalBg">
   <div class="elk-modal" role="dialog" aria-label="Log in or register">
     <button type="button" class="x" id="authCloseBtn" aria-label="Close">×</button>
-    <h3 id="authTitle">Welcome to EarnLK 💰</h3>
+    <h3 id="authTitle" data-i18n="auth.welcome">Welcome to EarnLK 💰</h3>
     <div class="elk-tabs">
-      <button type="button" id="tabLogin" class="on">Log in</button>
-      <button type="button" id="tabRegister">Register</button>
+      <button type="button" id="tabLogin" class="on" data-i18n="auth.loginTab">Log in</button>
+      <button type="button" id="tabRegister" data-i18n="auth.registerTab">Register</button>
     </div>
     <div class="elk-form" style="margin-top:0; box-shadow:none; border:none; padding:0;">
-      <label for="authNick">Nickname</label>
+      <label for="authNick" data-i18n="auth.nick">Nickname</label>
       <input type="text" id="authNick" placeholder="e.g. Kasun123" maxlength="20" autocomplete="username" />
-      <label for="authPw">Password</label>
-      <input type="password" id="authPw" placeholder="At least 6 characters" autocomplete="current-password" />
+      <label for="authPw" data-i18n="auth.pw">Password</label>
+      <input type="password" id="authPw" placeholder="At least 6 characters" data-i18n-ph="auth.pwPh" autocomplete="current-password" />
       <p class="elk-err" id="authErr"></p>
       <button type="button" class="elk-btn" id="authGoBtn">Log in</button>
-      <p class="elk-note" id="authHint">Use the nickname and password you registered with.</p>
+      <p class="elk-note" id="authHint" data-i18n="auth.hintLogin">Use the nickname and password you registered with.</p>
     </div>
   </div>
 </div>
@@ -494,21 +510,21 @@ a { color: #0b7a3e; }
     <p class="elk-note" id="taskModalDesc"></p>
     <div class="elk-form" style="margin-top:.4rem; box-shadow:none; border:none; padding:0;">
       <div id="taskTextRow">
-        <label for="taskText" id="taskTextLabel">Your work (type or paste it here)</label>
+        <label for="taskText" id="taskTextLabel" data-i18n="task.workLabel">Your work (type or paste it here)</label>
         <textarea id="taskText" placeholder="Write your work here…"></textarea>
       </div>
       <div id="taskFileRow" style="display:none;">
-        <label for="taskFile">Upload your file</label>
+        <label for="taskFile" data-i18n="task.fileLabel">Upload your file</label>
         <input type="file" id="taskFile" />
       </div>
       <div id="taskLinkRow">
-        <label for="taskLink" id="taskLinkLabel">Link to your work (image / video / file link — optional)</label>
+        <label for="taskLink" id="taskLinkLabel" data-i18n="task.linkLabel">Link to your work (image / video / file link — optional)</label>
         <input type="text" id="taskLink" placeholder="https://…" />
         <p class="elk-note" id="taskLinkNote" style="display:none;"></p>
       </div>
       <p class="elk-err" id="taskErr"></p>
-      <button type="button" class="elk-btn" id="taskSendBtn">Send my work ✓</button>
-      <p class="elk-note">Isuru checks every submission. Good work is approved and paid — usually within 1 day.</p>
+      <button type="button" class="elk-btn" id="taskSendBtn" data-i18n="task.send">Send my work ✓</button>
+      <p class="elk-note" data-i18n="task.note">Isuru checks every submission. Good work is approved and paid — usually within 1 day.</p>
     </div>
   </div>
 </div>
@@ -520,17 +536,17 @@ a { color: #0b7a3e; }
     <h3 id="buyModalTitle">Buy package</h3>
     <p class="elk-note" id="buyModalDesc"></p>
     <div class="elk-form" style="margin-top:.4rem; box-shadow:none; border:none; padding:0;">
-      <label for="buyMethod">How did you pay?</label>
+      <label for="buyMethod" data-i18n="buy.method">How did you pay?</label>
       <select id="buyMethod">
         <option value="Bank transfer">Bank transfer</option>
         <option value="eZ Cash">eZ Cash</option>
         <option value="Reload">Reload</option>
       </select>
-      <label for="buyRef">Payment reference (transaction number / receipt)</label>
+      <label for="buyRef" data-i18n="buy.ref">Payment reference (transaction number / receipt)</label>
       <input type="text" id="buyRef" placeholder="e.g. TRX123456" />
       <p class="elk-err" id="buyErr"></p>
-      <button type="button" class="elk-btn" id="buySendBtn">I paid — confirm my purchase ✓</button>
-      <p class="elk-note">Pay first, then send the reference. Isuru confirms the payment and unlocks your package. Buying a package is optional and never blocks free tasks.</p>
+      <button type="button" class="elk-btn" id="buySendBtn" data-i18n="buy.send">I paid — confirm my purchase ✓</button>
+      <p class="elk-note" data-i18n="buy.note">Pay first, then send the reference. Isuru confirms the payment and unlocks your package. Buying a package is optional and never blocks free tasks.</p>
     </div>
   </div>
 </div>
@@ -540,7 +556,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.9 ================= */
+      /* ================= EarnLK v2.0 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -588,6 +604,384 @@ a { color: #0b7a3e; }
       var PAYOUT_MIN = 100;
       var WELCOME_PAY = 50;
       var WELCOME_TASKS = 5;
+
+      /* ---------- Language: English / Sinhala / Tamil ----------
+         The switcher in the header sets the language for the whole page
+         (saved in localStorage). Static text uses data-i18n attributes,
+         task/package/film text comes from the *_I18N tables below, and
+         t() falls back to English for any string not yet translated.
+         The Admin panel stays in English — only Isuru sees it. */
+      var LANG = {
+        en: {
+          "logo.tag": "Earn money in Sri Lanka",
+          "nav.home": "🏠 Home", "nav.tasks": "📝 Tasks", "nav.packages": "🎁 Packages",
+          "nav.watch": "▶️ Watch & Earn", "nav.balance": "👛 Balance", "nav.admin": "🛡️ Admin",
+          "hero.title": "Earn money by doing simple tasks 💰",
+          "hero.sub": "Upload a photo, a video or a story — send your work, Isuru checks it, and your balance grows. Payouts are paid from advertising revenue. No fees to join.",
+          "hero.start": "Start Earning →", "hero.how": "How it works",
+          "step1.title": "Register free", "step1.desc": "Pick a nickname and a password.",
+          "step2.title": "Do a task", "step2.desc": "Choose a task, upload your photo, video or story. Tasks pay Rs 10 up to Rs 1,000.",
+          "step3.title": "Get paid", "step3.desc": "Isuru approves your work, your balance grows. Ask for payout at Rs 100.",
+          "stat.paid": "Total paid out", "stat.tasks": "Tasks completed", "stat.members": "Members",
+          "home.popular": "🔥 Popular tasks",
+          "home.popularSub": "Do any task — no package needed. Buying a package never blocks a task.",
+          "home.seeAll": "See all 6 tasks →", "home.top": "🏆 Top earners",
+          "home.packages": "🎁 Training packages",
+          "home.packagesSub": "Learn to earn more — courses and templates. Optional, never required to do tasks.",
+          "tasks.title": "📝 Tasks — do the work, get paid",
+          "tasks.sub": "Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected.",
+          "tasks.mySubs": "📋 My recent submissions",
+          "tasks.loginToSee": "Log in to see your submissions.",
+          "tasks.noSubs": "No submissions yet. Do your first task above! 💪",
+          "task.doBtn": "Do this task →",
+          "pkg.title": "🎁 Training packages",
+          "pkg.sub": "Real courses and toolkits that teach you to make AI videos, reels and posts — so you can earn more. Buying a package is optional. It never blocks free tasks, and payouts always come from advertising revenue.",
+          "pkg.my": "📦 My packages", "pkg.loginToSee": "Log in to see your packages.",
+          "pkg.howToBuy": "How to buy: tap Buy, pay by bank transfer, eZ Cash or reload, then send the payment reference. Isuru confirms the payment and unlocks your package.",
+          "pkg.buy": "Buy — Rs ", "pkg.oneTime": "one-time",
+          "watch.title": "▶️ Watch & Earn",
+          "watch.sub": "Watch a full classic film here on EarnLK and earn <b>Rs 2</b> per film. Maximum <b>5 films a day</b>. Films play right here on this page — nowhere else.",
+          "watch.login": "Log in to earn for watching.",
+          "watch.finished": "I finished watching — earn Rs 2",
+          "watch.cardNote": " Watch the full film here and earn Rs 2.",
+          "watch.today": "Today you watched {n} of 5 films. Each full film earns Rs 2.",
+          "bal.title": "👛 My Balance", "bal.login": "Please log in to see your balance.",
+          "bal.loginBtn": "Log in", "bal.your": "Your balance", "bal.earned": "Total earned",
+          "bal.paidOut": "Already paid out", "bal.approved": "Tasks approved",
+          "bal.welcomeTitle": "🎉 Your Rs 50 welcome payout is ready!",
+          "bal.welcomeDesc": "You finished 5 approved tasks. Claim your Rs 50 welcome payout now — no Rs 100 minimum for this one.",
+          "bal.claim": "Claim Rs 50 welcome payout", "bal.request": "Request a payout",
+          "bal.requestNote": "Minimum payout Rs 100. Isuru pays by hand — usually within 2 days.",
+          "bal.amount": "Amount (Rs)", "bal.method": "How do you want to be paid?",
+          "bal.bankName": "Bank name", "bal.accHolder": "Account holder name",
+          "bal.accNo": "Account number", "bal.ezNo": "eZ Cash mobile number",
+          "bal.mobileNo": "Mobile number", "bal.network": "Network",
+          "bal.requestBtn": "Request payout", "bal.history": "📜 Payout history",
+          "bal.historyLogin": "Log in to see your payouts.",
+          "rules.title": "📜 Rules", "rules.how": "How EarnLK works",
+          "rules.r1": "Register free with a nickname and password, then log in.",
+          "rules.r2": "Do a task and send your work. Isuru checks every submission.",
+          "rules.r3": "Approved work pays into your balance — photos and short videos Rs 10–20, stories Rs 15, cooking videos Rs 500, vlogs Rs 1,000. Watching a full film pays Rs 2, maximum 5 films a day.",
+          "rules.r4": "Finish 5 approved tasks and claim a Rs 50 welcome payout.",
+          "rules.r5": "Normal payouts need at least Rs 100 in your balance. Isuru pays by eZ Cash, bank transfer or reload, usually within 2 days.",
+          "rules.r6": "Training packages are optional courses and toolkits. Buying one never blocks free tasks. Payouts are paid from advertising revenue only — never from other members' package money.",
+          "rules.banned": "What gets you banned",
+          "rules.b1": "Fake, copied or stolen work.",
+          "rules.b2": "Lying about a payment or a payout.",
+          "rules.b3": "Asking other members for money.",
+          "rules.note": "Banned accounts lose their balance. If you think a rejection was a mistake, contact Isuru.",
+          "privacy.title": "🔒 Privacy Policy", "privacy.c1": "What we collect",
+          "privacy.p1": "Your nickname, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or home address.",
+          "privacy.c2": "How we use it",
+          "privacy.p2": "Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored only as a one-way hash — nobody, including Isuru, can read it.",
+          "privacy.c3": "Advertising",
+          "privacy.p3": "EarnLK is funded by advertising. In future we may show ads from Google AdSense. Ad providers may use cookies to show relevant ads. You can turn off personalised ads in your Google settings.",
+          "privacy.c4": "Your data",
+          "privacy.p4": "Ask Isuru any time to delete your account and your data. Payout records are kept only as long as needed for payment records.",
+          "privacy.p5": "Contact: Isuru — through the EarnLK site.",
+          "foot.tag": "earn money in Sri Lanka by doing simple tasks.",
+          "foot.note": "Payouts are paid from advertising revenue. Free to join, no package needed to earn.",
+          "foot.rules": "Rules", "foot.privacy": "Privacy Policy", "foot.home": "Home",
+          "auth.welcome": "Welcome to EarnLK 💰", "auth.loginTab": "Log in",
+          "auth.registerTab": "Register", "auth.nick": "Nickname", "auth.pw": "Password",
+          "auth.pwPh": "At least 6 characters",
+          "auth.hintLogin": "Use the nickname and password you registered with.",
+          "auth.hintRegister": "Register with a nickname and password, then log in. Your password is stored only as a one-way hash that nobody can read, not even Isuru.",
+          "auth.loginBtn": "Log in", "auth.createBtn": "Create my account",
+          "auth.loginRegister": "Log in / Register", "auth.logout": "Log out",
+          "task.workLabel": "Your work (type or paste it here)",
+          "task.fileLabel": "Upload your file",
+          "task.linkLabel": "Link to your work (image / video / file link — optional)",
+          "task.send": "Send my work ✓",
+          "task.note": "Isuru checks every submission. Good work is approved and paid — usually within 1 day.",
+          "buy.method": "How did you pay?",
+          "buy.ref": "Payment reference (transaction number / receipt)",
+          "buy.send": "I paid — confirm my purchase ✓",
+          "buy.note": "Pay first, then send the reference. Isuru confirms the payment and unlocks your package. Buying a package is optional and never blocks free tasks.",
+          "msg.created": "Account created for {nick}! Log in now.",
+          "msg.welcome": "Welcome back, {nick}! 👋",
+          "msg.wrongPw": "Wrong nickname or password. Try again.",
+          "msg.pwShort": "Password must be at least 6 characters.",
+          "msg.nickLen": "Nickname must be 3 to 20 letters.",
+          "msg.nickChars": "Use letters and numbers only.",
+          "msg.nickTaken": "That nickname is taken. Pick another one.",
+          "msg.noConnect": "Could not connect. Check your internet and try again.",
+          "msg.creating": "Creating your account… please wait.",
+          "msg.logging": "Logging you in… please wait.",
+          "msg.stillTrying": "Still trying… check your internet connection, then tap the button again.",
+          "msg.loggedOut": "Logged out. See you soon! 👋"
+        },
+        si: {
+          "logo.tag": "ශ්‍රී ලංකාවේ මුදල් උපයන්න",
+          "nav.home": "🏠 මුල් පිටුව", "nav.tasks": "📝 කාර්යයන්", "nav.packages": "🎁 පැකේජ",
+          "nav.watch": "▶️ නරඹලා උපයන්න", "nav.balance": "👛 ශේෂය", "nav.admin": "🛡️ පරිපාලක",
+          "hero.title": "සරල කාර්යයන් කරලා මුදල් උපයන්න 💰",
+          "hero.sub": "ඡායාරූපයක්, වීඩියෝවක් හෝ කතාවක් උඩුගත කරන්න — ඔබේ වැඩේ එවන්න, ඉසුරු එය පරීක්ෂා කරනවා, ඔබේ ශේෂය වැඩි වෙනවා. ගෙවීම් කරන්නේ දැන්වීම් ආදායමෙන්. එකතු වෙන්න කිසිම ගාස්තුවක් නැහැ.",
+          "hero.start": "උපයන්න පටන් ගන්න →", "hero.how": "කොහොමද වැඩ කරන්නේ",
+          "step1.title": "නොමිලේ ලියාපදිංචි වන්න", "step1.desc": "අන්වර්ථ නාමයක් සහ මුරපදයක් තෝරන්න.",
+          "step2.title": "කාර්යයක් කරන්න", "step2.desc": "කාර්යයක් තෝරලා, ඔබේ ඡායාරූපය, වීඩියෝව හෝ කතාව උඩුගත කරන්න. කාර්යයන් සඳහා රු. 10 සිට රු. 1,000 දක්වා ගෙවනවා.",
+          "step3.title": "මුදල් ලබාගන්න", "step3.desc": "ඉසුරු ඔබේ වැඩේ අනුමත කරනවා, ඔබේ ශේෂය වැඩි වෙනවා. රු. 100 දී ගෙවීම ඉල්ලන්න.",
+          "stat.paid": "මුළු ගෙවූ මුදල", "stat.tasks": "සම්පූර්ණ කළ කාර්යයන්", "stat.members": "සාමාජිකයන්",
+          "home.popular": "🔥 ජනප්‍රිය කාර්යයන්",
+          "home.popularSub": "ඕනෑම කාර්යයක් කරන්න — පැකේජයක් අවශ්‍ය නැහැ. පැකේජයක් ගැනීම කාර්යයක් අවහිර කරන්නේ නැහැ.",
+          "home.seeAll": "කාර්යයන් 6ම බලන්න →", "home.top": "🏆 වැඩියෙන්ම උපයපු අය",
+          "home.packages": "🎁 පුහුණු පැකේජ",
+          "home.packagesSub": "වැඩියෙන් උපයන්න ඉගෙන ගන්න — පාඨමාලා සහ අච්චු. අත්‍යවශ්‍ය නැහැ, කාර්යයන් කරන්න අවශ්‍යත් නැහැ.",
+          "tasks.title": "📝 කාර්යයන් — වැඩේ කරන්න, මුදල් ගන්න",
+          "tasks.sub": "සෑම කාර්යයක්ම ඉසුරු පරීක්ෂා කරනවා. හොඳ වැඩ අනුමත කරලා ගෙවනවා. ව්‍යාජ හෝ පිටපත් කළ වැඩ ප්‍රතික්ෂේප කරනවා.",
+          "tasks.mySubs": "📋 මගේ මෑත ඉදිරිපත් කිරීම්",
+          "tasks.loginToSee": "ඔබේ ඉදිරිපත් කිරීම් බලන්න ඇතුළු වන්න.",
+          "tasks.noSubs": "තවම ඉදිරිපත් කිරීම් නැහැ. උඩින් ඔබේ පළමු කාර්යය කරන්න! 💪",
+          "task.doBtn": "මේ කාර්යය කරන්න →",
+          "pkg.title": "🎁 පුහුණු පැකේජ",
+          "pkg.sub": "AI වීඩියෝ, රීල්ස් සහ පෝස්ට් හදන්න උගන්වන සැබෑ පාඨමාලා සහ මෙවලම් — එතකොට ඔබට වැඩියෙන් උපයන්න පුළුවන්. පැකේජයක් ගැනීම අත්‍යවශ්‍ය නැහැ. එය නොමිලේ කාර්යයන් අවහිර කරන්නේ නැහැ, ගෙවීම් හැම විටම දැන්වීම් ආදායමෙන් එන්නේ.",
+          "pkg.my": "📦 මගේ පැකේජ", "pkg.loginToSee": "ඔබේ පැකේජ බලන්න ඇතුළු වන්න.",
+          "pkg.howToBuy": "මිලදී ගන්නේ මෙහෙමයි: Buy ඔබන්න, බැංකු හුවමාරුවෙන්, eZ Cash හෝ reload මගින් ගෙවන්න, පස්සේ ගෙවීමේ යොමුව එවන්න. ඉසුරු ගෙවීම තහවුරු කරලා ඔබේ පැකේජය විවෘත කරනවා.",
+          "pkg.buy": "මිලදී ගන්න — රු. ", "pkg.oneTime": "එක් වරක්",
+          "watch.title": "▶️ නරඹලා උපයන්න",
+          "watch.sub": "EarnLK එකේ සම්පූර්ණ සම්භාව්‍ය චිත්‍රපටයක් නරඹලා චිත්‍රපටයකට <b>රු. 2</b>ක් උපයන්න. දවසකට උපරිම <b>චිත්‍රපට 5</b>යි. චිත්‍රපට මේ පිටුවේම දුවනවා — වෙන කොහේවත් නැහැ.",
+          "watch.login": "නැරඹීමෙන් උපයන්න ඇතුළු වන්න.",
+          "watch.finished": "මම නැරඹීම ඉවරයි — රු. 2ක් උපයන්න",
+          "watch.cardNote": " සම්පූර්ණ චිත්‍රපටය මෙතැනම නරඹලා රු. 2ක් උපයන්න.",
+          "watch.today": "අද ඔබ චිත්‍රපට {n}ක් නැරඹුවා. සම්පූර්ණ චිත්‍රපටයකට රු. 2ක් ලැබෙනවා.",
+          "bal.title": "👛 මගේ ශේෂය", "bal.login": "ඔබේ ශේෂය බලන්න කරුණාකර ඇතුළු වන්න.",
+          "bal.loginBtn": "ඇතුළු වන්න", "bal.your": "ඔබේ ශේෂය", "bal.earned": "මුළු උපයාගත් මුදල",
+          "bal.paidOut": "දැනටමත් ගෙවා ඇති මුදල", "bal.approved": "අනුමත කළ කාර්යයන්",
+          "bal.welcomeTitle": "🎉 ඔබේ රු. 50 පිළිගැනීමේ ගෙවීම සූදානම්!",
+          "bal.welcomeDesc": "ඔබ අනුමත කාර්යයන් 5ක් ඉවරයි. ඔබේ රු. 50 පිළිගැනීමේ ගෙවීම දැන් ඉල්ලන්න — මේකට රු. 100 අවමයක් නැහැ.",
+          "bal.claim": "රු. 50 පිළිගැනීමේ ගෙවීම ඉල්ලන්න", "bal.request": "ගෙවීමක් ඉල්ලන්න",
+          "bal.requestNote": "අවම ගෙවීම රු. 100යි. ඉසුරු අතින් ගෙවනවා — සාමාන්‍යයෙන් දින 2ක් ඇතුළත.",
+          "bal.amount": "මුදල (රු.)", "bal.method": "ඔබට ගෙවිය යුත්තේ කොහොමද?",
+          "bal.bankName": "බැංකුවේ නම", "bal.accHolder": "ගිණුම් හිමියාගේ නම",
+          "bal.accNo": "ගිණුම් අංකය", "bal.ezNo": "eZ Cash ජංගම දුරකථන අංකය",
+          "bal.mobileNo": "ජංගම දුරකථන අංකය", "bal.network": "ජාලය",
+          "bal.requestBtn": "ගෙවීම ඉල්ලන්න", "bal.history": "📜 ගෙවීම් ඉතිහාසය",
+          "bal.historyLogin": "ඔබේ ගෙවීම් බලන්න ඇතුළු වන්න.",
+          "rules.title": "📜 නීති", "rules.how": "EarnLK වැඩ කරන්නේ මෙහෙමයි",
+          "rules.r1": "අන්වර්ථ නාමයක් සහ මුරපදයක් දාලා නොමිලේ ලියාපදිංචි වෙන්න, පස්සේ ඇතුළු වන්න.",
+          "rules.r2": "කාර්යයක් කරලා ඔබේ වැඩේ එවන්න. ඉසුරු සෑම ඉදිරිපත් කිරීමක්ම පරීක්ෂා කරනවා.",
+          "rules.r3": "අනුමත වැඩ සඳහා ඔබේ ශේෂයට ගෙවනවා — ඡායාරූප සහ කෙටි වීඩියෝ රු. 10–20, කතා රු. 15, ඉවුම් පිහුම් වීඩියෝ රු. 500, ව්ලොග් රු. 1,000. සම්පූර්ණ චිත්‍රපටයක් නැරඹීමෙන් රු. 2ක්, දවසකට උපරිම චිත්‍රපට 5යි.",
+          "rules.r4": "අනුමත කාර්යයන් 5ක් ඉවර කරලා රු. 50 පිළිගැනීමේ ගෙවීම ඉල්ලන්න.",
+          "rules.r5": "සාමාන්‍ය ගෙවීම් සඳහා ඔබේ ශේෂයේ අවම වශයෙන් රු. 100ක් තිබිය යුතුයි. ඉසුරු eZ Cash, බැංකු හුවමාරුව හෝ reload මගින් ගෙවනවා, සාමාන්‍යයෙන් දින 2ක් ඇතුළත.",
+          "rules.r6": "පුහුණු පැකේජ කියන්නේ අත්‍යවශ්‍ය නැති පාඨමාලා සහ මෙවලම්. එකක් ගැනීම නොමිලේ කාර්යයන් අවහිර කරන්නේ නැහැ. ගෙවීම් කරන්නේ දැන්වීම් ආදායමෙන් විතරයි — වෙනත් සාමාජිකයන්ගේ පැකේජ මුදල් වලින් නෙමෙයි.",
+          "rules.banned": "ඔබව තහනම් කරන්නේ මොනවද",
+          "rules.b1": "ව්‍යාජ, පිටපත් කළ හෝ සොරකම් කළ වැඩ.",
+          "rules.b2": "ගෙවීමක් හෝ මුදල් ගැන බොරු කීම.",
+          "rules.b3": "වෙනත් සාමාජිකයන්ගෙන් මුදල් ඉල්ලීම.",
+          "rules.note": "තහනම් කළ ගිණුම්වල ශේෂය නැති වෙනවා. ප්‍රතික්ෂේපයක් වැරදියි කියලා හිතෙනවා නම් ඉසුරුට කියන්න.",
+          "privacy.title": "🔒 පෞද්ගලිකත්ව ප්‍රතිපත්තිය", "privacy.c1": "අපි එකතු කරන්නේ මොනවද",
+          "privacy.p1": "ඔබේ අන්වර්ථ නාමය, ඔබේ කාර්ය ඉදිරිපත් කිරීම්, ඔබේ ශේෂය සහ ගෙවීම් විස්තර, සහ ඔබේ පැකේජ මිලදී ගැනීම්. අපි ඔබේ සැබෑ නම, හැඳුනුම්පත් අංකය හෝ නිවසේ ලිපිනය අහන්නේ නැහැ.",
+          "privacy.c2": "අපි එය පාවිච්චි කරන්නේ මෙහෙමයි",
+          "privacy.p2": "EarnLK පවත්වාගෙන යන්න විතරයි: ඔබේ වැඩේ පරීක්ෂා කරන්න, ඔබට ගෙවන්න, සහ වංචාව නවත්වන්න. ඔබේ මුරපදය තියෙන්නේ එක් පැත්තකට විතරක් යන හැෂ් එකක් විදියටයි — ඉසුරු ඇතුළු කිසිවෙකුට එය කියවන්න බැහැ.",
+          "privacy.c3": "දැන්වීම්",
+          "privacy.p3": "EarnLK වලට මුදල් ලැබෙන්නේ දැන්වීම් වලින්. ඉදිරියේදී අපි Google AdSense දැන්වීම් පෙන්වන්න පුළුවන්. දැන්වීම් දෙන්නන් ඔබට ගැළපෙන දැන්වීම් පෙන්වන්න කුකීස් පාවිච්චි කරන්න පුළුවන්. ඔබේ Google සැකසුම් වලින් පුද්ගලික දැන්වීම් නිවා දැමිය හැකියි.",
+          "privacy.c4": "ඔබේ දත්ත",
+          "privacy.p4": "ඕනෑම වෙලාවක ඉසුරුගෙන් ඔබේ ගිණුම සහ දත්ත මකන්න ඉල්ලන්න. ගෙවීම් වාර්තා තියෙන්නේ ගෙවීම් වාර්තා සඳහා අවශ්‍ය කාලය විතරයි.",
+          "privacy.p5": "සම්බන්ධ වන්න: ඉසුරු — EarnLK අඩවිය හරහා.",
+          "foot.tag": "සරල කාර්යයන් කරලා ශ්‍රී ලංකාවේ මුදල් උපයන්න.",
+          "foot.note": "ගෙවීම් කරන්නේ දැන්වීම් ආදායමෙන්. එකතු වෙන්න නොමිලේ, උපයන්න පැකේජයක් අවශ්‍ය නැහැ.",
+          "foot.rules": "නීති", "foot.privacy": "පෞද්ගලිකත්ව ප්‍රතිපත්තිය", "foot.home": "මුල් පිටුව",
+          "auth.welcome": "EarnLK වෙත සාදරයෙන් පිළිගනිමු 💰", "auth.loginTab": "ඇතුළු වන්න",
+          "auth.registerTab": "ලියාපදිංචි වන්න", "auth.nick": "අන්වර්ථ නාමය", "auth.pw": "මුරපදය",
+          "auth.pwPh": "අවම වශයෙන් අක්ෂර 6ක්",
+          "auth.hintLogin": "ඔබ ලියාපදිංචි වූ අන්වර්ථ නාමය සහ මුරපදය පාවිච්චි කරන්න.",
+          "auth.hintRegister": "අන්වර්ථ නාමයක් සහ මුරපදයක් දාලා ලියාපදිංචි වෙන්න, පස්සේ ඇතුළු වන්න. ඔබේ මුරපදය තියෙන්නේ එක් පැත්තකට විතරක් යන හැෂ් එකක් විදියටයි — ඉසුරුට වත් එය කියවන්න බැහැ.",
+          "auth.loginBtn": "ඇතුළු වන්න", "auth.createBtn": "මගේ ගිණුම හදන්න",
+          "auth.loginRegister": "ඇතුළු වන්න / ලියාපදිංචි වන්න", "auth.logout": "ඉවත් වන්න",
+          "task.workLabel": "ඔබේ වැඩේ (මෙතැන ටයිප් කරන්න හෝ අලවන්න)",
+          "task.fileLabel": "ඔබේ ගොනුව උඩුගත කරන්න",
+          "task.linkLabel": "ඔබේ වැඩේට ලින්ක් එක (පින්තූරය / වීඩියෝව / ගොනු ලින්ක් — අත්‍යවශ්‍ය නැහැ)",
+          "task.send": "මගේ වැඩේ එවන්න ✓",
+          "task.note": "ඉසුරු සෑම ඉදිරිපත් කිරීමක්ම පරීක්ෂා කරනවා. හොඳ වැඩ අනුමත කරලා ගෙවනවා — සාමාන්‍යයෙන් දින 1ක් ඇතුළත.",
+          "buy.method": "ඔබ ගෙව්වේ කොහොමද?",
+          "buy.ref": "ගෙවීමේ යොමුව (ගනුදෙනු අංකය / රිසිට් එක)",
+          "buy.send": "මම ගෙව්වා — මගේ මිලදී ගැනීම තහවුරු කරන්න ✓",
+          "buy.note": "පළමුව ගෙවන්න, පස්සේ යොමුව එවන්න. ඉසුරු ගෙවීම තහවුරු කරලා ඔබේ පැකේජය විවෘත කරනවා. පැකේජයක් ගැනීම අත්‍යවශ්‍ය නැහැ, නොමිලේ කාර්යයන් අවහිර කරන්නේ නැහැ.",
+          "msg.created": "{nick} වෙනුවෙන් ගිණුම හැදුණා! දැන් ඇතුළු වන්න.",
+          "msg.welcome": "ආපසු සාදරයෙන් පිළිගනිමු, {nick}! 👋",
+          "msg.wrongPw": "අන්වර්ථ නාමය හෝ මුරපදය වැරදියි. නැවත උත්සාහ කරන්න.",
+          "msg.pwShort": "මුරපදය අවම වශයෙන් අක්ෂර 6ක් විය යුතුයි.",
+          "msg.nickLen": "අන්වර්ථ නාමය අක්ෂර 3 සිට 20 දක්වා විය යුතුයි.",
+          "msg.nickChars": "අකුරු සහ ඉලක්කම් විතරක් පාවිච්චි කරන්න.",
+          "msg.nickTaken": "ඒ අන්වර්ථ නාමය අරගෙන. වෙන එකක් තෝරන්න.",
+          "msg.noConnect": "සම්බන්ධ වෙන්න බැරි වුණා. ඔබේ අන්තර්ජාලය බලලා නැවත උත්සාහ කරන්න.",
+          "msg.creating": "ඔබේ ගිණුම හදනවා… ටිකක් ඉන්න.",
+          "msg.logging": "ඔබව ඇතුළු කරනවා… ටිකක් ඉන්න.",
+          "msg.stillTrying": "තවම උත්සාහ කරනවා… ඔබේ අන්තර්ජාල සම්බන්ධතාව බලලා, බොත්තම නැවත ඔබන්න.",
+          "msg.loggedOut": "ඉවත් වුණා. ආයෙත් හමුවෙමු! 👋"
+        },
+        ta: {
+          "logo.tag": "இலங்கையில் பணம் சம்பாதிக்க",
+          "nav.home": "🏠 முகப்பு", "nav.tasks": "📝 பணிகள்", "nav.packages": "🎁 தொகுப்புகள்",
+          "nav.watch": "▶️ பார்த்து சம்பாதிக்க", "nav.balance": "👛 இருப்பு", "nav.admin": "🛡️ நிர்வாகம்",
+          "hero.title": "எளிய பணிகள் செய்து பணம் சம்பாதிக்க 💰",
+          "hero.sub": "ஒரு புகைப்படம், வீடியோ அல்லது கதையை பதிவேற்றுங்கள் — உங்கள் வேலையை அனுப்புங்கள், இசுரு அதை சரிபார்ப்பார், உங்கள் இருப்பு வளரும். விளம்பர வருமானத்தில் இருந்து பணம் கொடுக்கப்படும். சேர கட்டணம் இல்லை.",
+          "hero.start": "சம்பாதிக்க தொடங்குங்கள் →", "hero.how": "எப்படி வேலை செய்கிறது",
+          "step1.title": "இலவசமாக பதிவு செய்யுங்கள்", "step1.desc": "ஒரு புனைப்பெயரையும் கடவுச்சொல்லையும் தேர்ந்தெடுங்கள்.",
+          "step2.title": "ஒரு பணியை செய்யுங்கள்", "step2.desc": "ஒரு பணியை தேர்ந்து, உங்கள் புகைப்படம், வீடியோ அல்லது கதையை பதிவேற்றுங்கள். பணிகளுக்கு ரூ. 10 முதல் ரூ. 1,000 வரை கொடுக்கப்படும்.",
+          "step3.title": "பணம் பெறுங்கள்", "step3.desc": "இசுரு உங்கள் வேலையை அங்கீகரிப்பார், உங்கள் இருப்பு வளரும். ரூ. 100 இல் பணம் கேளுங்கள்.",
+          "stat.paid": "மொத்தம் கொடுத்த தொகை", "stat.tasks": "முடிந்த பணிகள்", "stat.members": "உறுப்பினர்கள்",
+          "home.popular": "🔥 பிரபலமான பணிகள்",
+          "home.popularSub": "எந்த பணியையும் செய்யுங்கள் — தொகுப்பு தேவையில்லை. தொகுப்பு வாங்குவது பணியை தடுக்காது.",
+          "home.seeAll": "6 பணிகளையும் பார்க்க →", "home.top": "🏆 அதிகம் சம்பாதித்தவர்கள்",
+          "home.packages": "🎁 பயிற்சி தொகுப்புகள்",
+          "home.packagesSub": "அதிகம் சம்பாதிக்க கற்றுக்கொள்ளுங்கள் — பாடங்களும் வார்ப்புருக்களும். விருப்பமானது, பணிகள் செய்ய தேவையில்லை.",
+          "tasks.title": "📝 பணிகள் — வேலை செய்யுங்கள், பணம் பெறுங்கள்",
+          "tasks.sub": "ஒவ்வொரு பணியையும் இசுரு சரிபார்ப்பார். நல்ல வேலை அங்கீகரிக்கப்பட்டு பணம் கொடுக்கப்படும். போலி அல்லது நகல் வேலை நிராகரிக்கப்படும்.",
+          "tasks.mySubs": "📋 என் சமீபத்திய சமர்ப்பிப்புகள்",
+          "tasks.loginToSee": "உங்கள் சமர்ப்பிப்புகளை பார்க்க உள்நுழையுங்கள்.",
+          "tasks.noSubs": "இன்னும் சமர்ப்பிப்புகள் இல்லை. மேலே உங்கள் முதல் பணியை செய்யுங்கள்! 💪",
+          "task.doBtn": "இந்த பணியை செய்யுங்கள் →",
+          "pkg.title": "🎁 பயிற்சி தொகுப்புகள்",
+          "pkg.sub": "AI வீடியோக்கள், ரீல்ஸ் மற்றும் பதிவுகள் செய்ய கற்றுத்தரும் உண்மையான பாடங்களும் கருவிகளும் — அதனால் நீங்கள் அதிகம் சம்பாதிக்கலாம். தொகுப்பு வாங்குவது விருப்பமானது. அது இலவச பணிகளை தடுக்காது, பணம் எப்போதும் விளம்பர வருமானத்தில் இருந்தே வரும்.",
+          "pkg.my": "📦 என் தொகுப்புகள்", "pkg.loginToSee": "உங்கள் தொகுப்புகளை பார்க்க உள்நுழையுங்கள்.",
+          "pkg.howToBuy": "வாங்குவது எப்படி: Buy என்பதை தட்டி, வங்கி பரிமாற்றம், eZ Cash அல்லது reload மூலம் பணம் செலுத்தி, பிறகு கட்டண குறிப்பை அனுப்புங்கள். இசுரு கட்டணத்தை உறுதி செய்து உங்கள் தொகுப்பை திறப்பார்.",
+          "pkg.buy": "வாங்குங்கள் — ரூ. ", "pkg.oneTime": "ஒரு முறை",
+          "watch.title": "▶️ பார்த்து சம்பாதிக்க",
+          "watch.sub": "EarnLK இல் ஒரு முழு செவ்வியல் திரைப்படத்தை பார்த்து ஒரு படத்துக்கு <b>ரூ. 2</b> சம்பாதிக்கலாம். ஒரு நாளைக்கு அதிகபட்சம் <b>5 படங்கள்</b>. படங்கள் இந்த பக்கத்திலேயே ஓடும் — வேறு எங்கும் இல்லை.",
+          "watch.login": "பார்த்து சம்பாதிக்க உள்நுழையுங்கள்.",
+          "watch.finished": "நான் பார்த்து முடித்தேன் — ரூ. 2 சம்பாதிக்க",
+          "watch.cardNote": " முழு படத்தையும் இங்கேயே பார்த்து ரூ. 2 சம்பாதிக்கலாம்.",
+          "watch.today": "இன்று நீங்கள் {n} படங்கள் பார்த்தீர்கள். ஒரு முழு படத்துக்கு ரூ. 2 கிடைக்கும்.",
+          "bal.title": "👛 என் இருப்பு", "bal.login": "உங்கள் இருப்பை பார்க்க தயவுசெய்து உள்நுழையுங்கள்.",
+          "bal.loginBtn": "உள்நுழை", "bal.your": "உங்கள் இருப்பு", "bal.earned": "மொத்த சம்பாதிப்பு",
+          "bal.paidOut": "ஏற்கனவே கொடுத்த தொகை", "bal.approved": "அங்கீகரித்த பணிகள்",
+          "bal.welcomeTitle": "🎉 உங்கள் ரூ. 50 வரவேற்பு பணம் தயார்!",
+          "bal.welcomeDesc": "நீங்கள் 5 அங்கீகரித்த பணிகளை முடித்தீர்கள். உங்கள் ரூ. 50 வரவேற்பு பணத்தை இப்போது கேளுங்கள் — இதற்கு ரூ. 100 குறைந்தபட்சம் இல்லை.",
+          "bal.claim": "ரூ. 50 வரவேற்பு பணத்தை கேளுங்கள்", "bal.request": "பணம் கேளுங்கள்",
+          "bal.requestNote": "குறைந்தபட்ச பணம் ரூ. 100. இசுரு கையால் கொடுப்பார் — பொதுவாக 2 நாட்களுக்குள்.",
+          "bal.amount": "தொகை (ரூ.)", "bal.method": "உங்களுக்கு எப்படி பணம் வேண்டும்?",
+          "bal.bankName": "வங்கி பெயர்", "bal.accHolder": "கணக்கு வைத்திருப்பவர் பெயர்",
+          "bal.accNo": "கணக்கு எண்", "bal.ezNo": "eZ Cash கைபேசி எண்",
+          "bal.mobileNo": "கைபேசி எண்", "bal.network": "வலையமைப்பு",
+          "bal.requestBtn": "பணம் கேளுங்கள்", "bal.history": "📜 பண வரலாறு",
+          "bal.historyLogin": "உங்கள் பணத்தை பார்க்க உள்நுழையுங்கள்.",
+          "rules.title": "📜 விதிகள்", "rules.how": "EarnLK எப்படி வேலை செய்கிறது",
+          "rules.r1": "ஒரு புனைப்பெயரும் கடவுச்சொல்லும் கொடுத்து இலவசமாக பதிவு செய்து, பிறகு உள்நுழையுங்கள்.",
+          "rules.r2": "ஒரு பணியை செய்து உங்கள் வேலையை அனுப்புங்கள். இசுரு ஒவ்வொரு சமர்ப்பிப்பையும் சரிபார்ப்பார்.",
+          "rules.r3": "அங்கீகரித்த வேலைக்கு உங்கள் இருப்பில் பணம் வரும் — புகைப்படங்கள் மற்றும் குறு வீடியோக்கள் ரூ. 10–20, கதைகள் ரூ. 15, சமையல் வீடியோக்கள் ரூ. 500, வ்லாக் ரூ. 1,000. ஒரு முழு படம் பார்த்தால் ரூ. 2, ஒரு நாளைக்கு அதிகபட்சம் 5 படங்கள்.",
+          "rules.r4": "5 அங்கீகரித்த பணிகளை முடித்து ரூ. 50 வரவேற்பு பணத்தை கேளுங்கள்.",
+          "rules.r5": "சாதாரண பணத்துக்கு உங்கள் இருப்பில் குறைந்தபட்சம் ரூ. 100 இருக்க வேண்டும். இசுரு eZ Cash, வங்கி பரிமாற்றம் அல்லது reload மூலம் கொடுப்பார், பொதுவாக 2 நாட்களுக்குள்.",
+          "rules.r6": "பயிற்சி தொகுப்புகள் விருப்பமான பாடங்களும் கருவிகளும். ஒன்றை வாங்குவது இலவச பணிகளை தடுக்காது. பணம் விளம்பர வருமானத்தில் இருந்து மட்டுமே கொடுக்கப்படும் — மற்ற உறுப்பினர்களின் தொகுப்பு பணத்தில் இருந்து அல்ல.",
+          "rules.banned": "உங்களை தடை செய்வது எது",
+          "rules.b1": "போலி, நகல் அல்லது திருடிய வேலை.",
+          "rules.b2": "கட்டணம் அல்லது பணம் பற்றி பொய் சொல்வது.",
+          "rules.b3": "மற்ற உறுப்பினர்களிடம் பணம் கேட்பது.",
+          "rules.note": "தடை செய்த கணக்குகள் தங்கள் இருப்பை இழக்கும். நிராகரிப்பு தவறு என்று நினைத்தால் இசுருவிடம் சொல்லுங்கள்.",
+          "privacy.title": "🔒 தனியுரிமை கொள்கை", "privacy.c1": "நாங்கள் சேகரிப்பது என்ன",
+          "privacy.p1": "உங்கள் புனைப்பெயர், உங்கள் பணி சமர்ப்பிப்புகள், உங்கள் இருப்பு மற்றும் பண விவரங்கள், மற்றும் உங்கள் தொகுப்பு வாங்கல்கள். உங்கள் உண்மையான பெயர், அடையாள எண் அல்லது வீட்டு முகவரியை நாங்கள் கேட்க மாட்டோம்.",
+          "privacy.c2": "நாங்கள் அதை எப்படி பயன்படுத்துகிறோம்",
+          "privacy.p2": "EarnLK நடத்த மட்டுமே: உங்கள் வேலையை சரிபார்க்க, உங்களுக்கு பணம் கொடுக்க, மற்றும் மோசடியை நிறுத்த. உங்கள் கடவுச்சொல் ஒரு வழி ஹாஷ் ஆக மட்டுமே வைக்கப்படும் — இசுரு உட்பட யாராலும் அதை படிக்க முடியாது.",
+          "privacy.c3": "விளம்பரம்",
+          "privacy.p3": "EarnLK விளம்பரத்தால் நிதி பெறுகிறது. எதிர்காலத்தில் Google AdSense விளம்பரங்களை காட்டலாம். விளம்பர நிறுவனங்கள் உங்களுக்கு பொருத்தமான விளம்பரங்களை காட்ட குக்கீகளை பயன்படுத்தலாம். உங்கள் Google அமைப்புகளில் தனிப்பட்ட விளம்பரங்களை நிறுத்தலாம்.",
+          "privacy.c4": "உங்கள் தரவு",
+          "privacy.p4": "எப்போது வேண்டுமானாலும் இசுருவிடம் உங்கள் கணக்கையும் தரவையும் நீக்க சொல்லுங்கள். பண பதிவுகள் கட்டண பதிவுகளுக்கு தேவையான காலம் மட்டுமே வைக்கப்படும்.",
+          "privacy.p5": "தொடர்பு: இசுரு — EarnLK தளம் மூலம்.",
+          "foot.tag": "எளிய பணிகள் செய்து இலங்கையில் பணம் சம்பாதிக்க.",
+          "foot.note": "விளம்பர வருமானத்தில் இருந்து பணம் கொடுக்கப்படும். சேர இலவசம், சம்பாதிக்க தொகுப்பு தேவையில்லை.",
+          "foot.rules": "விதிகள்", "foot.privacy": "தனியுரிமை கொள்கை", "foot.home": "முகப்பு",
+          "auth.welcome": "EarnLK க்கு வரவேற்கிறோம் 💰", "auth.loginTab": "உள்நுழை",
+          "auth.registerTab": "பதிவு செய்", "auth.nick": "புனைப்பெயர்", "auth.pw": "கடவுச்சொல்",
+          "auth.pwPh": "குறைந்தபட்சம் 6 எழுத்துகள்",
+          "auth.hintLogin": "நீங்கள் பதிவு செய்த புனைப்பெயரையும் கடவுச்சொல்லையும் பயன்படுத்துங்கள்.",
+          "auth.hintRegister": "ஒரு புனைப்பெயரும் கடவுச்சொல்லும் கொடுத்து பதிவு செய்து, பிறகு உள்நுழையுங்கள். உங்கள் கடவுச்சொல் ஒரு வழி ஹாஷ் ஆக மட்டுமே வைக்கப்படும் — இசுருவால் கூட அதை படிக்க முடியாது.",
+          "auth.loginBtn": "உள்நுழை", "auth.createBtn": "என் கணக்கை உருவாக்கு",
+          "auth.loginRegister": "உள்நுழை / பதிவு செய்", "auth.logout": "வெளியேறு",
+          "task.workLabel": "உங்கள் வேலை (இங்கே தட்டச்சு செய்யுங்கள் அல்லது ஒட்டுங்கள்)",
+          "task.fileLabel": "உங்கள் கோப்பை பதிவேற்றுங்கள்",
+          "task.linkLabel": "உங்கள் வேலைக்கான இணைப்பு (படம் / வீடியோ / கோப்பு இணைப்பு — விருப்பமானது)",
+          "task.send": "என் வேலையை அனுப்பு ✓",
+          "task.note": "இசுரு ஒவ்வொரு சமர்ப்பிப்பையும் சரிபார்ப்பார். நல்ல வேலை அங்கீகரிக்கப்பட்டு பணம் கொடுக்கப்படும் — பொதுவாக 1 நாளுக்குள்.",
+          "buy.method": "நீங்கள் எப்படி பணம் செலுத்தினீர்கள்?",
+          "buy.ref": "கட்டண குறிப்பு (பரிவர்த்தனை எண் / ரசீது)",
+          "buy.send": "நான் பணம் செலுத்திவிட்டேன் — என் வாங்கலை உறுதி செய்யுங்கள் ✓",
+          "buy.note": "முதலில் பணம் செலுத்தி, பிறகு குறிப்பை அனுப்புங்கள். இசுரு கட்டணத்தை உறுதி செய்து உங்கள் தொகுப்பை திறப்பார். தொகுப்பு வாங்குவது விருப்பமானது, இலவச பணிகளை தடுக்காது.",
+          "msg.created": "{nick} க்கு கணக்கு உருவானது! இப்போது உள்நுழையுங்கள்.",
+          "msg.welcome": "மீண்டும் வரவேற்கிறோம், {nick}! 👋",
+          "msg.wrongPw": "புனைப்பெயர் அல்லது கடவுச்சொல் தவறு. மீண்டும் முயற்சிக்கவும்.",
+          "msg.pwShort": "கடவுச்சொல் குறைந்தபட்சம் 6 எழுத்துகள் இருக்க வேண்டும்.",
+          "msg.nickLen": "புனைப்பெயர் 3 முதல் 20 எழுத்துகள் இருக்க வேண்டும்.",
+          "msg.nickChars": "எழுத்துகள் மற்றும் எண்களை மட்டும் பயன்படுத்துங்கள்.",
+          "msg.nickTaken": "அந்த புனைப்பெயர் எடுக்கப்பட்டது. வேறு ஒன்றை தேர்ந்தெடுங்கள்.",
+          "msg.noConnect": "இணைக்க முடியவில்லை. உங்கள் இணையத்தை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+          "msg.creating": "உங்கள் கணக்கு உருவாக்கப்படுகிறது… கொஞ்சம் காத்திருங்கள்.",
+          "msg.logging": "உங்களை உள்நுழைக்கிறோம்… கொஞ்சம் காத்திருங்கள்.",
+          "msg.stillTrying": "இன்னும் முயற்சிக்கிறோம்… உங்கள் இணைய இணைப்பை சரிபார்த்து, பொத்தானை மீண்டும் தட்டுங்கள்.",
+          "msg.loggedOut": "வெளியேறிவிட்டீர்கள். மீண்டும் சந்திப்போம்! 👋"
+        }
+      };
+      var lang = "en";
+      try { lang = localStorage.getItem("earnlk.lang") || "en"; } catch (e) {}
+      if (!LANG[lang]) lang = "en";
+      function t(key) {
+        var d = LANG[lang] || LANG.en;
+        if (d && d[key] !== undefined) return d[key];
+        if (LANG.en[key] !== undefined) return LANG.en[key];
+        return key;
+      }
+      function applyLang() {
+        document.documentElement.lang = lang;
+        var els = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < els.length; i++) els[i].textContent = t(els[i].getAttribute("data-i18n"));
+        var htmls = document.querySelectorAll("[data-i18n-html]");
+        for (var j = 0; j < htmls.length; j++) htmls[j].innerHTML = t(htmls[j].getAttribute("data-i18n-html"));
+        var phs = document.querySelectorAll("[data-i18n-ph]");
+        for (var k = 0; k < phs.length; k++) phs[k].setAttribute("placeholder", t(phs[k].getAttribute("data-i18n-ph")));
+        var sw = document.querySelectorAll("#langSwitch button");
+        for (var m = 0; m < sw.length; m++) sw[m].classList.toggle("on", sw[m].getAttribute("data-lang") === lang);
+        renderTasks(); renderPackages(); renderVideos(); renderAuth();
+        if (typeof renderMySubs === "function") renderMySubs();
+        if (typeof renderMyPackages === "function") renderMyPackages();
+        if (typeof refreshWatchStates === "function") refreshWatchStates();
+        if (typeof renderPayoutHistory === "function") renderPayoutHistory();
+      }
+      function setLang(l) {
+        if (!LANG[l]) return;
+        lang = l;
+        try { localStorage.setItem("earnlk.lang", l); } catch (e) {}
+        applyLang();
+      }
+      /* Task / package / film text in all three languages, by id. */
+      var TASKS_I18N = {
+        shortvideo: { si: { title: "කෙටි වීඩියෝවක් උඩුගත කරන්න", desc: "ලස්සන කෙටි වීඩියෝවක්, තත්පර 15 සිට 60 දක්වා — සොබාදහම, ගමේ ජීවිතය, කෑම, ඕනෑම ලස්සන දෙයක්." }, ta: { title: "ஒரு குறு வீடியோவை பதிவேற்றுங்கள்", desc: "அழகான குறு வீடியோ, 15 முதல் 60 வினாடிகள் — இயற்கை, கிராம வாழ்க்கை, உணவு, எதுவும் அழகானது." } },
+        photo: { si: { title: "ලස්සන ඡායාරූපයක් උඩුගත කරන්න", desc: "ඔබ ගත් ලස්සන ඡායාරූපයක් — සොබාදහම, ගම, කෑම, මිනිස්සු, ඕනෑම ලස්සන දෙයක්." }, ta: { title: "அழகான புகைப்படத்தை பதிவேற்றுங்கள்", desc: "நீங்கள் எடுத்த அழகான புகைப்படம் — இயற்கை, கிராமம், உணவு, மக்கள், எதுவும் அழகானது." } },
+        story: { si: { title: "කෙටි කතාවක් උඩුගත කරන්න", desc: "සිංහලෙන් හෝ ඉංග්‍රීසියෙන් කෙටි කතාවක් ලියන්න — ඔබේම වචන වලින්, පිටපත් කළ දෙයක් නෙමෙයි." }, ta: { title: "ஒரு குறு கதையை பதிவேற்றுங்கள்", desc: "சிங்களம் அல்லது ஆங்கிலத்தில் ஒரு குறு கதை எழுதுங்கள் — உங்கள் சொந்த வார்த்தைகளில், நகல் அல்ல." } },
+        anything: { si: { title: "ලස්සන ඕනෑම දෙයක් උඩුගත කරන්න", desc: "ලස්සන ඕනෑම දෙයක් — මිනිස්සු හිනස්සන ඡායාරූපයක් හෝ කෙටි වීඩියෝවක්." }, ta: { title: "அழகான எதையும் பதிவேற்றுங்கள்", desc: "அழகான எதுவும் — மக்களை சிரிக்க வைக்கும் புகைப்படம் அல்லது குறு வீடியோ." } },
+        cooking: { si: { title: "ගුණාත්මක ඉවුම් පිහුම් වීඩියෝවක් උඩුගත කරන්න", desc: "පැහැදිලි ඉවුම් පිහුම් වීඩියෝවක්, විනාඩි 10ක් විතර, මුල සිට අගට සම්පූර්ණ ඉවුම් පිහුම් පෙන්වන." }, ta: { title: "தரமான சமையல் வீடியோவை பதிவேற்றுங்கள்", desc: "தெளிவான சமையல் வீடியோ, சுமார் 10 நிமிடங்கள், தொடக்கம் முதல் முடிவு வரை முழு சமையலை காட்டும்." } },
+        vlog: { si: { title: "ව්ලොග් වීඩියෝවක් උඩුගත කරන්න", desc: "විනාඩි 10ට වඩා දිග ව්ලොග් වීඩියෝවක් — ඔබේ දවස, ඔබේ ගම, ඔබේ ගමන." }, ta: { title: "வ்லாக் வீடியோவை பதிவேற்றுங்கள்", desc: "10 நிமிடங்களுக்கு மேல் நீளமான வ்லாக் வீடியோ — உங்கள் நாள், உங்கள் கிராமம், உங்கள் பயணம்." } }
+      };
+      var PACKAGES_I18N = {
+        starter: { si: { name: "ආරම්භක කට්ටලය", tag: "ඉගෙන ගන්න පටන් ගන්න", features: ["AI වීඩියෝ ආරම්භක පාඨමාලාව — පාඩම් 10ක්", "සූදානම් පෝස්ට් අච්චු 20ක්", "සිරස්තල ලියන මාර්ගෝපදේශය"] }, ta: { name: "தொடக்க தொகுப்பு", tag: "கற்க தொடங்குங்கள்", features: ["AI வீடியோ தொடக்க பாடம் — 10 பாடங்கள்", "20 தயார் பதிவு வார்ப்புருக்கள்", "தலைப்பு எழுதும் வழிகாட்டி"] } },
+        creator: { si: { name: "නිර්මාණකරු පැකේජය", tag: "වැඩියෙන්ම ජනප්‍රිය", features: ["සම්පූර්ණ AI රීල්ස් පාඨමාලාව", "පෝස්ට් අච්චු 50ක්", "තම්බ්නේල් නිර්මාණ පැකේජය", "Starter Kit එකේ සියල්ල"] }, ta: { name: "படைப்பாளர் தொகுப்பு", tag: "மிகவும் பிரபலம்", features: ["முழு AI ரீல்ஸ் பாடம்", "50 பதிவு வார்ப்புருக்கள்", "சிறுபட வடிவமைப்பு தொகுப்பு", "Starter Kit இல் உள்ள அனைத்தும்"] } },
+        pro: { si: { name: "Pro නිර්මාණකරු", tag: "වෘත්තීය මට්ටමට යන්න", features: ["සියලුම පාඨමාලා", "අච්චු 200ක්", "ඡායාරූප සංස්කරණ මෙවලම්", "සම්පූර්ණ කිරීමේ සහතිකය", "Creator Pack එකේ සියල්ල"] }, ta: { name: "Pro படைப்பாளர்", tag: "தொழில்முறை ஆகுங்கள்", features: ["அனைத்து பாடங்கள்", "200 வார்ப்புருக்கள்", "புகைப்பட திருத்த கருவிகள்", "நிறைவு சான்றிதழ்", "Creator Pack இல் உள்ள அனைத்தும்"] } },
+        business: { si: { name: "ව්‍යාපාර පැකේජය", tag: "ව්‍යාපාරයක් විදියට උපයන්න", features: ["Pro Creator එකේ සියල්ල", "1-on-1 පුහුණු සැසිය", "කළඹ සමාලෝචනය", "ගනුදෙනුකරුවන් සොයාගන්නා මාර්ගෝපදේශය"] }, ta: { name: "வணிக தொகுப்பு", tag: "வணிகமாக சம்பாதிக்க", features: ["Pro Creator இல் உள்ள அனைத்தும்", "1-நேர-1 பயிற்சி அமர்வு", "போர்ட்ஃபோலியோ மதிப்பாய்வு", "வாடிக்கையாளர் கண்டுபிடிக்கும் வழிகாட்டி"] } }
+      };
+      var VIDEOS_I18N = {
+        "his-prehistoric-past-1914-directed-by-charlie-chaplin": { si: "සම්භාව්‍ය නිහඬ හාස්‍ය කෙටි චිත්‍රපටයක්.", ta: "ஒரு செவ்வியல் அமைதி நகைச்சுவை குறும்படம்." },
+        "TheGeneral1926": { si: "මේ දක්වා හැදුණු විශිෂ්ටතම නිහඬ හාස්‍ය චිත්‍රපට වලින් එකක්.", ta: "இதுவரை செய்யப்பட்ட மிகச்சிறந்த அமைதி நகைச்சுவை படங்களில் ஒன்று." },
+        "fw-murnaus-nosferatu-1922": { si: "සම්භාව්‍ය නිහඬ භීෂණ චිත්‍රපටය.", ta: "செவ்வியல் அமைதி திகில் திரைப்படம்." }
+      };
+      function taskText(id, field) {
+        var row = TASKS_I18N[id] && TASKS_I18N[id][lang];
+        if (row && row[field]) return row[field];
+        var found = null;
+        TASKS.forEach(function (x) { if (x.id === id) found = x; });
+        return found ? found[field] : "";
+      }
+      function pkgText(id, field) {
+        var row = PACKAGES_I18N[id] && PACKAGES_I18N[id][lang];
+        if (row && row[field]) return row[field];
+        var found = null;
+        PACKAGES.forEach(function (x) { if (x.id === id) found = x; });
+        return found ? found[field] : "";
+      }
+      function videoDesc(id) {
+        var row = VIDEOS_I18N[id] && VIDEOS_I18N[id][lang];
+        if (row) return row;
+        var found = null;
+        VIDEOS.forEach(function (x) { if (x.id === id) found = x; });
+        return found ? found.desc : "";
+      }
 
       /* Uploads go to Isuru's Google Drive through the EarnLK upload
          web app (Apps Script, runs as Isuru, folder "EarnLK Uploads").
@@ -709,7 +1103,7 @@ a { color: #0b7a3e; }
         var chip = $("balChip");
         var navAdmin = $("navAdminBtn");
         if (me) {
-          btn.textContent = "👋 " + me.nick + " · Log out";
+          btn.textContent = "👋 " + me.nick + " · " + t("auth.logout");
           chip.style.display = "";
           navAdmin.style.display = isAdmin() ? "" : "none";
           if (balRef) balRef.off();
@@ -719,7 +1113,7 @@ a { color: #0b7a3e; }
           });
         } else {
           if (balRef) { balRef.off(); balRef = null; }
-          btn.textContent = "Log in / Register";
+          btn.textContent = t("auth.loginRegister");
           chip.style.display = "none";
           navAdmin.style.display = "none";
         }
@@ -730,12 +1124,10 @@ a { color: #0b7a3e; }
         authBusyEnd();
         $("tabLogin").classList.toggle("on", authMode === "login");
         $("tabRegister").classList.toggle("on", authMode === "register");
-        $("authGoBtn").textContent = authMode === "login" ? "Log in" : "Create my account";
+        $("authGoBtn").textContent = authMode === "login" ? t("auth.loginBtn") : t("auth.createBtn");
         $("authErr").textContent = "";
         $("authPw").setAttribute("autocomplete", authMode === "register" ? "new-password" : "current-password");
-        $("authHint").textContent = authMode === "register"
-          ? "Register with a nickname and password, then log in. Your password is stored only as a one-way hash that nobody can read, not even Isuru."
-          : "Use the nickname and password you registered with.";
+        $("authHint").textContent = authMode === "register" ? t("auth.hintRegister") : t("auth.hintLogin");
         $("authModalBg").classList.add("open");
         setTimeout(function () { $("authNick").focus(); }, 50);
       }
@@ -751,7 +1143,7 @@ a { color: #0b7a3e; }
         if (authTimer) clearTimeout(authTimer);
         authTimer = setTimeout(function () {
           authTimer = null;
-          $("authErr").textContent = "Still trying… check your internet connection, then tap the button again.";
+          $("authErr").textContent = t("msg.stillTrying");
           authBusyEnd();
         }, 60000);
       }
@@ -762,14 +1154,14 @@ a { color: #0b7a3e; }
       function doAuth() {
         var err = $("authErr");
         var pw = $("authPw").value;
-        if (pw.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
+        if (pw.length < 6) { err.textContent = t("msg.pwShort"); return; }
         if (authMode === "register") {
           var nick = $("authNick").value.trim();
-          if (nick.length < 3 || nick.length > 20) { err.textContent = "Nickname must be 3 to 20 letters."; return; }
-          if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = "Use letters and numbers only."; return; }
+          if (nick.length < 3 || nick.length > 20) { err.textContent = t("msg.nickLen"); return; }
+          if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = t("msg.nickChars"); return; }
           var key = nickKeyOf(nick);
-          if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
-          err.textContent = "Creating your account… please wait.";
+          if (!key) { err.textContent = t("msg.nickChars"); return; }
+          err.textContent = t("msg.creating");
           authBusyStart();
           /* One nickname check, then the password hash, then one write.
              Plain HTTPS calls to the database (not the live socket) —
@@ -778,39 +1170,39 @@ a { color: #0b7a3e; }
              No IP is collected, checked or stored, so several accounts
              may register from one connection. */
           restGet("users/" + key).then(function (existing) {
-            if (existing) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
+            if (existing) { authBusyEnd(); err.textContent = t("msg.nickTaken"); return; }
             return sha256Hex(pw).then(function (hash) {
               var rec = { nick: nick, passHash: hash, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
               return restPut("users/" + key, rec).then(function () {
                 restGet("stats/members").then(function (m) { restPut("stats/members", (m || 0) + 1); }).catch(function () {});
                 authBusyEnd();
                 err.textContent = "";
-                showMsg("Account created for " + nick + "! Log in now.");
+                showMsg(t("msg.created").replace("{nick}", nick));
                 openAuth("login");
                 $("authNick").value = nick;
               });
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = "Could not connect. Check your internet and try again."; });
+          }).catch(function (e) { authBusyEnd(); err.textContent = t("msg.noConnect"); });
         } else {
           var nickL = $("authNick").value.trim();
           var keyL = nickKeyOf(nickL);
-          if (!keyL) { err.textContent = "Wrong nickname or password. Try again."; return; }
-          err.textContent = "Logging you in… please wait.";
+          if (!keyL) { err.textContent = t("msg.wrongPw"); return; }
+          err.textContent = t("msg.logging");
           authBusyStart();
           /* Plain HTTPS read (not the live socket) — see register. */
           restGet("users/" + keyL).then(function (rec) {
-            if (!rec) { authBusyEnd(); err.textContent = "Wrong nickname or password. Try again."; return; }
+            if (!rec) { authBusyEnd(); err.textContent = t("msg.wrongPw"); return; }
             return sha256Hex(pw).then(function (hash) {
-              if (hash !== rec.passHash) { authBusyEnd(); err.textContent = "Wrong nickname or password. Try again."; return; }
+              if (hash !== rec.passHash) { authBusyEnd(); err.textContent = t("msg.wrongPw"); return; }
               me = { nick: rec.nick, nickKey: keyL };
               saveSession();
               authBusyEnd();
               closeAuth();
               renderAuth();
-              showMsg("Welcome back, " + rec.nick + "! 👋");
+              showMsg(t("msg.welcome").replace("{nick}", rec.nick));
               showView("home");
             });
-          }).catch(function (e) { authBusyEnd(); err.textContent = "Could not connect. Check your internet and try again."; });
+          }).catch(function (e) { authBusyEnd(); err.textContent = t("msg.noConnect"); });
         }
       }
 
@@ -819,13 +1211,13 @@ a { color: #0b7a3e; }
         var d = document.createElement("div");
         d.className = "elk-card";
         var ic = document.createElement("div"); ic.className = "elk-icon"; ic.textContent = t.icon;
-        var h = document.createElement("h3"); h.textContent = t.title;
-        var p = document.createElement("p"); p.textContent = t.desc;
+        var h = document.createElement("h3"); h.textContent = taskText(t.id, "title");
+        var p = document.createElement("p"); p.textContent = taskText(t.id, "desc");
         var pay = document.createElement("span"); pay.className = "elk-pay"; pay.textContent = "Rs " + t.pay.toLocaleString("en-US");
         d.appendChild(ic); d.appendChild(h); d.appendChild(p); d.appendChild(pay);
         if (withBtn) {
           var b = document.createElement("button");
-          b.type = "button"; b.className = "elk-btn"; b.textContent = "Do this task →";
+          b.type = "button"; b.className = "elk-btn"; b.textContent = t("task.doBtn");
           b.addEventListener("click", function () { openTaskForm(t.id); });
           d.appendChild(b);
         }
@@ -839,13 +1231,13 @@ a { color: #0b7a3e; }
       }
       function renderMySubs() {
         var box = $("mySubs");
-        if (!me) { box.innerHTML = "<div class='elk-item'>Log in to see your submissions.</div>"; return; }
+        if (!me) { box.innerHTML = "<div class='elk-item'>" + t("tasks.loginToSee") + "</div>"; return; }
         box.innerHTML = "<div class='elk-item'>Loading…</div>";
         db.ref("submissions").orderByChild("nickKey").equalTo(me.nickKey).limitToLast(10).once("value").then(function (snap) {
           var rows = [];
           snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
           rows.sort(function (a, b) { return b.v.at - a.v.at; });
-          if (!rows.length) { box.innerHTML = "<div class='elk-item'>No submissions yet. Do your first task above! 💪</div>"; return; }
+          if (!rows.length) { box.innerHTML = "<div class='elk-item'>" + t("tasks.noSubs") + "</div>"; return; }
           box.innerHTML = "";
           rows.forEach(function (r) {
             var d = document.createElement("div");
@@ -969,14 +1361,14 @@ a { color: #0b7a3e; }
       function packageCard(p) {
         var d = document.createElement("div");
         d.className = "elk-card" + (p.hot ? " hot" : "");
-        var tag = document.createElement("span"); tag.className = "elk-tag"; tag.textContent = p.tag;
-        var h = document.createElement("h3"); h.textContent = "🎁 " + p.name;
+        var tag = document.createElement("span"); tag.className = "elk-tag"; tag.textContent = pkgText(p.id, "tag");
+        var h = document.createElement("h3"); h.textContent = "🎁 " + pkgText(p.id, "name");
         var pr = document.createElement("div"); pr.className = "elk-price";
-        pr.innerHTML = "Rs " + p.price.toLocaleString("en-US") + " <small>one-time</small>";
+        pr.innerHTML = "Rs " + p.price.toLocaleString("en-US") + " <small>" + t("pkg.oneTime") + "</small>";
         var ul = document.createElement("ul"); ul.className = "elk-feats";
-        p.features.forEach(function (f) { var li = document.createElement("li"); li.textContent = f; ul.appendChild(li); });
+        pkgText(p.id, "features").forEach(function (f) { var li = document.createElement("li"); li.textContent = f; ul.appendChild(li); });
         var b = document.createElement("button");
-        b.type = "button"; b.className = "elk-btn"; b.textContent = "Buy — Rs " + p.price.toLocaleString("en-US");
+        b.type = "button"; b.className = "elk-btn"; b.textContent = t("pkg.buy") + p.price.toLocaleString("en-US");
         b.addEventListener("click", function () { openBuyForm(p.id); });
         d.appendChild(tag); d.appendChild(h); d.appendChild(pr); d.appendChild(ul); d.appendChild(b);
         return d;
@@ -989,7 +1381,7 @@ a { color: #0b7a3e; }
       }
       function renderMyPackages() {
         var box = $("myPackages");
-        if (!me) { box.innerHTML = "<div class='elk-item'>Log in to see your packages.</div>"; return; }
+        if (!me) { box.innerHTML = "<div class='elk-item'>" + t("pkg.loginToSee") + "</div>"; return; }
         db.ref("users/" + me.nickKey + "/packages").once("value").then(function (snap) {
           var pkgs = snap.val() || {};
           var ids = Object.keys(pkgs);
@@ -1000,7 +1392,7 @@ a { color: #0b7a3e; }
             PACKAGES.forEach(function (x) { if (x.id === id) p = x; });
             var d = document.createElement("div");
             d.className = "elk-item";
-            d.innerHTML = "<b>🎁 " + esc(p ? p.name : id) + "</b><span class='elk-pill paid'>unlocked</span><div class='meta'>Unlocked " + timeAgo(pkgs[id].at || Date.now()) + "</div>";
+            d.innerHTML = "<b>🎁 " + esc(p ? pkgText(p.id, "name") : id) + "</b><span class='elk-pill paid'>unlocked</span><div class='meta'>Unlocked " + timeAgo(pkgs[id].at || Date.now()) + "</div>";
             box.appendChild(d);
           });
         });
@@ -1049,10 +1441,10 @@ a { color: #0b7a3e; }
           fr.setAttribute("title", v.title);
           frame.appendChild(fr);
           var h = document.createElement("h3"); h.textContent = "🎬 " + v.title;
-          var p = document.createElement("p"); p.textContent = v.by + " — " + v.desc + " Watch the full film here and earn Rs " + WATCH_PAY + ".";
+          var p = document.createElement("p"); p.textContent = v.by + " — " + videoDesc(v.id) + t("watch.cardNote");
           var st = document.createElement("span"); st.className = "elk-watched"; st.id = "watchState-" + v.id; st.textContent = "";
           var b = document.createElement("button");
-          b.type = "button"; b.className = "elk-btn"; b.id = "watchBtn-" + v.id; b.textContent = "I finished watching — earn Rs " + WATCH_PAY;
+          b.type = "button"; b.className = "elk-btn"; b.id = "watchBtn-" + v.id; b.textContent = t("watch.finished");
           b.addEventListener("click", function () { markWatched(v.id); });
           d.appendChild(frame); d.appendChild(h); d.appendChild(p); d.appendChild(st); d.appendChild(b);
           g.appendChild(d);
@@ -1060,12 +1452,12 @@ a { color: #0b7a3e; }
       }
       function refreshWatchStates() {
         var note = $("watchToday");
-        if (!me) { note.textContent = "Log in to earn for watching."; return; }
+        if (!me) { note.textContent = t("watch.login"); return; }
         var day = todayStr();
         db.ref("watch/" + me.nickKey + "/" + day).once("value").then(function (snap) {
           var w = snap.val() || {};
           var count = Object.keys(w).length;
-          note.textContent = "Today you watched " + count + " of " + WATCH_MAX_DAY + " films. Each full film earns Rs " + WATCH_PAY + ".";
+          note.textContent = t("watch.today").replace("{n}", count);
           VIDEOS.forEach(function (v) {
             var st = $("watchState-" + v.id);
             var b = $("watchBtn-" + v.id);
@@ -1191,16 +1583,40 @@ a { color: #0b7a3e; }
 
       /* ---------- Admin ---------- */
       function renderAdmin() {
-        var subs = $("adminSubs"), pays = $("adminPayouts"), purs = $("adminPurchases");
+        var subs = $("adminSubs"), pays = $("adminPayouts"), purs = $("adminPurchases"), users = $("adminUsers");
         if (!isAdmin()) {
           subs.innerHTML = "<div class='elk-item'>Only the Isuru account can see this page.</div>";
-          pays.innerHTML = ""; purs.innerHTML = "";
+          pays.innerHTML = ""; purs.innerHTML = ""; users.innerHTML = "";
           return;
         }
         subs.innerHTML = "<div class='elk-item'>Loading…</div>";
         pays.innerHTML = "<div class='elk-item'>Loading…</div>";
         purs.innerHTML = "<div class='elk-item'>Loading…</div>";
+        users.innerHTML = "<div class='elk-item'>Loading…</div>";
         renderReports();
+        db.ref("users").once("value").then(function (snap) {
+          var rows = [];
+          snap.forEach(function (c) { rows.push({ key: c.key, v: c.val() }); });
+          rows.sort(function (a, b) { return (a.v.created || 0) - (b.v.created || 0); });
+          if (!rows.length) { users.innerHTML = "<div class='elk-item'>No users yet.</div>"; return; }
+          users.innerHTML = "";
+          rows.forEach(function (r) {
+            var d = document.createElement("div");
+            d.className = "elk-item";
+            var joined = r.v.created ? new Date(r.v.created).toLocaleDateString("en-GB") : "—";
+            d.innerHTML = "<b>" + esc(r.v.nick) + (r.key === "isuru" ? " 👑 admin" : "") + "</b><div class='meta'>Balance Rs " + (r.v.balance || 0) + " · Earned Rs " + (r.v.earned || 0) + " · Paid out Rs " + (r.v.paidOut || 0) + " · Approved " + (r.v.approved || 0) + " · Joined " + joined + "</div>";
+            if (r.key !== "isuru") {
+              var btns = document.createElement("div");
+              btns.className = "elk-row-btns";
+              var del = document.createElement("button");
+              del.type = "button"; del.className = "elk-reject"; del.textContent = "🗑 Delete user";
+              del.addEventListener("click", function () { deleteUser(r.key, r.v.nick, del); });
+              btns.appendChild(del);
+              d.appendChild(btns);
+            }
+            users.appendChild(d);
+          });
+        });
         db.ref("submissions").orderByChild("status").equalTo("pending").once("value").then(function (snap) {
           var rows = [];
           snap.forEach(function (c) { rows.push({ id: c.key, v: c.val() }); });
@@ -1268,6 +1684,28 @@ a { color: #0b7a3e; }
             purs.appendChild(d);
           });
         });
+      }
+      function deleteUser(key, nick, btn) {
+        if (key === "isuru") { showMsg("You cannot delete the Isuru admin account."); return; }
+        if (!confirm("Delete " + nick + " and all of their submissions, payouts and purchases? This cannot be undone.")) return;
+        btn.disabled = true; btn.textContent = "Deleting…";
+        var updates = {};
+        updates["users/" + key] = null;
+        Promise.all([
+          db.ref("submissions").orderByChild("nickKey").equalTo(key).once("value"),
+          db.ref("payouts").orderByChild("nickKey").equalTo(key).once("value"),
+          db.ref("purchases").orderByChild("nickKey").equalTo(key).once("value")
+        ]).then(function (snaps) {
+          var bases = ["submissions/", "payouts/", "purchases/"];
+          snaps.forEach(function (snap, i) {
+            snap.forEach(function (c) { updates[bases[i] + c.key] = null; });
+          });
+          return db.ref().update(updates);
+        }).then(function () {
+          db.ref("stats/members").transaction(function (v) { return Math.max(0, (v || 0) - 1); });
+          showMsg("Deleted " + nick + ".");
+          renderAdmin();
+        }).catch(function () { btn.disabled = false; btn.textContent = "🗑 Delete user"; showMsg("Could not delete. Try again."); });
       }
       function approveSubmission(id, sub, btn) {
         btn.disabled = true; btn.textContent = "Saving…";
@@ -1445,7 +1883,7 @@ a { color: #0b7a3e; }
       $("heroHowBtn").addEventListener("click", function () { $("howSteps").scrollIntoView({ behavior: "smooth", block: "center" }); });
       $("seeAllTasksBtn").addEventListener("click", function () { showView("tasks"); });
       $("authBtn").addEventListener("click", function () {
-        if (me) { clearSession(); renderAuth(); showMsg("Logged out. See you soon! 👋"); showView("home"); }
+        if (me) { clearSession(); renderAuth(); showMsg(t("msg.loggedOut")); showView("home"); }
         else openAuth("login");
       });
       $("authCloseBtn").addEventListener("click", closeAuth);
@@ -1476,6 +1914,10 @@ a { color: #0b7a3e; }
       watchStats();
       renderLeaderboard();
       showView("home");
+      document.querySelectorAll("#langSwitch button").forEach(function (b) {
+        b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
+      });
+      applyLang();
       //]]>
     </script>
 </body>
