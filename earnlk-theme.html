@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.7 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.8 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -253,7 +253,7 @@ a { color: #0b7a3e; }
       <button type="button" class="elk-cta" id="heroStartBtn">Start Earning →</button>
       <button type="button" class="elk-cta-ghost" id="heroHowBtn">How it works</button>
       <div class="elk-steps" id="howSteps">
-        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname and a password. One account per connection.</div>
+        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname and a password.</div>
         <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, upload your photo, video or story. Tasks pay Rs 10 up to Rs 1,000.</div>
         <div class="elk-step"><b>3️⃣</b><b>Get paid</b>Isuru approves your work, your balance grows. Ask for payout at Rs 100.</div>
       </div>
@@ -285,7 +285,7 @@ a { color: #0b7a3e; }
   <!-- ============ TASKS ============ -->
   <section class="elk-view" id="view-tasks">
     <h2 class="elk-h2">📝 Tasks — do the work, get paid</h2>
-    <p class="elk-sub">Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected — one account per person.</p>
+    <p class="elk-sub">Every task is checked by Isuru. Good work is approved and paid. Fake or copied work is rejected.</p>
     <div class="elk-grid" id="tasksGrid"></div>
     <h2 class="elk-h2">📋 My recent submissions</h2>
     <div class="elk-list" id="mySubs"><div class="elk-item">Log in to see your submissions.</div></div>
@@ -407,7 +407,7 @@ a { color: #0b7a3e; }
     <div class="elk-text">
       <h3>How EarnLK works</h3>
       <ul>
-        <li>Register free with a nickname and password, then log in. One account per person — one account per internet connection.</li>
+        <li>Register free with a nickname and password, then log in.</li>
         <li>Do a task and send your work. Isuru checks every submission.</li>
         <li>Approved work pays into your balance — photos and short videos Rs 10–20, stories Rs 15, cooking videos Rs 500, vlogs Rs 1,000. Watching a full film pays Rs 2, maximum 5 films a day.</li>
         <li>Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
@@ -417,7 +417,6 @@ a { color: #0b7a3e; }
       <h3>What gets you banned</h3>
       <ul>
         <li>Fake, copied or stolen work.</li>
-        <li>More than one account.</li>
         <li>Lying about a payment or a payout.</li>
         <li>Asking other members for money.</li>
       </ul>
@@ -430,7 +429,7 @@ a { color: #0b7a3e; }
     <h2 class="elk-h2">🔒 Privacy Policy</h2>
     <div class="elk-text">
       <h3>What we collect</h3>
-      <p>Your nickname, your task submissions, your balance and payout details, and your package purchases. We also store your internet connection address (IP) only to stop more than one account per connection. We do not ask for your real name, ID number or home address.</p>
+      <p>Your nickname, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or home address.</p>
       <h3>How we use it</h3>
       <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is stored only as a one-way hash — nobody, including Isuru, can read it.</p>
       <h3>Advertising</h3>
@@ -541,7 +540,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.7 ================= */
+      /* ================= EarnLK v1.8 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -563,16 +562,6 @@ a { color: #0b7a3e; }
          is needed. (The home stats strip already reads /stats live via
          watchStats() at init; this is the extra early warm-up.) */
       db.ref(".info/connected").on("value", function () {});
-
-      /* ---------- Public IP, fetched once in the background ----------
-         Registration needs the IP for the one-account-per-IP check, but
-         waiting on ipify (up to 5s) in the middle of registration is what
-         made register slow on a phone. The fetch starts once, here, at
-         page load, so it is usually finished long before anyone taps
-         Register. Registration uses this already-running promise and never
-         starts a second fetch; if it resolves to "unknown" we register
-         exactly as before (unknown is never checked or written). */
-      var cachedIpPromise = getPublicIp();
 
       /* ---------- Data (JS constants — no Firebase seeding needed) ---------- */
       var TASKS = [
@@ -718,7 +707,7 @@ a { color: #0b7a3e; }
         $("authErr").textContent = "";
         $("authPw").setAttribute("autocomplete", authMode === "register" ? "new-password" : "current-password");
         $("authHint").textContent = authMode === "register"
-          ? "Register with a nickname and password, then log in. One account per internet connection. Your password is stored only as a one-way hash that nobody can read, not even Isuru."
+          ? "Register with a nickname and password, then log in. Your password is stored only as a one-way hash that nobody can read, not even Isuru."
           : "Use the nickname and password you registered with.";
         $("authModalBg").classList.add("open");
         setTimeout(function () { $("authNick").focus(); }, 50);
@@ -743,31 +732,6 @@ a { color: #0b7a3e; }
         if (authTimer) { clearTimeout(authTimer); authTimer = null; }
         $("authGoBtn").disabled = false;
       }
-      /* ---------- One account per IP (checked at registration only) ----------
-         The public IP comes from ipify (free, no key, CORS-enabled), fetched
-         ONCE in the background at page load (cachedIpPromise, next to the
-         warm-up) — registration never fetches it fresh. If the lookup fails
-         or takes over 5 seconds we register anyway with ip "unknown" — a
-         down IP service must never block registration. An "unknown" IP is
-         never checked against /ips and never written there: otherwise one
-         failed lookup would block every later registration. The IP is
-         sanitised for use as a Realtime Database key (dots and colons are
-         not allowed in keys) and also stored on the user record; the /ips
-         index makes the check a single fast read. The Isuru admin account
-         follows the same rule — no exemption. */
-      function ipKeyOf(ip) { return String(ip || "unknown").replace(/[^A-Za-z0-9]/g, "_"); }
-      function getPublicIp() {
-        return new Promise(function (resolve) {
-          var done = false;
-          function finish(ip) { if (!done) { done = true; resolve(ip); } }
-          setTimeout(function () { finish("unknown"); }, 5000);
-          try {
-            fetch("https://api.ipify.org?format=json").then(function (r) { return r.json(); }).then(function (j) {
-              finish(j && j.ip ? j.ip : "unknown");
-            }).catch(function () { finish("unknown"); });
-          } catch (e) { finish("unknown"); }
-        });
-      }
       function doAuth() {
         var err = $("authErr");
         var pw = $("authPw").value;
@@ -780,29 +744,14 @@ a { color: #0b7a3e; }
           if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
           err.textContent = "Creating your account… please wait.";
           authBusyStart();
-          /* The two checks run at the same time: the nickname-taken read
-             and the /ips read (which waits only on the IP promise that has
-             been running in the background since page load). They used to
-             run one after the other, with the ipify fetch in between. */
-          var ipP = cachedIpPromise.then(function (ip) {
-            var ipKey = ipKeyOf(ip);
-            if (ip === "unknown") return { ip: ip, ipKey: ipKey, snap: null };
-            return db.ref("ips/" + ipKey).once("value").then(function (snap) {
-              return { ip: ip, ipKey: ipKey, snap: snap };
-            });
-          });
-          Promise.all([db.ref("users/" + key).once("value"), ipP]).then(function (results) {
-            var snap = results[0], ipRes = results[1];
+          /* One nickname check, then the password hash, then one write —
+             the same as the chat site. No IP is collected, checked or
+             stored, so several accounts may register from one connection. */
+          db.ref("users/" + key).once("value").then(function (snap) {
             if (snap.exists()) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
-            if (ipRes.snap && ipRes.snap.exists()) { authBusyEnd(); err.textContent = "An account already exists from this connection. One account per person."; return; }
             return sha256Hex(pw).then(function (hash) {
-              var rec = { nick: nick, passHash: hash, ip: ipRes.ip, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
-              /* One write for both records — the user profile and the
-                 /ips index (only when the IP is known). */
-              var updates = {};
-              updates["users/" + key] = rec;
-              if (ipRes.ip !== "unknown") updates["ips/" + ipRes.ipKey] = { nickKey: key, created: Date.now() };
-              return db.ref().update(updates).then(function () {
+              var rec = { nick: nick, passHash: hash, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
+              return db.ref("users/" + key).set(rec).then(function () {
                 db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
                 authBusyEnd();
                 err.textContent = "";
