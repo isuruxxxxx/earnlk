@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.5 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.6 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -542,7 +542,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.5 ================= */
+      /* ================= EarnLK v1.6 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -565,6 +565,16 @@ a { color: #0b7a3e; }
          is needed. (The home stats strip already reads /stats live via
          watchStats() at init; this is the extra early warm-up.) */
       db.ref(".info/connected").on("value", function () {});
+
+      /* ---------- Public IP, fetched once in the background ----------
+         Registration needs the IP for the one-account-per-IP check, but
+         waiting on ipify (up to 5s) in the middle of registration is what
+         made register slow on a phone. The fetch starts once, here, at
+         page load, so it is usually finished long before anyone taps
+         Register. Registration uses this already-running promise and never
+         starts a second fetch; if it resolves to "unknown" we register
+         exactly as before (unknown is never checked or written). */
+      var cachedIpPromise = getPublicIp();
 
       /* ---------- Data (JS constants — no Firebase seeding needed) ---------- */
       var TASKS = [
@@ -744,15 +754,17 @@ a { color: #0b7a3e; }
         $("authGoBtn").disabled = false;
       }
       /* ---------- One account per IP (checked at registration only) ----------
-         The public IP comes from ipify (free, no key, CORS-enabled). If the
-         lookup fails or takes over 5 seconds we register anyway with ip
-         "unknown" — a down IP service must never block registration. An
-         "unknown" IP is never checked against /ips and never written there:
-         otherwise one failed lookup would block every later registration.
-         The IP is sanitised for use as a Realtime Database key (dots and
-         colons are not allowed in keys) and also stored on the user record;
-         the /ips index makes the check a single fast read. The Isuru admin
-         account follows the same rule — no exemption. */
+         The public IP comes from ipify (free, no key, CORS-enabled), fetched
+         ONCE in the background at page load (cachedIpPromise, next to the
+         warm-up) — registration never fetches it fresh. If the lookup fails
+         or takes over 5 seconds we register anyway with ip "unknown" — a
+         down IP service must never block registration. An "unknown" IP is
+         never checked against /ips and never written there: otherwise one
+         failed lookup would block every later registration. The IP is
+         sanitised for use as a Realtime Database key (dots and colons are
+         not allowed in keys) and also stored on the user record; the /ips
+         index makes the check a single fast read. The Isuru admin account
+         follows the same rule — no exemption. */
       function ipKeyOf(ip) { return String(ip || "unknown").replace(/[^A-Za-z0-9]/g, "_"); }
       function getPublicIp() {
         return new Promise(function (resolve) {
@@ -779,31 +791,37 @@ a { color: #0b7a3e; }
           var email = synthEmailOf(key);
           err.textContent = "Creating your account… please wait.";
           authBusyStart();
-          db.ref("users/" + key).once("value").then(function (snap) {
+          /* The two checks run at the same time: the nickname-taken read
+             and the /ips read (which waits only on the IP promise that has
+             been running in the background since page load). They used to
+             run one after the other, with the ipify fetch in between. */
+          var ipP = cachedIpPromise.then(function (ip) {
+            var ipKey = ipKeyOf(ip);
+            if (ip === "unknown") return { ip: ip, ipKey: ipKey, snap: null };
+            return db.ref("ips/" + ipKey).once("value").then(function (snap) {
+              return { ip: ip, ipKey: ipKey, snap: snap };
+            });
+          });
+          Promise.all([db.ref("users/" + key).once("value"), ipP]).then(function (results) {
+            var snap = results[0], ipRes = results[1];
             if (snap.exists()) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
-            return getPublicIp().then(function (ip) {
-              var ipKey = ipKeyOf(ip);
-              var ipCheck = (ip === "unknown")
-                ? Promise.resolve(null)
-                : db.ref("ips/" + ipKey).once("value");
-              return ipCheck.then(function (ipSnap) {
-                if (ipSnap && ipSnap.exists()) { authBusyEnd(); err.textContent = "An account already exists from this connection. One account per person."; return; }
-                return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
-                  var rec = { nick: nick, email: email, emailVerified: true, ip: ip, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
-                  return db.ref("users/" + key).set(rec).then(function () {
-                    /* Nickname lookup for the tightened database rules:
-                       the rules resolve a caller's nickname from their
-                       login, so every new registration writes it here. */
-                    db.ref("uids/" + cred.user.uid).set(key);
-                    if (ip !== "unknown") db.ref("ips/" + ipKey).set({ nickKey: key, email: email, created: Date.now() });
-                    db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
-                    authBusyEnd();
-                    err.textContent = "";
-                    showMsg("Account created for " + nick + "! Log in now.");
-                    openAuth("login");
-                    $("authNick").value = nick;
-                  });
-                });
+            if (ipRes.snap && ipRes.snap.exists()) { authBusyEnd(); err.textContent = "An account already exists from this connection. One account per person."; return; }
+            return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
+              var rec = { nick: nick, email: email, emailVerified: true, ip: ipRes.ip, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
+              /* One write for all three records — the user profile, the
+                 nickname lookup the tightened database rules need, and
+                 the /ips index (only when the IP is known). */
+              var updates = {};
+              updates["users/" + key] = rec;
+              updates["uids/" + cred.user.uid] = key;
+              if (ipRes.ip !== "unknown") updates["ips/" + ipRes.ipKey] = { nickKey: key, email: email, created: Date.now() };
+              return db.ref().update(updates).then(function () {
+                db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
+                authBusyEnd();
+                err.textContent = "";
+                showMsg("Account created for " + nick + "! Log in now.");
+                openAuth("login");
+                $("authNick").value = nick;
               });
             });
           }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
