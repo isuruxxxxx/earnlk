@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.2 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.3 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -253,7 +253,7 @@ a { color: #0b7a3e; }
       <button type="button" class="elk-cta" id="heroStartBtn">Start Earning →</button>
       <button type="button" class="elk-cta-ghost" id="heroHowBtn">How it works</button>
       <div class="elk-steps" id="howSteps">
-        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname, add your email and verify it. It takes a minute.</div>
+        <div class="elk-step"><b>1️⃣</b><b>Register free</b>Pick a nickname, add your email and password. One account per connection.</div>
         <div class="elk-step"><b>2️⃣</b><b>Do a task</b>Choose a task, do the work, send it in. Each task pays Rs 10–20.</div>
         <div class="elk-step"><b>3️⃣</b><b>Get paid</b>Isuru approves your work, your balance grows. Ask for payout at Rs 100.</div>
       </div>
@@ -407,7 +407,7 @@ a { color: #0b7a3e; }
     <div class="elk-text">
       <h3>How EarnLK works</h3>
       <ul>
-        <li>Register free with a nickname, email and password — then verify your email. One account per person.</li>
+        <li>Register free with a nickname, email and password, then log in. One account per person — one account per internet connection.</li>
         <li>Do a task and send your work. Isuru checks every submission.</li>
         <li>Approved work pays Rs 10–20 per task into your balance. Watching a full film pays Rs 2, maximum 5 films a day.</li>
         <li>Finish 5 approved tasks and claim a Rs 50 welcome payout.</li>
@@ -430,7 +430,7 @@ a { color: #0b7a3e; }
     <h2 class="elk-h2">🔒 Privacy Policy</h2>
     <div class="elk-text">
       <h3>What we collect</h3>
-      <p>Your nickname and email address, your task submissions, your balance and payout details, and your package purchases. We do not ask for your real name, ID number or address.</p>
+      <p>Your nickname and email address, your task submissions, your balance and payout details, and your package purchases. We also store your internet connection address (IP) only to stop more than one account per connection. We do not ask for your real name, ID number or home address.</p>
       <h3>How we use it</h3>
       <p>Only to run EarnLK: check your work, pay you, and stop cheating. Your password is handled by Firebase Authentication — it is never stored on EarnLK, and nobody, including Isuru, can read it.</p>
       <h3>Advertising</h3>
@@ -486,7 +486,6 @@ a { color: #0b7a3e; }
       <input type="password" id="authPw" placeholder="At least 6 characters" autocomplete="current-password" />
       <p class="elk-err" id="authErr"></p>
       <button type="button" class="elk-btn" id="authGoBtn">Log in</button>
-      <button type="button" class="elk-btn-ghost" id="resendVerifyBtn" style="display:none; width:100%; margin-top:.6rem;">Resend verification email</button>
       <p class="elk-note" id="authHint">Use the email you registered with.</p>
     </div>
   </div>
@@ -538,7 +537,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.2 ================= */
+      /* ================= EarnLK v1.3 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -665,11 +664,10 @@ a { color: #0b7a3e; }
         $("tabRegister").classList.toggle("on", authMode === "register");
         $("authGoBtn").textContent = authMode === "login" ? "Log in" : "Create my account";
         $("authErr").textContent = "";
-        $("resendVerifyBtn").style.display = "none";
         $("nickField").style.display = authMode === "register" ? "" : "none";
         $("authPw").setAttribute("autocomplete", authMode === "register" ? "new-password" : "current-password");
         $("authHint").textContent = authMode === "register"
-          ? "We will send a verification email — open it and tap the link, then log in. Your password is handled by Firebase and nobody can read it, not even Isuru."
+          ? "Register with a nickname, email and password, then log in. One account per internet connection. Your password is handled by Firebase and nobody can read it, not even Isuru."
           : "Use the email you registered with.";
         $("authModalBg").classList.add("open");
         setTimeout(function () { (authMode === "register" ? $("authNick") : $("authEmail")).focus(); }, 50);
@@ -701,7 +699,6 @@ a { color: #0b7a3e; }
       var authTimer = null;
       function authBusyStart() {
         $("authGoBtn").disabled = true;
-        $("resendVerifyBtn").disabled = true;
         if (authTimer) clearTimeout(authTimer);
         authTimer = setTimeout(function () {
           authTimer = null;
@@ -712,7 +709,29 @@ a { color: #0b7a3e; }
       function authBusyEnd() {
         if (authTimer) { clearTimeout(authTimer); authTimer = null; }
         $("authGoBtn").disabled = false;
-        $("resendVerifyBtn").disabled = false;
+      }
+      /* ---------- One account per IP (checked at registration only) ----------
+         The public IP comes from ipify (free, no key, CORS-enabled). If the
+         lookup fails or takes over 5 seconds we register anyway with ip
+         "unknown" — a down IP service must never block registration. An
+         "unknown" IP is never checked against /ips and never written there:
+         otherwise one failed lookup would block every later registration.
+         The IP is sanitised for use as a Realtime Database key (dots and
+         colons are not allowed in keys) and also stored on the user record;
+         the /ips index makes the check a single fast read. The Isuru admin
+         account follows the same rule — no exemption. */
+      function ipKeyOf(ip) { return String(ip || "unknown").replace(/[^A-Za-z0-9]/g, "_"); }
+      function getPublicIp() {
+        return new Promise(function (resolve) {
+          var done = false;
+          function finish(ip) { if (!done) { done = true; resolve(ip); } }
+          setTimeout(function () { finish("unknown"); }, 5000);
+          try {
+            fetch("https://api.ipify.org?format=json").then(function (r) { return r.json(); }).then(function (j) {
+              finish(j && j.ip ? j.ip : "unknown");
+            }).catch(function () { finish("unknown"); });
+          } catch (e) { finish("unknown"); }
+        });
       }
       function doAuth() {
         var err = $("authErr");
@@ -720,30 +739,34 @@ a { color: #0b7a3e; }
         var pw = $("authPw").value;
         if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Enter a valid email address."; return; }
         if (pw.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
-        $("resendVerifyBtn").style.display = "none";
         if (authMode === "register") {
           var nick = $("authNick").value.trim();
           if (nick.length < 3 || nick.length > 20) { err.textContent = "Nickname must be 3 to 20 letters."; return; }
           if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = "Use letters and numbers only."; return; }
           var key = nickKeyOf(nick);
           if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
-          err.textContent = "Creating your account… please wait, this can take up to a minute on a slow connection.";
+          err.textContent = "Creating your account… please wait.";
           authBusyStart();
           db.ref("users/" + key).once("value").then(function (snap) {
             if (snap.exists()) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
-            return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
-              var rec = { nick: nick, email: email, emailVerified: false, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
-              return db.ref("users/" + key).set(rec).then(function () {
-                db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
-                return cred.user.sendEmailVerification().then(function () {
-                  showMsg("We sent a verification email to " + email + " — open it and tap the link, then log in.");
-                }).catch(function () {
-                  showMsg("Account created for " + nick + ", but the verification email could not be sent. Log in and tap 'Resend verification email'.");
-                }).then(function () {
-                  authBusyEnd();
-                  err.textContent = "";
-                  openAuth("login");
-                  $("authEmail").value = email;
+            return getPublicIp().then(function (ip) {
+              var ipKey = ipKeyOf(ip);
+              var ipCheck = (ip === "unknown")
+                ? Promise.resolve(null)
+                : db.ref("ips/" + ipKey).once("value");
+              return ipCheck.then(function (ipSnap) {
+                if (ipSnap && ipSnap.exists()) { authBusyEnd(); err.textContent = "An account already exists from this connection. One account per person."; return; }
+                return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
+                  var rec = { nick: nick, email: email, emailVerified: true, ip: ip, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
+                  return db.ref("users/" + key).set(rec).then(function () {
+                    if (ip !== "unknown") db.ref("ips/" + ipKey).set({ nickKey: key, email: email, created: Date.now() });
+                    db.ref("stats/members").transaction(function (v) { return (v || 0) + 1; });
+                    authBusyEnd();
+                    err.textContent = "";
+                    showMsg("Account created for " + nick + "! Log in now.");
+                    openAuth("login");
+                    $("authEmail").value = email;
+                  });
                 });
               });
             });
@@ -752,44 +775,18 @@ a { color: #0b7a3e; }
           err.textContent = "Logging you in… please wait.";
           authBusyStart();
           auth.signInWithEmailAndPassword(email, pw).then(function (cred) {
-            return cred.user.reload().then(function () {
-              var u = auth.currentUser;
-              if (!u.emailVerified) {
-                authBusyEnd();
-                err.textContent = "Please verify your email first — check your inbox for the link from EarnLK.";
-                $("resendVerifyBtn").style.display = "";
-                return auth.signOut();
-              }
-              return findUserByUid(u.uid).then(function (found) {
-                if (!found) { authBusyEnd(); err.textContent = "Account not found. Please register again."; return; }
-                db.ref("users/" + found.key + "/emailVerified").set(true);
-                me = { nick: found.val.nick, nickKey: found.key };
-                saveSession();
-                authBusyEnd();
-                closeAuth();
-                renderAuth();
-                showMsg("Welcome back, " + found.val.nick + "! 👋");
-                showView("home");
-              });
+            return findUserByUid(cred.user.uid).then(function (found) {
+              if (!found) { authBusyEnd(); err.textContent = "Account not found. Please register again."; return; }
+              me = { nick: found.val.nick, nickKey: found.key };
+              saveSession();
+              authBusyEnd();
+              closeAuth();
+              renderAuth();
+              showMsg("Welcome back, " + found.val.nick + "! 👋");
+              showView("home");
             });
           }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
         }
-      }
-      function resendVerification() {
-        var err = $("authErr");
-        var email = $("authEmail").value.trim();
-        var pw = $("authPw").value;
-        if (!email || pw.length < 6) { err.textContent = "Enter your email and password above, then tap resend."; return; }
-        err.textContent = "Sending…";
-        authBusyStart();
-        auth.signInWithEmailAndPassword(email, pw).then(function (cred) {
-          return cred.user.sendEmailVerification().then(function () {
-            authBusyEnd();
-            err.textContent = "";
-            showMsg("Verification email sent again to " + email + ". Check your inbox (and spam folder).");
-            return auth.signOut();
-          });
-        }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
       }
 
       /* ---------- Render: tasks ---------- */
@@ -1353,7 +1350,6 @@ a { color: #0b7a3e; }
       $("tabLogin").addEventListener("click", function () { openAuth("login"); });
       $("tabRegister").addEventListener("click", function () { openAuth("register"); });
       $("authGoBtn").addEventListener("click", doAuth);
-      $("resendVerifyBtn").addEventListener("click", resendVerification);
       $("authPw").addEventListener("keydown", function (e) { if (e.key === "Enter") doAuth(); });
       $("taskCloseBtn").addEventListener("click", function () { $("taskModalBg").classList.remove("open"); });
       $("taskModalBg").addEventListener("click", function (e) { if (e.target === this) this.classList.remove("open"); });
@@ -1372,7 +1368,7 @@ a { color: #0b7a3e; }
       renderAuth();
       updatePayoutFields();
       auth.onAuthStateChanged(function (u) {
-        if (u && u.emailVerified && !me) {
+        if (u && !me) {
           findUserByUid(u.uid).then(function (found) {
             if (found) { me = { nick: found.val.nick, nickKey: found.key }; saveSession(); renderAuth(); }
           });
