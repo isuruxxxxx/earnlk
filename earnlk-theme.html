@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&amp;family=Noto+Sans+Sinhala:wght@400;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 <b:skin><![CDATA[
-/* ================= EarnLK v1.1 — green money theme, mobile first ================= */
+/* ================= EarnLK v1.2 — green money theme, mobile first ================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -124,6 +124,7 @@ a { color: #0b7a3e; }
   box-shadow: 0 3px 10px rgba(11, 122, 62, .25);
 }
 .elk-btn:disabled { opacity: .55; }
+.elk-btn-ghost:disabled { opacity: .55; }
 .elk-btn-ghost {
   border: 1.5px solid #0b7a3e; background: #fff; color: #0b7a3e; font-weight: 800;
   border-radius: 999px; padding: .55rem 1.2rem; min-height: 2.75rem;
@@ -537,7 +538,7 @@ a { color: #0b7a3e; }
 
 <script>
       //<![CDATA[
-      /* ================= EarnLK v1.1 ================= */
+      /* ================= EarnLK v1.2 ================= */
       var firebaseConfig = {
         apiKey: "AIzaSyAtI0VNPtX3HJpnwV3NDZBs0-DJx9qVaxc",
         authDomain: "earnlk-cab35.firebaseapp.com",
@@ -550,6 +551,16 @@ a { color: #0b7a3e; }
       firebase.initializeApp(firebaseConfig);
       var db = firebase.database();
       var auth = firebase.auth();
+
+      /* ---------- Warm up the Firebase connection on page load ----------
+         On a slow phone the first Firebase handshake can take ~60s, so a
+         user who taps Register / Log in seconds after the page loads was
+         staring at a bare "Checking…" while the connection opened. This
+         listener starts that handshake at once — before the rest of the
+         script runs — so the connection is already warm by the time auth
+         is needed. (The home stats strip already reads /stats live via
+         watchStats() at init; this is the extra early warm-up.) */
+      db.ref(".info/connected").on("value", function () {});
 
       /* ---------- Data (JS constants — no Firebase seeding needed) ---------- */
       var TASKS = [
@@ -649,6 +660,7 @@ a { color: #0b7a3e; }
       var authMode = "login";
       function openAuth(mode) {
         authMode = mode || "login";
+        authBusyEnd();
         $("tabLogin").classList.toggle("on", authMode === "login");
         $("tabRegister").classList.toggle("on", authMode === "register");
         $("authGoBtn").textContent = authMode === "login" ? "Log in" : "Create my account";
@@ -681,13 +693,33 @@ a { color: #0b7a3e; }
           return found;
         });
       }
+      /* ---------- Auth busy state + 30s timeout ----------
+         While a Firebase auth call is in flight both auth buttons are
+         disabled (no double-taps) and a 30s timer runs. If Firebase has
+         not answered in 30s the user gets an honest message and the
+         buttons come back — a late success may still overwrite it. */
+      var authTimer = null;
+      function authBusyStart() {
+        $("authGoBtn").disabled = true;
+        $("resendVerifyBtn").disabled = true;
+        if (authTimer) clearTimeout(authTimer);
+        authTimer = setTimeout(function () {
+          authTimer = null;
+          $("authErr").textContent = "Still trying… check your internet connection, then tap the button again.";
+          authBusyEnd();
+        }, 30000);
+      }
+      function authBusyEnd() {
+        if (authTimer) { clearTimeout(authTimer); authTimer = null; }
+        $("authGoBtn").disabled = false;
+        $("resendVerifyBtn").disabled = false;
+      }
       function doAuth() {
         var err = $("authErr");
         var email = $("authEmail").value.trim();
         var pw = $("authPw").value;
         if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Enter a valid email address."; return; }
         if (pw.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
-        err.textContent = "Checking…";
         $("resendVerifyBtn").style.display = "none";
         if (authMode === "register") {
           var nick = $("authNick").value.trim();
@@ -695,8 +727,10 @@ a { color: #0b7a3e; }
           if (!/^[A-Za-z0-9 _-]+$/.test(nick)) { err.textContent = "Use letters and numbers only."; return; }
           var key = nickKeyOf(nick);
           if (!key) { err.textContent = "Nickname must have letters or numbers."; return; }
+          err.textContent = "Creating your account… please wait, this can take up to a minute on a slow connection.";
+          authBusyStart();
           db.ref("users/" + key).once("value").then(function (snap) {
-            if (snap.exists()) { err.textContent = "That nickname is taken. Pick another one."; return; }
+            if (snap.exists()) { authBusyEnd(); err.textContent = "That nickname is taken. Pick another one."; return; }
             return auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
               var rec = { nick: nick, email: email, emailVerified: false, uid: cred.user.uid, balance: 0, earned: 0, paidOut: 0, approved: 0, welcomeClaimed: false, packages: {}, created: Date.now() };
               return db.ref("users/" + key).set(rec).then(function () {
@@ -706,34 +740,39 @@ a { color: #0b7a3e; }
                 }).catch(function () {
                   showMsg("Account created for " + nick + ", but the verification email could not be sent. Log in and tap 'Resend verification email'.");
                 }).then(function () {
+                  authBusyEnd();
                   err.textContent = "";
                   openAuth("login");
                   $("authEmail").value = email;
                 });
               });
             });
-          }).catch(function (e) { err.textContent = firebaseAuthErr(e); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
         } else {
+          err.textContent = "Logging you in… please wait.";
+          authBusyStart();
           auth.signInWithEmailAndPassword(email, pw).then(function (cred) {
             return cred.user.reload().then(function () {
               var u = auth.currentUser;
               if (!u.emailVerified) {
+                authBusyEnd();
                 err.textContent = "Please verify your email first — check your inbox for the link from EarnLK.";
                 $("resendVerifyBtn").style.display = "";
                 return auth.signOut();
               }
               return findUserByUid(u.uid).then(function (found) {
-                if (!found) { err.textContent = "Account not found. Please register again."; return; }
+                if (!found) { authBusyEnd(); err.textContent = "Account not found. Please register again."; return; }
                 db.ref("users/" + found.key + "/emailVerified").set(true);
                 me = { nick: found.val.nick, nickKey: found.key };
                 saveSession();
+                authBusyEnd();
                 closeAuth();
                 renderAuth();
                 showMsg("Welcome back, " + found.val.nick + "! 👋");
                 showView("home");
               });
             });
-          }).catch(function (e) { err.textContent = firebaseAuthErr(e); });
+          }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
         }
       }
       function resendVerification() {
@@ -742,13 +781,15 @@ a { color: #0b7a3e; }
         var pw = $("authPw").value;
         if (!email || pw.length < 6) { err.textContent = "Enter your email and password above, then tap resend."; return; }
         err.textContent = "Sending…";
+        authBusyStart();
         auth.signInWithEmailAndPassword(email, pw).then(function (cred) {
           return cred.user.sendEmailVerification().then(function () {
+            authBusyEnd();
             err.textContent = "";
             showMsg("Verification email sent again to " + email + ". Check your inbox (and spam folder).");
             return auth.signOut();
           });
-        }).catch(function (e) { err.textContent = firebaseAuthErr(e); });
+        }).catch(function (e) { authBusyEnd(); err.textContent = firebaseAuthErr(e); });
       }
 
       /* ---------- Render: tasks ---------- */
